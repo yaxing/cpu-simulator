@@ -1,0 +1,5 @@
+package simulator.reginterface;
+
+public class RegInterface {
+
+}

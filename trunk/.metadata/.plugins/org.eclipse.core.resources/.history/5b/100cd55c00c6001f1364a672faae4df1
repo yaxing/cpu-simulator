@@ -1,0 +1,6 @@
+package simulator.controller;
+import simulator.reginterface.*;
+
+public class Controller {
+
+}

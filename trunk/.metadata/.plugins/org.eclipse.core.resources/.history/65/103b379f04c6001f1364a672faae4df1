@@ -1,0 +1,17 @@
+package simulator.controller;
+import simulator.reginterface.*;
+
+public class Controller {
+	static private RegInterface regInterface = new RegInterface();
+	static private int[] pcAdd = new int[24];
+	public Controller(){}
+	public boolean initial(){
+		
+		//fetch add from pc to MAR;
+		regInterface.fetchMarAdd();
+		regInterface.nextAdd(pcAdd, va);
+		return true;
+	}
+	
+	//while(true){}
+}

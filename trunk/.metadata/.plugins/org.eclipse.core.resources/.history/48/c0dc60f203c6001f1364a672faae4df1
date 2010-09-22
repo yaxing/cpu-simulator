@@ -1,0 +1,10 @@
+package simulator.pc;
+
+public class Pc {
+	public Pc(){}
+	
+	public int pcAdder(int[] ea, int[] va){
+		ea = ea + va;
+		return ea;
+	}
+}

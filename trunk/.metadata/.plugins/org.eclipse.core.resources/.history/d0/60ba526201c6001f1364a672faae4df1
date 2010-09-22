@@ -1,0 +1,6 @@
+package simulator.reginterface;
+import simulator.memorysystem.*;
+
+public class RegInterface {
+	
+}

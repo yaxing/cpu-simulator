@@ -1,0 +1,10 @@
+package simulator.controller;
+import simulator.reginterface.*;
+
+public class Controller {
+	public Controller(){}
+	
+	private boolean initial(){
+		return true;
+	}
+}

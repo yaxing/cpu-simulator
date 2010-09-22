@@ -1,0 +1,11 @@
+package simulator.memorysystem;
+import simulator.controller.*;
+import simulator.reginterface.*;
+
+public class Mar {
+	Mar(){}
+	
+	private boolean getAddFromPc(){
+		
+	}
+}

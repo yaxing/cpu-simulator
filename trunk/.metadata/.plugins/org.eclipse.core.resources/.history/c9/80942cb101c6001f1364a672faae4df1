@@ -1,0 +1,13 @@
+package simulator.reginterface;
+import simulator.memorysystem.*;
+
+public class RegInterface {
+	RegInterface(){}
+	
+	public boolean fetchMarAdd(){
+		Mar mar = new Mar();
+		
+		boolean 
+		return true;
+	}
+}

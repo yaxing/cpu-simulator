@@ -1,0 +1,5 @@
+package simulator.controller;
+
+public class Controller {
+
+}
