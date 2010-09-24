@@ -1,7 +1,0 @@
-package simulator.pc;
-import simulator.controller.*;
-import simulator.reginterface.*;
-
-public class Pc {
-	
-}

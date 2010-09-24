@@ -1,6 +1,0 @@
-package simulator.regInterface;
-import simulator.isaController.*;
-
-public class RegInterface {
-	
-}

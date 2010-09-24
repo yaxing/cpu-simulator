@@ -1,8 +1,0 @@
-package Interface;
-
-public class Snippet {
-	public static void main(String[] args) {
-		GWID: G44764397
-	}
-}
-
