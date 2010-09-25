@@ -1,7 +1,7 @@
 package simulator.outerregs;
 import simulator.interfaces.*;
 
-public class OurRegs {
+public class OutRegs {
 	static private int[] OPD = new int[24];
 	
 	public boolean setOPD(int[] opd){
