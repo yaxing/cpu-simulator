@@ -8,7 +8,8 @@ public class Rom {
 		return true;
 	}
 	
-	public int[] loadToMem(){
-		return new int[24];
+	public String loadToMem(){
+		return "First EA";
 	}
+
 }
