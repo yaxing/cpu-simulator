@@ -1,5 +1,4 @@
 package simulator.pc;
-import simulator.interfaces.*;
 
 public class Pc {
 	private String instrAdd;//address of next instruction

@@ -1,5 +1,4 @@
 package simulator.rom;
-import simulator.interfaces.*;
 
 public class Rom {
 	static private String instructions;

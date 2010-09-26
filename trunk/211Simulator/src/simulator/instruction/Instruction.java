@@ -1,5 +1,4 @@
 package simulator.instruction;
-import simulator.interfaces.*;
 
 public class Instruction {
 	private static String instr;

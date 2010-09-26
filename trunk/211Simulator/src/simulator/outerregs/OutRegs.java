@@ -1,11 +1,9 @@
 package simulator.outerregs;
-import simulator.interfaces.*;
 
 public class OutRegs {
-	static private int[] OPD = new int[24];
+	static private String OPD;
 	
-	public boolean setOPD(int[] opd){
+	public void setOPD(String opd){ 
 		this.OPD = opd;
-		return true;
 	}
 }

@@ -68,5 +68,6 @@ public class Controller {
 	static public void main(String[] args){
 		Controller ISA = new Controller();
 		ISA.initial();
+		ISA.runInstr();
 	}	
 }
