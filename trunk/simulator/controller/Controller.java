@@ -46,7 +46,7 @@ public class Controller {
 		if(inface.loadToRom()){
 			addBuffer = inface.loadToMem();
 			inface.setStr(addBuffer);
-			inface.toHex();
+			inface.toBinary();
 			inface.setPc(inface.getStr());
 			return true;
 		}
@@ -75,7 +75,7 @@ public class Controller {
 	static public void main(String[] args){
 		Controller ISA = new Controller();
 		ISA.initial();
-		ISA.runInstr();
+		ISA.execInstr();
 	    
 	}	
 }

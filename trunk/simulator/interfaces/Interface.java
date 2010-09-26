@@ -99,7 +99,7 @@ public class Interface {
 	}
 	
 	public String loadToMem(){
-		return "000000000011001100001101";
+		return "80330d";
 	}
 	
 	public void setPc(String add){
