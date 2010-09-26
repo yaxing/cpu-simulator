@@ -8,8 +8,21 @@ import simulator.rom.*;
 import simulator.formatstr.*;
 import simulator.pc.*;
 
+
+/** 
+ * Class Interface
+ * Connect all modules. Controller manipulate other modules through interface layer.
+ * Interface holds objects of all outer registers.
+ *                          
+ * @author Yaxing Chen
+ * @version 09-26-2010
+ * @see simulator.interface
+ * @since JDK 1.6
+ */
 public class Interface {
-	//Create objects for all module classes
+	/**
+	 * Instantiate objects for all outer registers 
+	 */
 	static Alu ALU = new Alu();
 	static Rom ROM = new Rom();
 	static Genregs GR = new Genregs();
@@ -19,29 +32,35 @@ public class Interface {
 	static Formatstr STR = new Formatstr();
 	static Pc PC = new Pc();
 	
+	/**
+	 * Instantiate objects for format string which is used to buffer store instruction or data
+	 */
+	static Formatstr formatStr = new Formatstr();
+	
 	public boolean loadToRom(){
-		//fetch instructions from file to ROM
+		/*fetch instructions from file to ROM*/
 		return ROM.loadToRom();
 	}
 	
 	public String loadToMem(){
-		//fetch instructions from ROM to MEMORY and return the first address
-		return ROM.loadToMem();
+		/*fetch instructions from ROM to MEMORY and return the first address*/
+		//return ROM.loadToMem();
+		return "";
 	}
 	
 	public void setPc(String add){
-		//set PC
+		/*set PC*/
 		PC.setPc(add);
 		return;
 	}
 	
 	public String getPc(){
-		//get address in PC
+		/*get address in PC*/
 		return PC.getPc();
 	}
 	
 	public void pcAdder(String index){
-		//calculate next instruction's address
+		/*calculate next instruction's address*/
 		PC.pcAdder(index);
 	}
 }

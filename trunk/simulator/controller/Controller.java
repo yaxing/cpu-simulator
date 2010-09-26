@@ -69,5 +69,6 @@ public class Controller {
 		Controller ISA = new Controller();
 		ISA.initial();
 		ISA.runInstr();
+	    
 	}	
 }
