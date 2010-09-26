@@ -24,7 +24,7 @@ public class Controller {
 	static private String addBuffer;
 	
 	/**Define the end instruction*/
-	static private String endInstr = "HUT";
+	static private String endInstr = "HLT";
 	
 	/**
 	 * Default constructor
