@@ -4,10 +4,9 @@ import simulator.interfaces.*;
 public class Pc {
 	private String instrAdd;//address of next instruction
 	
-	public boolean setPc(String add){
+	public void setPc(String add){
 		//set instruction address
 		instrAdd = add;
-		return true;
 	}
 	
 	public String getPc(){
