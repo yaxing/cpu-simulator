@@ -4,10 +4,10 @@ public class Formatstr {
 	private String str;
 	//instructions or data strings can be either binary or hex string
 	
-	public boolean setStr(String str){
+	public void setStr(String str){
 		//set string
 		this.str = str;
-		return true;
+		return;
 	}
 	
 	public String getStr(){

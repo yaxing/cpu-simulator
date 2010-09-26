@@ -1,3 +1,8 @@
+/*
+ * Controller.java
+ * Created on 09-25-2010
+ * By Yaxing Chen
+ */
 package simulator.interfaces;
 import simulator.alu.*;
 import simulator.genregs.*;
@@ -37,30 +42,76 @@ public class Interface {
 	 */
 	static Formatstr formatStr = new Formatstr();
 	
+	/**
+	 * fetch instruction or data to formatStr
+	 * 
+	 * @param String str  instruction or data needed to be fetched
+	 * @return 
+	 * @exception 
+	 */
+	public void setStr(String str){
+		formatStr.setStr(str);
+		return;
+	}
+	
+	/**
+	 * get content in formatStr
+	 * 
+	 * @param
+	 * @return String content in formatStr
+	 * @exception
+	 */
+	public String getStr(){
+		return formatStr.getStr();
+	}
+	
+	/**
+	 * transfer content in formatStr from hex to binary
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public String toBinary(){
+		return formatStr.toBinary();
+	}
+	
+	/**
+	 * transfer content in formatStr from binary to hex
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public String toHex(){
+		return formatStr.toHex();
+	}
+	
+	/**
+	 * fetch instructions from file to ROM
+	 * 
+	 * @param
+	 * @return whether load success or not
+	 * @exception file exception.
+	 */
 	public boolean loadToRom(){
-		/*fetch instructions from file to ROM*/
 		return ROM.loadToRom();
 	}
 	
 	public String loadToMem(){
-		/*fetch instructions from ROM to MEMORY and return the first address*/
-		//return ROM.loadToMem();
 		return "";
 	}
 	
 	public void setPc(String add){
-		/*set PC*/
 		PC.setPc(add);
 		return;
 	}
 	
 	public String getPc(){
-		/*get address in PC*/
 		return PC.getPc();
 	}
 	
 	public void pcAdder(String index){
-		/*calculate next instruction's address*/
 		PC.pcAdder(index);
 	}
 }
