@@ -1,5 +1,5 @@
 package simulator.genregs;
 
-public class GenRegs {
-	
+public class Genregs {
+
 }

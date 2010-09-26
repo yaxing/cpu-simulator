@@ -12,10 +12,10 @@ public class Interface {
 	//Create objects for all module classes
 	static Alu ALU = new Alu();
 	static Rom ROM = new Rom();
-	static GenRegs GR = new GenRegs();
-	static InsDecode DECODE = new InsDecode();
+	static Genregs GR = new Genregs();
+	static Insdecode DECODE = new Insdecode();
 	static Memory MEMORY = new Memory();
-	static OutRegs OUTERREGS = new OutRegs();
+	static Outregs OUTERREGS = new Outregs();
 	static Instruction INSTR = new Instruction();
 	static Pc PC = new Pc();
 	

@@ -1,6 +1,6 @@
 package simulator.outerregs;
 
-public class OutRegs {
+public class Outregs {
 	static private String OPD;
 	
 	public void setOPD(String opd){ 
