@@ -29,9 +29,10 @@ public class Interface {
 		return ROM.loadToMem();
 	}
 	
-	public boolean setPc(String add){
+	public void setPc(String add){
 		//set PC
-		return PC.setPc(add);
+		PC.setPc(add);
+		return;
 	}
 	
 	public String getPc(){
