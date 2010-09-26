@@ -15,15 +15,17 @@ public class Formatstr {
 		return str;
 	}
 	
-	public String toBinary(){
+	public void toBinary(){
 		//transfer hex string to binary string
 		int buffer = Integer.valueOf(str.toString(),16);
-		return Integer.toBinaryString(buffer).toString();
+		this.str = Integer.toBinaryString(buffer).toString();
+		return;
 	}
 	
-	public String toHex(){
+	public void toHex(){
 		//transfer binary string to hex string
 		int buffer = Integer.valueOf(str,2);
-		return Integer.toHexString(buffer);
+		this.str = Integer.toHexString(buffer);
+		return;
 	}
 }

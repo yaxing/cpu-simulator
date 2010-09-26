@@ -72,8 +72,8 @@ public class Interface {
 	 * @return 
 	 * @exception
 	 */
-	public String toBinary(){
-		return formatStr.toBinary();
+	public void toBinary(){
+		formatStr.toBinary();
 	}
 	
 	/**
@@ -83,8 +83,8 @@ public class Interface {
 	 * @return 
 	 * @exception
 	 */
-	public String toHex(){
-		return formatStr.toHex();
+	public void toHex(){
+		formatStr.toHex();
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class Interface {
 	}
 	
 	public String loadToMem(){
-		return "";
+		return "000000000011001100001101";
 	}
 	
 	public void setPc(String add){

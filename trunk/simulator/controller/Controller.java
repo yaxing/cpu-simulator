@@ -45,24 +45,31 @@ public class Controller {
 	private boolean initial(){
 		if(inface.loadToRom()){
 			addBuffer = inface.loadToMem();
-			inface.setPc(addBuffer);
+			inface.setStr(addBuffer);
+			inface.toHex();
+			inface.setPc(inface.getStr());
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * Run the instructions based on certain logic sequence
+	 * Execute the instructions based on certain logic sequence
 	 * 
 	 * @param
-	 * @return flag  indicating the state of instruction execution
+	 * @return execStat  indicating the state of instruction execution
 	 * @exception
 	 */
-	private int runInstr(){
+	private int execInstr(){
+		int execStat = 0;
 		while(true){
 			/*get current instruction's address*/
 			addBuffer = inface.getPc();
+			System.out.println(addBuffer);
+			execStat = 1;
+			break;
 		}
+		return execStat;
 	}
 	
 	static public void main(String[] args){
