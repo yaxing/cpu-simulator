@@ -5,7 +5,7 @@ import simulator.insdecode.*;
 import simulator.memory.*;
 import simulator.outerregs.*;
 import simulator.rom.*;
-import simulator.instruction.*;
+import simulator.formatstr.*;
 import simulator.pc.*;
 
 public class Interface {
@@ -16,7 +16,7 @@ public class Interface {
 	static Insdecode DECODE = new Insdecode();
 	static Memory MEMORY = new Memory();
 	static Outregs OUTERREGS = new Outregs();
-	static Instruction INSTR = new Instruction();
+	static Formatstr STR = new Formatstr();
 	static Pc PC = new Pc();
 	
 	public boolean loadToRom(){
