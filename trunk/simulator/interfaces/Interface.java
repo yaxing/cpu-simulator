@@ -28,14 +28,14 @@ public class Interface {
 	/**
 	 * Instantiate objects for all outer registers 
 	 */
-	static Alu ALU = new Alu();
-	static Rom ROM = new Rom();
-	static Genregs GR = new Genregs();
-	static Insdecode DECODE = new Insdecode();
-	static Memory MEMORY = new Memory();
-	static Outregs OUTERREGS = new Outregs();
-	static Formatstr STR = new Formatstr();
-	static Pc PC = new Pc();
+	public static Alu ALU = new Alu();
+	public static Rom ROM = new Rom();
+	public static Genregs GR = new Genregs();
+	public static Insdecode DECODE = new Insdecode();
+	public static Memory MEMORY = new Memory();
+	public static Outregs OUTERREGS = new Outregs();
+	public static Formatstr STR = new Formatstr();
+	public static Pc PC = new Pc();
 	
 	/**
 	 * Instantiate objects for format string which is used to buffer store instruction or data
@@ -49,7 +49,7 @@ public class Interface {
 	 * @return 
 	 * @exception 
 	 */
-	public void setStr(String str){
+	public static void setStr(String str){
 		formatStr.setStr(str);
 		return;
 	}
@@ -61,7 +61,7 @@ public class Interface {
 	 * @return String content in formatStr
 	 * @exception
 	 */
-	public String getStr(){
+	public static String getStr(){
 		return formatStr.getStr();
 	}
 	
@@ -72,7 +72,7 @@ public class Interface {
 	 * @return 
 	 * @exception
 	 */
-	public void toBinary(){
+	public static void toBinary(){
 		formatStr.toBinary();
 	}
 	
@@ -83,7 +83,7 @@ public class Interface {
 	 * @return 
 	 * @exception
 	 */
-	public void toHex(){
+	public static void toHex(){
 		formatStr.toHex();
 	}
 	
@@ -94,24 +94,28 @@ public class Interface {
 	 * @return whether load success or not
 	 * @exception file exception.
 	 */
-	public boolean loadToRom(){
+	public static boolean loadToRom(){
 		return ROM.loadToRom();
 	}
 	
-	public String loadToMem(){
+	public static String loadToMem(){
 		return "80330d";
 	}
 	
-	public void setPc(String add){
+	public static String getInstrFromMem(String add){
+		return MEMORY.getInstr(add);
+	}
+	
+	public static void setPc(String add){
 		PC.setPc(add);
 		return;
 	}
 	
-	public String getPc(){
+	public static String getPc(){
 		return PC.getPc();
 	}
 	
-	public void pcAdder(String index){
+	public static void pcAdder(String index){
 		PC.pcAdder(index);
 	}
 }

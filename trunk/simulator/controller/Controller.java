@@ -17,14 +17,12 @@ import simulator.interfaces.*;
  * @since JDK 1.6
  */
 public class Controller {
-	/**Instantiate an object of class Interface*/
-	static private Interface inface = new Interface();
 	
-	/**For address buffer, temporarily store address get from other modules*/
-	static private String addBuffer;
+	/**For address or data buffer, temporarily store address, instructions or data get from other modules*/
+	private static String busBuffer;
 	
 	/**Define the end instruction*/
-	static private String endInstr = "HLT";
+	private static String endInstr = "HLT";
 	
 	/**
 	 * Default constructor
@@ -43,11 +41,10 @@ public class Controller {
 	 * @exception
 	 */
 	private boolean initial(){
-		if(inface.loadToRom()){
-			addBuffer = inface.loadToMem();
-			inface.setStr(addBuffer);
-			inface.toBinary();
-			inface.setPc(inface.getStr());
+		if(Interface.loadToRom()){
+			busBuffer = Interface.loadToMem();
+			Interface.setStr(busBuffer);
+			Interface.setPc(Interface.getStr());
 			return true;
 		}
 		return false;
@@ -64,8 +61,12 @@ public class Controller {
 		int execStat = 0;
 		while(true){
 			/*get current instruction's address*/
-			addBuffer = inface.getPc();
-			System.out.println(addBuffer);
+			busBuffer = Interface.getPc();
+			
+			busBuffer = Interface.getInstrFromMem(busBuffer);
+			
+			
+			
 			execStat = 1;
 			break;
 		}

@@ -1,7 +1,7 @@
 package simulator.rom;
 
 public class Rom {
-	static private String instructions;
+	private static String instructions;
 	
 	public boolean loadToRom(){
 		return true;
