@@ -20,6 +20,7 @@ public class Outregs {
 	private String mbr;
 	private String mcr;
 	private String ir;
+	private String msr;
 	
 	
 	public void setOPD(String opd){ 
@@ -42,6 +43,10 @@ public class Outregs {
 		this.ir = ir;
 	}
 	
+	public void setMSR(String msr){
+		this.msr = msr;
+	}
+	
 	public String getOPD(){
 		return this.opd;
 	}
@@ -60,5 +65,9 @@ public class Outregs {
 	
 	public String getIR(){
 		return this.ir;
+	}
+	
+	public String getMSR(){
+		return this.msr;
 	}
 }

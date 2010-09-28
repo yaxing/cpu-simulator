@@ -40,6 +40,10 @@ public class OutregsINF {
 		or.setIR(ir);
 	}
 	
+	public static void setMSR(String msr){
+		or.setMSR(msr);
+	}
+	
 	public static String getOPD(){
 		return or.getOPD();
 	}
@@ -58,5 +62,9 @@ public class OutregsINF {
 	
 	public static String getIR(){
 		return or.getIR();
+	}
+	
+	public static String getMSR(){
+		return or.getMSR();
 	}
 }
