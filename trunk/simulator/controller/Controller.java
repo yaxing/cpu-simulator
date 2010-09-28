@@ -41,13 +41,11 @@ public class Controller {
 	 * @exception
 	 */
 	private boolean initial(){
-		if(Interface.loadToRom()){
-			busBuffer = Interface.loadToMem();
-			Interface.setStr(busBuffer);
-			Interface.setPc(Interface.getStr());
+		/*if(RomINF.loadToRom()){
+			busBuffer = MemINF.loadToMem();
+			StrINF.setStr(busBuffer);
+			PcINF.setPc(StrINF.getStr());*/
 			return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -60,17 +58,9 @@ public class Controller {
 	private int execInstr(){
 		int execStat = 0;
 		while(true){
-			/*get current instruction's address*/
-			busBuffer = Interface.getPc();
 			
-			busBuffer = Interface.getInstrFromMem(busBuffer);
-			
-			
-			
-			execStat = 1;
-			break;
 		}
-		return execStat;
+
 	}
 	
 	static public void main(String[] args){
