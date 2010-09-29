@@ -6,11 +6,25 @@
 
 package simulator.memory;
 
+import java.util.*;
 import simulator.interfaces.*;
-import simulator.outerregs.*;
 import simulator.formatstr.*;
 
 public class Memory {
+	private static Hashtable<String, String> Mem = 
+		new Hashtable<String, String>();
+	
+	/**
+	 * Default constructor
+	*/
+	Memory() {}
+	
+	public static boolean init() {
+		
+		
+		
+		return true;
+	}
 	/**
 	 * using the data/instruction write MBR
 	 * 
@@ -44,8 +58,15 @@ public class Memory {
 		return OutregsINF.getMAR();
 	}
 	
-	
-	public static void GetContent(Formatstr addr) {
+	/**
+	 * Get the content of the address ready in the MBR.
+	 * May have some exception, ie: a wrong address.
+	 * 
+	 * @param addr	memory address
+	 * @return 
+	 * @exception 
+	 */
+	public static void GetContentToMBR(Formatstr addr) {
 		
 	}
 	
