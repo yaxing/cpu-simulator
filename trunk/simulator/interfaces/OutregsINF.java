@@ -6,6 +6,7 @@
 
 package simulator.interfaces;
 import simulator.outerregs.*;
+import simulator.formatstr.*;
 
 /** 
  * Class Outregs
@@ -18,53 +19,53 @@ import simulator.outerregs.*;
  * @since JDK 1.6
  */
 public class OutregsINF {
-	private static Outregs or = new Outregs();
+	private static OutRegs or = new OutRegs();
 	
-	public static void setOPD(String opd){
+	public static void setOPD(Formatstr opd){
 		or.setOPD(opd);
 	}
 
-	public static void setMAR(String mar){
+	public static void setMAR(Formatstr mar){
 		or.setMAR(mar);
 	}
 	
-	public static void setMBR(String mbr){
+	public static void setMBR(Formatstr mbr){
 		or.setMBR(mbr);
 	}
 	
-	public static void setMCR(String mcr){
+	public static void setMCR(Formatstr mcr){
 		or.setMCR(mcr);
 	}
 	
-	public static void setIR(String ir){
+	public static void setIR(Formatstr ir){
 		or.setIR(ir);
 	}
 	
-	public static void setMSR(String msr){
+	public static void setMSR(Formatstr msr){
 		or.setMSR(msr);
 	}
 	
-	public static String getOPD(){
+	public static Formatstr getOPD(){
 		return or.getOPD();
 	}
 	
-	public static String getMBR(){
+	public static Formatstr getMBR(){
 		return or.getMBR();
 	}
 	
-	public static String getMAR(){
+	public static Formatstr getMAR(){
 		return or.getMAR();
 	}
 	
-	public static String getMCR(){
+	public static Formatstr getMCR(){
 		return or.getMCR();
 	}
 	
-	public static String getIR(){
+	public static Formatstr getIR(){
 		return or.getIR();
 	}
 	
-	public static String getMSR(){
+	public static Formatstr getMSR(){
 		return or.getMSR();
 	}
 }
