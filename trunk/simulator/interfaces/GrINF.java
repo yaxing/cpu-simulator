@@ -17,7 +17,7 @@ import simulator.genregs.*;;
  * @since JDK 1.6
  */
 public class GrINF {
-	private static Genregs gr = new Genregs();	
+	private static GenRegs gr = new GenRegs();	
 	
 	public static void setR0(String R0){
 		gr.setR0(R0);

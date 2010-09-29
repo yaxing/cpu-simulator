@@ -14,7 +14,7 @@ package simulator.genregs;
  * @see simulator.genregs
  * @since JDK 1.6
  */
-public class Genregs {
+public class GenRegs {
 	private String R0;
 	private String R1;
 	private String R2;
