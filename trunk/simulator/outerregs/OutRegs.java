@@ -5,6 +5,7 @@
  */
 package simulator.outerregs;
 
+import simulator.formatstr.*;
 /** 
  * Class Outregs
  * control all out registers
@@ -14,60 +15,60 @@ package simulator.outerregs;
  * @see simulator.outerregs
  * @since JDK 1.6
  */
-public class Outregs {
-	private String opd;
-	private String mar;
-	private String mbr;
-	private String mcr;
-	private String ir;
-	private String msr;
+public class OutRegs {
+	private Formatstr opd;
+	private Formatstr mar;
+	private Formatstr mbr;
+	private Formatstr mcr;
+	private Formatstr ir;
+	private Formatstr msr;
 	
 	
-	public void setOPD(String opd){ 
+	public void setOPD(Formatstr opd){ 
 		this.opd = opd;
 	}
 	
-	public void setMAR(String mar){ 
+	public void setMAR(Formatstr mar){ 
 		this.mar = mar;
 	}
 	
-	public void setMBR(String mbr){ 
+	public void setMBR(Formatstr mbr){ 
 		this.mbr = mbr;
 	}
 	
-	public void setMCR(String mcr){ 
+	public void setMCR(Formatstr mcr){ 
 		this.mcr = mcr;
 	}
 	
-	public void setIR(String ir){ 
+	public void setIR(Formatstr ir){ 
 		this.ir = ir;
 	}
 	
-	public void setMSR(String msr){
+	public void setMSR(Formatstr msr){
 		this.msr = msr;
 	}
 	
-	public String getOPD(){
+	public Formatstr getOPD(){
 		return this.opd;
 	}
 	
-	public String getMAR(){
+	public Formatstr getMAR(){
 		return this.mar;
 	}
 	
-	public String getMBR(){
+	public Formatstr getMBR(){
 		return this.mbr;
 	}
 	
-	public String getMCR(){
+	public Formatstr getMCR(){
 		return this.mcr;
 	}
 	
-	public String getIR(){
+	public Formatstr getIR(){
 		return this.ir;
 	}
 	
-	public String getMSR(){
+	public Formatstr getMSR(){
 		return this.msr;
 	}
 }
