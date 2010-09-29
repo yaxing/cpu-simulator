@@ -19,7 +19,7 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class OutregsINF {
-	private static OutRegs or = new OutRegs();
+	private static Outregs or = new Outregs();
 	
 	public static void setOPD(Formatstr opd){
 		or.setOPD(opd);

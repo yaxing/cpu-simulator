@@ -15,7 +15,7 @@ import simulator.formatstr.*;
  * @see simulator.outerregs
  * @since JDK 1.6
  */
-public class OutRegs {
+public class Outregs {
 	private Formatstr opd;
 	private Formatstr mar;
 	private Formatstr mbr;
