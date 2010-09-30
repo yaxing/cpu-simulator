@@ -22,6 +22,18 @@ public class Formatstr {
 	private String str;
 	
 	/**
+	 * constructor with String parameter
+	 * 
+	 * @param	s	String value.
+	 * @return 
+	 */
+	public Formatstr(String s) {
+		str = new String(s);
+	}
+	
+	//default constructor
+	public Formatstr() {}
+	/**
 	 * set string
 	 * 
 	 * @param String str  string needed to be handled
