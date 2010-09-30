@@ -14,7 +14,7 @@ import simulator.formatstr.*;
  * other modules call Outregs functions through this class
  *                          
  * @author Yaxing Chen
- * @version 09-26-2010
+ * @version 09-30-2010
  * @see simulator.interfaces
  * @since JDK 1.6
  */

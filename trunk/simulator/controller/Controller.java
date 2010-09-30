@@ -13,7 +13,7 @@ import simulator.formatstr.*;
  * Control ISA instructions execution
  *                          
  * @author Yaxing Chen
- * @version 09-26-2010
+ * @version 09-30-2010
  * @see simulator.controller
  * @since JDK 1.6
  */

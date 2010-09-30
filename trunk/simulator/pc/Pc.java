@@ -11,7 +11,7 @@ import simulator.formatstr.*;
  * control PC
  *                          
  * @author Yaxing Chen
- * @version 09-26-2010
+ * @version 09-30-2010
  * @see simulator.pc
  * @since JDK 1.6
  */
