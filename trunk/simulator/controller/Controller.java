@@ -50,7 +50,6 @@ public class Controller {
 	 */
 	private boolean initial(){
 		MemoryINF.ROMload(insFile);
-		//MemoryINF.storeMemory();
 		busBuffer.setStr("00000000000000");
 		PcINF.setPc(busBuffer);
 		return true;
@@ -65,8 +64,10 @@ public class Controller {
 	 */
 	private int execInstr(){
 		int execStat = 0;
-		offset.setStr("00000000000010");
+		offset.setStr("00000000000001");
 		while(execStat == 0){
+			OutregsINF.setMAR(PcINF.getPc());
+			MemoryINF.loadMemory();
 			PcINF.pcAdder(offset);
 			execStat = 1;
 		}
@@ -78,5 +79,6 @@ public class Controller {
 		ISA.initial();
 		ISA.execInstr();
 	    System.out.println(PcINF.getPc().getStr());
+	    System.out.println(OutregsINF.getMBR().getStr());
 	}	
 }
