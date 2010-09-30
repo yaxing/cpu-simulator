@@ -24,20 +24,25 @@ public class ROMloader {
 	 * to Memory 
 	 * 
 	 * @param mbr	the data/instruction need to write into MBR.
-	 * @return 
+	 * @return String	program's instruction first address.
 	 * @exception 
 	 */
-	public static void LoadToMemory(String filename) throws IOException {
+	public static String LoadToMemory(String filename) throws IOException {
 		File filein = new File(filename);
 		FileReader fr = new FileReader(filein);			
 		BufferedReader in = new BufferedReader(fr);		
 		
 		String line;
+		String enteraddr;
+		
+		enteraddr = in.readLine();
+		
 		while((line = in.readLine()) != null) {
 			Memory.initLine(line);			
 		}
 		Memory.autoPaddle();
 		
+		return enteraddr;
 		//System.out.println("test");
 	}
 }
