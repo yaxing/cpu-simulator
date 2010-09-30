@@ -24,6 +24,9 @@ public class Controller {
 	/**Define the end instruction*/
 	private static String endInstr = "HLT";
 	
+	/**Define the end instruction*/
+	private static String insFile = "./instruction.txt";
+	
 	/**
 	 * Default constructor
 	*/
@@ -41,11 +44,13 @@ public class Controller {
 	 * @exception
 	 */
 	private boolean initial(){
-		/*if(RomINF.loadToRom()){
-			busBuffer = MemINF.loadToMem();
-			StrINF.setStr(busBuffer);
-			PcINF.setPc(StrINF.getStr());*/
-			return true;
+		MemoryINF.ROMload(insFile);
+		//MemoryINF.storeMemory();
+		MemoryINF.loadMemory();
+		busBuffer = "0";
+		StrINF.setStr(busBuffer);
+		PcINF.setPc(StrINF.getStr());
+		return true;
 	}
 	
 	/**
