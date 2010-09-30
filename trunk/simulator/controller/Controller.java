@@ -6,6 +6,7 @@
 
 package simulator.controller;
 import simulator.interfaces.*;
+import simulator.formatstr.*;
 
 /** 
  * Class Controller
@@ -19,13 +20,17 @@ import simulator.interfaces.*;
 public class Controller {
 	
 	/**For address or data buffer, temporarily store address, instructions or data get from other modules*/
-	private static String busBuffer;
+	private static Formatstr busBuffer = new Formatstr();
 	
 	/**Define the end instruction*/
 	private static String endInstr = "HLT";
 	
 	/**Define the end instruction*/
-	private static String insFile = "./instruction.txt";
+	private static String insFile = "instruction.txt";
+	
+	/**Define pc offset*/
+	private static Formatstr offset = new Formatstr();
+	
 	
 	/**
 	 * Default constructor
@@ -46,10 +51,8 @@ public class Controller {
 	private boolean initial(){
 		MemoryINF.ROMload(insFile);
 		//MemoryINF.storeMemory();
-		MemoryINF.loadMemory();
-		busBuffer = "0";
-		StrINF.setStr(busBuffer);
-		PcINF.setPc(StrINF.getStr());
+		busBuffer.setStr("00000000000000");
+		PcINF.setPc(busBuffer);
 		return true;
 	}
 	
@@ -62,16 +65,18 @@ public class Controller {
 	 */
 	private int execInstr(){
 		int execStat = 0;
-		while(true){
-			
+		offset.setStr("00000000000010");
+		while(execStat == 0){
+			PcINF.pcAdder(offset);
+			execStat = 1;
 		}
-
+		return execStat;
 	}
 	
 	static public void main(String[] args){
 		Controller ISA = new Controller();
 		ISA.initial();
 		ISA.execInstr();
-	    
+	    System.out.println(PcINF.getPc().getStr());
 	}	
 }

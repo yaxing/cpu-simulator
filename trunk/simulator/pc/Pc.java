@@ -5,6 +5,7 @@
  */
 package simulator.pc;
 import simulator.formatstr.*;
+import simulator.formatstr.*;
 
 /** 
  * Class Pc
@@ -50,6 +51,12 @@ public class Pc {
 	 * @exception
 	 */
 	public void pcAdder(Formatstr offset){
-		
+		Integer PcAdd = Integer.parseInt(instrAdd.getStr(),2);
+		Integer off = Integer.parseInt(offset.getStr(),2);
+		PcAdd = PcAdd + off;
+		Formatstr temp = new Formatstr();
+		temp.setStr(Integer.toBinaryString(PcAdd));
+		temp.formatAddress();
+		this.setPc(temp);
 	}
 }
