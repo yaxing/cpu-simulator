@@ -83,7 +83,7 @@ public class Memory {
 	 */
 	public static void getContentToMBR() {
 		String mar = new String(Memory.readMAR().getStr());
-		Formatstr content = new Formatstr(Memory.mem.get(Integer.valueOf(mar)));
+		Formatstr content = new Formatstr(Memory.mem.get(Integer.parseInt(mar, 2)));
 		
 		Memory.writeMBR(content);
 	}
