@@ -5,7 +5,6 @@
  */
 package simulator.pc;
 import simulator.formatstr.*;
-import simulator.formatstr.*;
 
 /** 
  * Class Pc
@@ -17,7 +16,8 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class Pc {
-	private Formatstr instrAdd;//address of next instruction
+	/**address of next instruction*/
+	private Formatstr instrAdd;
 	
 	/**
 	 * Execute push instruction address into PC
@@ -38,7 +38,6 @@ public class Pc {
 	 * @exception
 	 */
 	public Formatstr getPc(){
-		//get instruction address
 		return instrAdd;
 	}
 	
