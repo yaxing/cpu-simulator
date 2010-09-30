@@ -5,6 +5,7 @@
  */
 package simulator.interfaces;
 import simulator.pc.*;
+import simulator.formatstr.*;
 
 /** 
  * Class PcINF
@@ -29,7 +30,7 @@ public class PcINF {
 	 * @return 
 	 * @exception 
 	 */
-	public static void setPc(String add){
+	public static void setPc(Formatstr add){
 		pc.setPc(add);
 		return;
 	}
@@ -41,7 +42,7 @@ public class PcINF {
 	 * @return String the content of PC
 	 * @exception 
 	 */
-	public static String getPc(){
+	public static Formatstr getPc(){
 		return pc.getPc();
 	}
 	
@@ -52,8 +53,8 @@ public class PcINF {
 	 * @return
 	 * @exception 
 	 */
-	public static void pcAdder(String index){
-		pc.pcAdder(index);
+	public static void pcAdder(Formatstr offset){
+		pc.pcAdder(offset);
 		return;
 	}
 }

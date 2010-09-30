@@ -4,7 +4,8 @@
  * By Yaxing Chen
  */
 package simulator.interfaces;
-import simulator.genregs.*;;
+import simulator.genregs.*;
+import simulator.formatstr.*;
 
 /** 
  * Class GrINF
@@ -19,35 +20,35 @@ import simulator.genregs.*;;
 public class GrINF {
 	private static GenRegs gr = new GenRegs();	
 	
-	public static void setR0(String R0){
+	public static void setR0(Formatstr R0){
 		gr.setR0(R0);
 	}
 	
-	public static void setR1(String R1){
+	public static void setR1(Formatstr R1){
 		gr.setR1(R1);
 	}
 	
-	public static void setR2(String R2){
+	public static void setR2(Formatstr R2){
 		gr.setR2(R2);
 	}
 	
-	public static void setR3(String R3){
+	public static void setR3(Formatstr R3){
 		gr.setR3(R3);
 	}
 	
-	public static String getR0(){
+	public static Formatstr getR0(){
 		return gr.getR0();
 	}
 	
-	public static String getR1(){
+	public static Formatstr getR1(){
 		return gr.getR1();
 	}
 	
-	public static String getR2(){
+	public static Formatstr getR2(){
 		return gr.getR2();
 	}
 	
-	public static String getR3(){
+	public static Formatstr getR3(){
 		return gr.getR3();
 	}
 }

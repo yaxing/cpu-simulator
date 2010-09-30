@@ -64,8 +64,8 @@ public class Formatstr {
 	 * @exception 
 	 */
 	public void toBinary(){
-		int buffer = Integer.valueOf(str.toString(),16);
-		this.str = Integer.toBinaryString(buffer).toString();
+		int buffer = Integer.valueOf(str,16);
+		this.str = Integer.toBinaryString(buffer);
 		return;
 	}
 	

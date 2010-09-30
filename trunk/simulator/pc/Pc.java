@@ -4,6 +4,7 @@
  * By Yaxing Chen
  */
 package simulator.pc;
+import simulator.formatstr.*;
 
 /** 
  * Class Pc
@@ -15,19 +16,40 @@ package simulator.pc;
  * @since JDK 1.6
  */
 public class Pc {
-	private String instrAdd;//address of next instruction
+	private Formatstr instrAdd;//address of next instruction
 	
-	public void setPc(String add){
-		//set instruction address
+	/**
+	 * Execute push instruction address into PC
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public void setPc(Formatstr add){
 		instrAdd = add;
 	}
 	
-	public String getPc(){
+	/**
+	 * Get PC content
+	 * 
+	 * @param
+	 * @return Formatstr PC content
+	 * @exception
+	 */
+	public Formatstr getPc(){
 		//get instruction address
 		return instrAdd;
 	}
 	
-	public void pcAdder(String index){
-		//calculator for next instruction address		
+	/**
+	 * Add offset to PC content
+	 * count next instruction address
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public void pcAdder(Formatstr offset){
+		
 	}
 }
