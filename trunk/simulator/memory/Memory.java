@@ -100,8 +100,8 @@ public class Memory {
 		Formatstr content = new Formatstr();
 		
 		content = Memory.readMBR();
-		Memory.mem.remove(mar);
-		Memory.mem.put(Integer.valueOf(mar), content.getStr());
+		Memory.mem.remove(Integer.parseInt(mar, 2));
+		Memory.mem.put(Integer.parseInt(mar, 2), content.getStr());
 	}
 	
 }
