@@ -68,6 +68,9 @@ public class Controller {
 		while(execStat == 0){
 			OutregsINF.setMAR(PcINF.getPc());
 			MemoryINF.loadMemory();
+			OutregsINF.setIR(OutregsINF.getMBR());
+			//DecodeINF.decode();
+			
 			PcINF.pcAdder(offset);
 			execStat = 1;
 		}
