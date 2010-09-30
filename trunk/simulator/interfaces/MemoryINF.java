@@ -36,7 +36,8 @@ public class MemoryINF {
 	
 	/**
 	 * store the content of MBR into memory.
-	 * Address has already been ready in MAR.
+	 * Address must be ready in MAR.
+	 * Also MBR must ready.
 	 * 
 	 * @param 
 	 * @return 
@@ -48,7 +49,7 @@ public class MemoryINF {
 	
 	/**
 	 * load the content into MBR.
-	 * Address has already been ready in MAR.
+	 * Address must be ready in MAR.
 	 * 
 	 * @param 
 	 * @return 
