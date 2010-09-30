@@ -22,16 +22,18 @@ public class MemoryINF {
 	 * load "filename" file into memory from ROMloader.
 	 * 
 	 * @param filename	the "binary" file to be loaded.
-	 * @return 
+	 * @return String	first instruction address.
 	 * @exception 
 	 */
-	public static void ROMload(String filename) {
+	public static String ROMload(String filename) {
+		String enteraddr = new String();
 		try {
-			ROMloader.LoadToMemory(filename);
+			enteraddr = ROMloader.LoadToMemory(filename);
 		}
 		catch (IOException e) {
 			System.out.println("no such file");
 		}
+		return enteraddr;
 	}
 	
 	/**
