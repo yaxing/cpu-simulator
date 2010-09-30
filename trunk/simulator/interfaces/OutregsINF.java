@@ -13,7 +13,7 @@ import simulator.formatstr.*;
  * interface layer of Outregs class
  * other modules call Outregs functions through this class
  *                          
- * @author Yaxing Chen
+ * @author Yaxing Chen, Lei Li
  * @version 09-30-2010
  * @see simulator.interfaces
  * @since JDK 1.6
@@ -45,6 +45,39 @@ public class OutregsINF {
 		or.setMSR(msr);
 	}
 	
+	public static void setOPCODE(Formatstr opcode) {
+		or.setOPCODE(opcode);
+	}
+	
+	public static void setIBIT(Formatstr iBit) {
+		or.setIBIT(iBit);
+	}
+	
+	public static void setROP1(Formatstr rop1) {
+		or.setROP1(rop1);
+	}
+	
+	public static void setROP2(Formatstr rop2) {
+		or.setROP1(rop2);
+	}
+	
+	public static void setIN1(Formatstr in1) {
+		or.setIN1(in1);
+	}
+
+	public static void setIN2(Formatstr in2) {
+		or.setIN2(in2);
+	}
+	
+	public static void setLR(Formatstr lr) {
+		or.setLR(lr);
+	}
+	
+	public static void setAR(Formatstr ar) {
+		or.setLR(ar);
+	}
+	
+	
 	public static Formatstr getOPD(){
 		return or.getOPD();
 	}
@@ -67,5 +100,38 @@ public class OutregsINF {
 	
 	public static Formatstr getMSR(){
 		return or.getMSR();
+	}
+	
+	public static Formatstr getOPCODE() {
+		return or.getOPCODE();
+	}
+
+	public static Formatstr getIBIT() {
+		return or.getIBIT();
+	}
+
+	public static Formatstr getROP1() {
+		return or.getROP1();
+	}
+
+	public static Formatstr getROP2() {
+		return or.getROP2();
+	}
+
+	public static Formatstr getIN1() {
+		return or.getIN1();
+	}
+
+	
+	public static Formatstr getIN2() {
+		return or.getIN2();
+	}
+
+	public static Formatstr getLR() {
+		return or.getLR();
+	}
+
+	public static Formatstr getAR() {
+		return or.getAR();
 	}
 }
