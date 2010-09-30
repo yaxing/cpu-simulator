@@ -11,20 +11,14 @@ import simulator.interfaces.*;
 import simulator.formatstr.*;
 
 public class Memory {
-	private static Hashtable<String, String> Mem = 
-		new Hashtable<String, String>();
-	
+	private static Hashtable<Integer, String> mem = 
+		new Hashtable<Integer, String>();
+	private static Integer length = new Integer(0);	//the last address of the content.
 	/**
 	 * Default constructor
 	*/
 	Memory() {}
 	
-	public static boolean init() {
-		
-		
-		
-		return true;
-	}
 	/**
 	 * using the data/instruction write MBR
 	 * 
@@ -32,7 +26,28 @@ public class Memory {
 	 * @return 
 	 * @exception 
 	 */
-	private void WriteMBR(Formatstr mbr) {
+	public static boolean initLine(String content) {
+		mem.put(length, content);
+		length++;
+		
+		return true;
+	}
+	
+	public static void autoPaddle() {
+		while(length < 16384) {
+			mem.put(length, "000000000000000000000000");
+			length++;
+		}
+	}
+	
+	/**
+	 * using the data/instruction write MBR
+	 * 
+	 * @param mbr	the data/instruction need to write into MBR.
+	 * @return 
+	 * @exception 
+	 */
+	private static void writeMBR(Formatstr mbr) {
 		OutregsINF.setMBR(mbr);
 	}
 	
@@ -43,7 +58,7 @@ public class Memory {
 	 * @return the data written into the memory
 	 * @exception 
 	 */
-	private Formatstr ReadMBR() {
+	private static Formatstr readMBR() {
 		return OutregsINF.getMBR();
 	}
 	
@@ -54,7 +69,7 @@ public class Memory {
 	 * @return the content of the MAR
 	 * @exception 
 	 */
-	private Formatstr ReadMAR() {
+	private static Formatstr readMAR() {
 		return OutregsINF.getMAR();
 	}
 	
@@ -62,14 +77,31 @@ public class Memory {
 	 * Get the content of the address ready in the MBR.
 	 * May have some exception, ie: a wrong address.
 	 * 
-	 * @param addr	memory address
+	 * @param
 	 * @return 
 	 * @exception 
 	 */
-	public static void GetContentToMBR(Formatstr addr) {
+	public static void getContentToMBR() {
+		String mar = new String(Memory.readMAR().getStr());
+		Formatstr content = new Formatstr(Memory.mem.get(Integer.valueOf(mar)));
 		
+		Memory.writeMBR(content);
 	}
 	
-	
+	/**
+	 * 
+	 * 
+	 * @param
+	 * @return 
+	 * @exception 
+	 */
+	public static void setContentFromMBR() {
+		String mar = new String(Memory.readMAR().getStr());
+		Formatstr content = new Formatstr();
+		
+		content = Memory.readMBR();
+		Memory.mem.remove(mar);
+		Memory.mem.put(Integer.valueOf(mar), content.getStr());
+	}
 	
 }
