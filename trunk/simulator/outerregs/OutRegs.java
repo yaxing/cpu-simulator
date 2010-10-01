@@ -11,7 +11,7 @@ import simulator.formatstr.*;
  * control all out registers
  *                          
  * @author Yaxing Chen, Lei Li
- * @version 09-30-2010
+ * @version 10-1-2010
  * @see simulator.outerregs
  * @since JDK 1.6
  */
@@ -30,7 +30,7 @@ public class OutRegs {
 	private Formatstr opcode;
 	private Formatstr opd;
 	
-	/**Registers that store I-bit*/
+	/**Register that store I-bit*/
 	private Formatstr iBit;
 	
 	/**Registers that store the # of general registers*/
@@ -44,6 +44,9 @@ public class OutRegs {
 	/**Registers that store Shift/Rotate Operation*/
 	private Formatstr lr;
 	private Formatstr ar;
+	
+	/**Register that store device ID for I/O instruction*/
+	private Formatstr devid;
 	
 	public Formatstr getOPCODE() {
 		return opcode;
@@ -103,6 +106,14 @@ public class OutRegs {
 
 	public Formatstr getAR() {
 		return ar;
+	}
+	
+	public Formatstr getDEVID() {
+		return devid;
+	}
+
+	public void setDEVID(Formatstr devid) {
+		this.devid = devid;
 	}
 
 	public void setAR(Formatstr ar) {

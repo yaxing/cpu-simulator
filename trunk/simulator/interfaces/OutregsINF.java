@@ -14,7 +14,7 @@ import simulator.formatstr.*;
  * other modules call Outregs functions through this class
  *                          
  * @author Yaxing Chen, Lei Li
- * @version 09-30-2010
+ * @version 10-1-2010
  * @see simulator.interfaces
  * @since JDK 1.6
  */
@@ -77,6 +77,10 @@ public class OutregsINF {
 		or.setLR(ar);
 	}
 	
+	public static void setDEVID(Formatstr devid){
+		or.setDEVID(devid);
+	}
+	
 	
 	public static Formatstr getOPD(){
 		return or.getOPD();
@@ -133,5 +137,9 @@ public class OutregsINF {
 
 	public static Formatstr getAR() {
 		return or.getAR();
+	}
+	
+	public static Formatstr getDEVID() {
+		return or.getDEVID();
 	}
 }
