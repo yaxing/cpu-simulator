@@ -5,6 +5,7 @@
  */
 
 package simulator.irdecode;
+import simulator.interfaces.*;
 
 /** 
  * Class Decode
@@ -12,7 +13,7 @@ package simulator.irdecode;
  * and put each part into different register.
  *                          
  * @author Lei Li
- * @version 09-30-2010
+ * @version 10-1-2010
  * @see simulator.isdecode
  * @since JDK 1.6
  */
@@ -43,20 +44,18 @@ public class Irdecode {
 	private String ar;
 	
 	/**
-	 * Read the instruction
+	 * Decode instructions
 	 * 
-	 * @param is	instruction need to decode.
+	 * @param 
 	 * @return 
 	 * @exception
 	 */
-	public void setIs(String is) {
-		this.is = is;
+	public void decode() {
+		is = OutregsINF.getIR().getStr(); //read the instruction from IR
+		opcode = is.substring(0, 5); //get opcode from instruction
+		
 	}
-	
-	/**
-	 * decode
-	 */
-	
+
 	
 
 }
