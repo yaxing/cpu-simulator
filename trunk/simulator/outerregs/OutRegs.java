@@ -11,7 +11,7 @@ import simulator.formatstr.*;
  * control all out registers
  *                          
  * @author Yaxing Chen, Lei Li
- * @version 10-1-2010
+ * @version 10-2-2010
  * @see simulator.outerregs
  * @since JDK 1.6
  */
