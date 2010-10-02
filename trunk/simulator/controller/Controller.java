@@ -71,7 +71,7 @@ public class Controller {
 			OutregsINF.setIR(OutregsINF.getMBR());
 			DecodeINF.decode();
 			String opcode = OutregsINF.getOPCODE().getStr();
-			if(opcode == "000001"){
+			if(opcode.equals("000001")){
 				IsaControl.execLdr();
 			}
 			

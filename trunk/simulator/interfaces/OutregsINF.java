@@ -58,7 +58,7 @@ public class OutregsINF {
 	}
 	
 	public static void setROP2(Formatstr rop2) {
-		or.setROP1(rop2);
+		or.setROP2(rop2);
 	}
 	
 	public static void setIN1(Formatstr in1) {
