@@ -17,17 +17,39 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class IsaControl {
+	/**buffer is used to temporarily store data got from registers*/
 	private static Formatstr buffer = new Formatstr();
 	
+	/**
+	 * calculate the address
+	 * when needed, this function adds IX and Address together
+	 * and get the needed address
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
 	private static void calEa(){
+		/*get IX from ROP2*/
 		String ix = OutregsINF.getROP2().getStr();
+		/*get Address from OPD*/
 		String address = OutregsINF.getOPD().getStr();
+		/*add them together and store in buffer as needed address*/
 		Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		buffer.setStr(Integer.toBinaryString(ea));
 		buffer.formatAddress();
 	}
 	
+	/**
+	 * Execute instruction LDR
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
 	public static boolean execLdr(){
+		
+		/*judge whether it is direct or indirect address*/
 		if(OutregsINF.getIBIT().getStr() == "0"){
 			calEa();
 			OutregsINF.setMAR(buffer);
@@ -41,8 +63,11 @@ public class IsaControl {
 			MemoryINF.loadMemory();
 		}
 		
+		/*get the target register AC from ROP1*/
 		String grNo = OutregsINF.getROP1().getStr();
 		int gN = Integer.parseInt(grNo,2);
+		
+		/*store MBR content into the target register*/
 		switch(gN){
 		case 0:
 			GrINF.setR0(OutregsINF.getMBR());
