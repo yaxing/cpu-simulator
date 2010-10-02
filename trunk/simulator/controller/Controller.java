@@ -69,15 +69,14 @@ public class Controller {
 			OutregsINF.setMAR(PcINF.getPc());
 			MemoryINF.loadMemory();
 			OutregsINF.setIR(OutregsINF.getMBR());
-			/*DecodeINF.decode();
-			switch(OutregsINF.getOPD().getStr()){
-			case "000001":
+			DecodeINF.decode();
+			String opcode = OutregsINF.getOPD().getStr();
+			if(opcode == "00001")
 				IsaControl.execLDR();
-			}*/
+			}
 			
-			PcINF.pcAdder(offset);
-			execStat = 1;
-		}
+		PcINF.pcAdder(offset);
+		execStat = 1;
 		return execStat;
 	}
 	

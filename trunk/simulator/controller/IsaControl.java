@@ -18,40 +18,39 @@ import simulator.formatstr.*;
  */
 public class IsaControl {
 	public static boolean execLDR(){
-		/*Formatstr buffer = new Formatstr();
-		if(OutregsINF.getI().getStr() == "0"){
-			buffer = OutregsINF.getIX();
+		Formatstr buffer = new Formatstr();
+		if(OutregsINF.getIBIT().getStr() == "0"){
+			buffer = OutregsINF.getROP2();
 			OutregsINF.setMAR(buffer);
 			MemoryINF.loadMemory();
 		}
 		
 		else{
-			buffer = OutregsINF.getIX();
+			buffer = OutregsINF.getROP2();
 			OutregsINF.setMAR(buffer);
 			MemoryINF.loadMemory();
 			OutregsINF.setMAR(OutregsINF.getMBR());
 			MemoryINF.loadMemory();
 		}
 		
-		String grNo = OutregsINF.getAC().getStr();
-		switch(grNo){
-		case "00":
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		switch(gN){
+		case 0:
 			GrINF.setR0(OutregsINF.getMBR());
 			break;
-		case "01":
+		case 1:
 			GrINF.setR1(OutregsINF.getMBR());
 			break;
-		case "10":
+		case 2:
 			GrINF.setR2(OutregsINF.getMBR());
 			break;
-		case "11":
+		case 3:
 			GrINF.setR3(OutregsINF.getMBR());
 			break;
 		default:
 			break;
 		}
-		*/	
-		
 		return true;
 	}
 }
