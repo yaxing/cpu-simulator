@@ -28,8 +28,8 @@ public class Controller {
 	/**Define the end instruction*/
 	private static String insFile = "instruction.txt";
 	
-	/**Define pc offset*/
-	private static Formatstr offset = new Formatstr();
+	/**Define PC offset*/
+	private static Formatstr offset = new Formatstr("00000000000001");
 	
 	
 	/**
@@ -48,11 +48,13 @@ public class Controller {
 	 * @return whether the initiation success or not
 	 * @exception
 	 */
-	private boolean initial(){
+	private void initial(){
+		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
 		busBuffer.formatAddress();
+		
+		/*initiate PC*/
 		PcINF.setPc(busBuffer);
-		return true;
 	}
 	
 	/**
@@ -62,23 +64,37 @@ public class Controller {
 	 * @return execStat  indicating the state of instruction execution
 	 * @exception
 	 */
-	private int execInstr(){
-		int execStat = 0;
-		offset.setStr("00000000000001");
-		while(execStat == 0){
+	private void execInstr(){
+		/*simulate the instruction circuit*/
+		while(true){
+			/*get address from PC and fetch MAR*/
 			OutregsINF.setMAR(PcINF.getPc());
+			
+			/*get content from memory based on the address in MAR
+			 * and fetch into MBR
+			 * */
 			MemoryINF.loadMemory();
+			
+			/*fetch instruction from MBR to IR*/
 			OutregsINF.setIR(OutregsINF.getMBR());
+			
+			/*decode IR instruction*/
 			DecodeINF.decode();
+			
+			/*get opcode*/
 			String opcode = OutregsINF.getOPCODE().getStr();
+			
+			/*execute instruction based on opcode*/
 			if(opcode.equals("000001")){
 				IsaControl.execLdr();
 			}
+			if(opcode.equals("000000")){
+				break;
+			}
 			
+			/*update PC to point at the address of next instruction*/
 			PcINF.pcAdder(offset);
-			execStat = 1;
 		}
-		return execStat;
 	}
 	
 	static public void main(String[] args){
@@ -86,5 +102,6 @@ public class Controller {
 		ISA.initial();
 		ISA.execInstr();
 	    System.out.println(GrINF.getR0().getStr());
+	    System.out.println(GrINF.getR1().getStr());
 	}	
 }
