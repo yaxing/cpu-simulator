@@ -14,7 +14,7 @@ import simulator.formatstr.*;
  * and put each part into different register.
  *                          
  * @author Lei Li
- * @version 10-1-2010
+ * @version 10-2-2010
  * @see simulator.isdecode
  * @since JDK 1.6
  */
@@ -70,9 +70,9 @@ public class Irdecode {
 			iBit = new Formatstr();
 			rop2 = new Formatstr();
 			imNum = new Formatstr();
-			iBit.setStr(is.getStr().substring(6, 6)); //get i-bit
-			rop2.setStr(is.getStr().substring(9, 10)); //get the other general register
-			imNum.setStr(is.getStr().substring(11, 23)); //get the address or immediate operand
+			iBit.setStr(is.getStr().substring(6, 7)); //get i-bit
+			rop2.setStr(is.getStr().substring(9, 11)); //get the other general register
+			imNum.setStr(is.getStr().substring(11, 24)); //get the address or immediate operand
 			
 			OutregsINF.setIBIT(iBit); //send i-bit to register
 			OutregsINF.setROP2(rop2); //send the other general number to register
@@ -92,9 +92,9 @@ public class Irdecode {
 			lr = new Formatstr();
 			ar = new Formatstr();
 			imNum = new Formatstr();
-			lr.setStr(is.getStr().substring(6, 6)); //get L/R flag
-			ar.setStr(is.getStr().substring(9, 9)); //get A/R flag
-			imNum.setStr(is.getStr().substring(19, 23)); //get the count number
+			lr.setStr(is.getStr().substring(6, 7)); //get L/R flag
+			ar.setStr(is.getStr().substring(9, 10)); //get A/R flag
+			imNum.setStr(is.getStr().substring(19, 24)); //get the count number
 			
 			OutregsINF.setLR(lr); //send L/R flag to register
 			OutregsINF.setAR(ar); //send A/R flag to register
@@ -104,13 +104,11 @@ public class Irdecode {
 		//I/O Operation instruction format
 		if (intcode >= 61 && intcode <= 63){
 			imNum = new Formatstr();
-			imNum.setStr(is.getStr().substring(19, 23)); //get device ID
+			imNum.setStr(is.getStr().substring(19, 24)); //get device ID
 			
 			OutregsINF.setDEVID(imNum); //send device ID to register
 		}
 		
 	}
-
-	
 
 }
