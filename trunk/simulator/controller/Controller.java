@@ -49,8 +49,8 @@ public class Controller {
 	 * @exception
 	 */
 	private boolean initial(){
-		MemoryINF.ROMload(insFile);
-		busBuffer.setStr("00000000000000");
+		busBuffer.setStr(MemoryINF.ROMload(insFile));
+		busBuffer.formatAddress();
 		PcINF.setPc(busBuffer);
 		return true;
 	}
