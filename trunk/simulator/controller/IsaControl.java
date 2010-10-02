@@ -50,7 +50,7 @@ public class IsaControl {
 	public static boolean execLdr(){
 		
 		/*judge whether it is direct or indirect address*/
-		if(OutregsINF.getIBIT().getStr() == "0"){
+		if(OutregsINF.getIBIT().getStr().equals("0")){
 			calEa();
 			OutregsINF.setMAR(buffer);
 			MemoryINF.loadMemory();
