@@ -70,13 +70,14 @@ public class Controller {
 			MemoryINF.loadMemory();
 			OutregsINF.setIR(OutregsINF.getMBR());
 			DecodeINF.decode();
-			String opcode = OutregsINF.getOPD().getStr();
-			if(opcode == "00001")
-				IsaControl.execLDR();
+			String opcode = OutregsINF.getOPCODE().getStr();
+			if(opcode == "000001"){
+				IsaControl.execLdr();
 			}
 			
-		PcINF.pcAdder(offset);
-		execStat = 1;
+			PcINF.pcAdder(offset);
+			execStat = 1;
+		}
 		return execStat;
 	}
 	
@@ -84,7 +85,6 @@ public class Controller {
 		Controller ISA = new Controller();
 		ISA.initial();
 		ISA.execInstr();
-	    System.out.println(PcINF.getPc().getStr());
-	    System.out.println(OutregsINF.getMBR().getStr());
+	    System.out.println(GrINF.getR0().getStr());
 	}	
 }

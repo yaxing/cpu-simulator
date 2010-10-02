@@ -17,16 +17,24 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class IsaControl {
-	public static boolean execLDR(){
-		Formatstr buffer = new Formatstr();
+	private static Formatstr buffer = new Formatstr();
+	
+	private static void calEa(){
+		String ix = OutregsINF.getROP2().getStr();
+		String address = OutregsINF.getOPD().getStr();
+		Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
+		buffer.setStr(Integer.toBinaryString(ea));
+		buffer.formatAddress();
+	}
+	
+	public static boolean execLdr(){
 		if(OutregsINF.getIBIT().getStr() == "0"){
-			buffer = OutregsINF.getROP2();
+			calEa();
 			OutregsINF.setMAR(buffer);
 			MemoryINF.loadMemory();
 		}
-		
 		else{
-			buffer = OutregsINF.getROP2();
+			calEa();
 			OutregsINF.setMAR(buffer);
 			MemoryINF.loadMemory();
 			OutregsINF.setMAR(OutregsINF.getMBR());

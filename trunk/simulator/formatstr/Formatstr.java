@@ -103,7 +103,7 @@ public class Formatstr {
 	 * @exception 
 	 */
 	public void formatAddress(){
-		String format = "00000000000000";
+		String format = "0000000000000";
 		this.str = format.substring(0, format.length() - str.length()) + str;
 	}
 }
