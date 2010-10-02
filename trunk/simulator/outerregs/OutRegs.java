@@ -24,7 +24,11 @@ public class OutRegs {
 	/**Instruction Register*/
 	private Formatstr ir;
 	
+	/**MSR*/
 	private Formatstr msr;
+	
+	/**MFR*/
+	private Formatstr mfr;
 	
 	/**Registers that store OPCode & OPD*/
 	private Formatstr opcode;
@@ -51,7 +55,7 @@ public class OutRegs {
 	public Formatstr getOPCODE() {
 		return opcode;
 	}
-
+	
 	public void setOPCODE(Formatstr opcode) {
 		this.opcode = opcode;
 	}
@@ -124,47 +128,56 @@ public class OutRegs {
 		this.opd = opd;
 	}
 	
-	public void setMAR(Formatstr mar){ 
-		this.mar = mar;
-	}
-	
-	public void setMBR(Formatstr mbr){ 
-		this.mbr = mbr;
-	}
-	
-	public void setMCR(Formatstr mcr){ 
-		this.mcr = mcr;
-	}
-	
-	public void setIR(Formatstr ir){ 
-		this.ir = ir;
-	}
-	
-	public void setMSR(Formatstr msr){
-		this.msr = msr;
-	}
-	
 	public Formatstr getOPD(){
 		return this.opd;
+	}
+	
+	public void setMAR(Formatstr mar){ 
+		this.mar = mar;
 	}
 	
 	public Formatstr getMAR(){
 		return this.mar;
 	}
 	
+	public void setMBR(Formatstr mbr){ 
+		this.mbr = mbr;
+	}
+	
 	public Formatstr getMBR(){
 		return this.mbr;
+	}
+	
+	public void setMCR(Formatstr mcr){ 
+		this.mcr = mcr;
 	}
 	
 	public Formatstr getMCR(){
 		return this.mcr;
 	}
 	
+	
+	public void setIR(Formatstr ir){ 
+		this.ir = ir;
+	}
+	
 	public Formatstr getIR(){
 		return this.ir;
 	}
 	
+	public void setMSR(Formatstr msr){
+		this.msr = msr;
+	}
+	
 	public Formatstr getMSR(){
 		return this.msr;
+	}
+	
+	public void setMFR(Formatstr mfr){
+		this.mfr = mfr;
+	}
+	
+	public Formatstr getMFR(){
+		return this.mfr;
 	}
 }
