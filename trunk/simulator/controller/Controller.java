@@ -58,28 +58,50 @@ public class Controller {
 	}
 	
 	/**
-	 * Execute the instructions based on certain logic sequence
+	 * Get instruction from memory and update PC to the address of next instruction
+	 * 
+	 * @param
+	 * @return
+	 * @exception
+	 */
+	private void getInstr(){
+		/*get address from PC and fetch MAR*/
+		OutregsINF.setMAR(PcINF.getPc());
+		
+		/*get content from memory based on the address in MAR
+		 * and fetch into MBR
+		 * */
+		
+		/*read memory to MBR*/
+		OutregsINF.setMCR(new Formatstr("0"));
+		MemoryINF.loadMemory();
+		
+		/*fetch instruction from MBR to IR*/
+		OutregsINF.setIR(OutregsINF.getMBR());
+		
+		/*decode IR instruction*/
+		DecodeINF.decode();
+		
+		/*update PC to point at the address of next instruction*/
+		PcINF.pcAdder(offset);
+	}
+	
+	
+	/**
+	 * control instruction circles
 	 * 
 	 * @param
 	 * @return execStat  indicating the state of instruction execution
 	 * @exception
 	 */
-	private void execInstr(){
+	private void run(){
 		/*simulate the instruction circuit*/
 		while(true){
-			/*get address from PC and fetch MAR*/
-			OutregsINF.setMAR(PcINF.getPc());
 			
-			/*get content from memory based on the address in MAR
-			 * and fetch into MBR
-			 * */
-			MemoryINF.loadMemory();
+			/*circle: get instruction*/
+			getInstr();
 			
-			/*fetch instruction from MBR to IR*/
-			OutregsINF.setIR(OutregsINF.getMBR());
-			
-			/*decode IR instruction*/
-			DecodeINF.decode();
+			/*circle: execute instruction*/
 			
 			/*get opcode*/
 			String opcode = OutregsINF.getOPCODE().getStr();
@@ -91,16 +113,13 @@ public class Controller {
 			if(opcode.equals("000000")){
 				break;
 			}
-			
-			/*update PC to point at the address of next instruction*/
-			PcINF.pcAdder(offset);
 		}
 	}
 	
 	static public void main(String[] args){
 		Controller ISA = new Controller();
 		ISA.initial();
-		ISA.execInstr();
+		ISA.run();
 	    System.out.println(GrINF.getR0().getStr());
 	    System.out.println(GrINF.getR1().getStr());
 	}	
