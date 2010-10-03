@@ -74,7 +74,7 @@ public class Controller {
 		
 		/*read memory to MBR*/
 		OutregsINF.setMCR(new Formatstr("0"));
-		MemoryINF.loadMemory();
+		MemoryINF.operateMemory();
 		
 		/*fetch instruction from MBR to IR*/
 		OutregsINF.setIR(OutregsINF.getMBR());

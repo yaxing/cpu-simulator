@@ -52,14 +52,21 @@ public class IsaControl {
 		if(OutregsINF.getIBIT().getStr().equals("0")){
 			calEa();
 			OutregsINF.setMAR(buffer);
-			MemoryINF.loadMemory();
+			
+			OutregsINF.setMCR(new Formatstr("0"));
+			MemoryINF.operateMemory();
 		}
 		else{
 			calEa();
 			OutregsINF.setMAR(buffer);
-			MemoryINF.loadMemory();
+			
+			OutregsINF.setMCR(new Formatstr("0"));
+			MemoryINF.operateMemory();
+			
 			OutregsINF.setMAR(OutregsINF.getMBR());
-			MemoryINF.loadMemory();
+			
+			OutregsINF.setMCR(new Formatstr("0"));
+			MemoryINF.operateMemory();
 		}
 		
 		/*get the target register AC from ROP1*/
