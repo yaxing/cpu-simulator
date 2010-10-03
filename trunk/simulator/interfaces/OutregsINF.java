@@ -69,6 +69,10 @@ public class OutregsINF {
 		or.setIN2(in2);
 	}
 	
+	public static void setOUT(Formatstr out){
+		or.setOUT(out);
+	}
+	
 	public static void setLR(Formatstr lr) {
 		or.setLR(lr);
 	}
@@ -129,6 +133,10 @@ public class OutregsINF {
 	
 	public static Formatstr getIN2() {
 		return or.getIN2();
+	}
+	
+	public static Formatstr getOUT(){
+		return or.getOUT();
 	}
 
 	public static Formatstr getLR() {

@@ -12,7 +12,7 @@ import simulator.formatstr.*;
  * control execution logic of all instructions 
  *                          
  * @author Yaxing Chen
- * @version 09-30-2010
+ * @version 10-02-2010
  * @see simulator.controller
  * @since JDK 1.6
  */

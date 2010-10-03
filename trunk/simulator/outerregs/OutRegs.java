@@ -45,6 +45,9 @@ public class OutRegs {
 	private Formatstr in1;
 	private Formatstr in2;
 	
+	/**ALU result*/
+	private Formatstr out;
+	
 	/**Registers that store Shift/Rotate Operation*/
 	private Formatstr lr;
 	private Formatstr ar;
@@ -98,6 +101,14 @@ public class OutRegs {
 
 	public void setIN2(Formatstr in2) {
 		this.in2 = in2;
+	}
+	
+	public Formatstr getOUT() {
+		return out;
+	}
+
+	public void setOUT(Formatstr out) {
+		this.out = out;
 	}
 
 	public Formatstr getLR() {
