@@ -37,6 +37,7 @@ public class IsaControl {
 		/*add them together and store in buffer as needed address*/
 		Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		buffer.setStr(Integer.toBinaryString(ea));
+		buffer.formatAddress();
 	}
 	
 	/**
