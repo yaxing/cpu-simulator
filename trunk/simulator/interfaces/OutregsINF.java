@@ -25,7 +25,7 @@ public class OutregsINF {
 		or.setOPD(opd);
 	}
 
-	public static void setMAR(Formatstr mar){
+	public static void setMAR(Formatstr mar){	//must be 14 bits.
 		or.setMAR(mar);
 	}
 	
