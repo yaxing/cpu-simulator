@@ -18,11 +18,23 @@ import simulator.memory.*;
  * @since JDK 1.6
  */
 public class MemoryINF {
+	
+	/**
+	 * set memory's(banks) all data to zero
+	 * 
+	 * @param
+	 * @return
+	 * @exception 
+	 */
+	public static void initMem() {
+		Memory.setZero();
+	}
+	
 	/**
 	 * load "filename" file into memory from ROMloader.
 	 * 
 	 * @param filename	the "binary" file to be loaded.
-	 * @return String	first instruction address.
+	 * @return String	first instruction address(13 bits).
 	 * @exception 
 	 */
 	public static String ROMload(String filename) {
@@ -33,31 +45,22 @@ public class MemoryINF {
 		catch (IOException e) {
 			System.out.println("no such file");
 		}
-		return enteraddr;
+		return enteraddr.substring(1, enteraddr.length());
 	}
 	
 	/**
-	 * store the content of MBR into memory.
-	 * Address must be ready in MAR.
-	 * Also MBR must ready.
+	 * according to MCR, do the corresponding operation
+	 * 0 is load, 1 is store
 	 * 
 	 * @param 
-	 * @return 
+	 * @return boolean whether the operation is correct.
 	 * @exception 
 	 */
-	public static void storeMemory() {
-		Memory.setContentFromMBR();
-	}
-	
-	/**
-	 * load the content into MBR.
-	 * Address must be ready in MAR.
-	 * 
-	 * @param 
-	 * @return 
-	 * @exception 
-	 */
-	public static void loadMemory() {
-		Memory.getContentToMBR();
+	public static boolean operateMemory() {
+		if(OutregsINF.getMCR().getStr().equals("0"))	//0 is load, 1 is store
+			Memory.getContentToMBR();
+		else
+			Memory.setContentFromMBR();
+		return true;
 	}
 }
