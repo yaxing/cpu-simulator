@@ -12,6 +12,7 @@ public class ROMloader {
 	//used for test
 	/*public static void main(String[] args) {
 		try {
+			Memory.setZero();
 			ROMloader.LoadToMemory("input.txt");
 		}
 		catch (IOException e) {
@@ -20,11 +21,11 @@ public class ROMloader {
 		System.exit(0);
 	}*/
 	/**
-	 * Read the "filename" file, load the content(data and instruction)
-	 * to Memory 
+	 * After press the IPL button, read the "filename" file,
+	 *  load the content(data and instruction) to Memory 
 	 * 
 	 * @param mbr	the data/instruction need to write into MBR.
-	 * @return String	program's instruction first address.
+	 * @return String	program's instruction first address(14 bits).
 	 * @exception 
 	 */
 	public static String LoadToMemory(String filename) throws IOException {
@@ -37,12 +38,12 @@ public class ROMloader {
 		
 		enteraddr = in.readLine();
 		
+		Memory.setEnterAddr(enteraddr);
 		while((line = in.readLine()) != null) {
 			Memory.initLine(line);			
 		}
-		Memory.autoPaddle();
 		
-		return enteraddr;
 		//System.out.println("test");
+		return enteraddr;
 	}
 }

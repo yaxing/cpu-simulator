@@ -11,32 +11,91 @@ import simulator.interfaces.*;
 import simulator.formatstr.*;
 
 public class Memory {
-	private static Hashtable<Integer, String> mem = 
-		new Hashtable<Integer, String>();
 	private static Integer length = new Integer(0);	//the last address of the content.
+	private static final int numBank = 4;
+	private static final int memSize = 16384;
+	private static final int bankSize = 4096;
+	
+	private static String[] bank0 = new String[bankSize];
+	private static String[] bank1 = new String[bankSize];
+	private static String[] bank2 = new String[bankSize];
+	private static String[] bank3 = new String[bankSize];
+	
+	
+	
+	private static String enterAddr;
 	/**
 	 * Default constructor
 	*/
 	Memory() {}
 	
 	/**
-	 * using the data/instruction write MBR
+	 * set data of all banks to zero
 	 * 
-	 * @param mbr	the data/instruction need to write into MBR.
+	 * @param
+	 * @return 
+	 * @exception 
+	 */
+	public static void setZero() {
+		int i = 0;
+		while(i < memSize / 4) {
+			bank0[i] = "000000000000000000000000";
+			bank1[i] = "000000000000000000000000";
+			bank2[i] = "000000000000000000000000";
+			bank3[i] = "000000000000000000000000";
+			i++;
+		}
+	}
+	
+	/**
+	 * set the first instruction's address
+	 * 
+	 * @param enteraddr		the first instruction's address
+	 * @return 
+	 * @exception 
+	 */
+	public static void setEnterAddr(String enteraddr) {
+		enterAddr = enteraddr;
+	}
+	
+	/**
+	 * load content of ROM to mem
+	 * 
+	 * @param content	binary content per line.
 	 * @return 
 	 * @exception 
 	 */
 	public static boolean initLine(String content) {
-		mem.put(length, content);
-		length++;
+		String format = "00000000000000";
 		
+		int address = Integer.valueOf(enterAddr.substring(0, enterAddr.length() - 2), 2);
+		//System.out.println("memory address "+Integer.valueOf(enterAddr, 2));
+		//System.out.println("bank address "+address);
+		getBank(enterAddr)[address] = content;
+		enterAddr = Integer.toBinaryString(Integer.valueOf(enterAddr, 2) + 1);
+		enterAddr = format.substring(0, format.length() - enterAddr.length()) + enterAddr;
 		return true;
 	}
 	
-	public static void autoPaddle() {
-		while(length < 16384) {
-			mem.put(length, "000000000000000000000000");
-			length++;
+	/**
+	 * according to address string, get the corresponding bank
+	 * 
+	 * @param addr	memory address
+	 * @return 
+	 * @exception 
+	 */
+	private static String[] getBank(String addr) {
+		int tail = Integer.valueOf(addr.substring(addr.length()-2, addr.length()), 2);
+		
+		switch (tail) {
+			case 0:
+				return bank0;
+			case 1: 
+				return bank1;
+			case 2:
+				return bank2;
+			default:
+				return bank3;
 		}
 	}
 	
@@ -76,32 +135,35 @@ public class Memory {
 	/**
 	 * Get the content of the address ready in the MBR.
 	 * May have some exception, ie: a wrong address.
+	 * Address(14 bits) must be ready in MAR.
 	 * 
 	 * @param
 	 * @return 
 	 * @exception 
 	 */
 	public static void getContentToMBR() {
-		String mar = new String(Memory.readMAR().getStr());
-		Formatstr content = new Formatstr(Memory.mem.get(Integer.parseInt(mar, 2)));
+		String mar = new String(readMAR().getStr());
+		Formatstr content = new Formatstr();
+		content.setStr(getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)]);
 		
-		Memory.writeMBR(content);
+		writeMBR(content);
 	}
 	
 	/**
+	 * store the content of MBR into memory.
+	 * Address(14 bits) must be ready in MAR.
+	 * Also MBR must ready.
 	 * 
-	 * 
-	 * @param
+	 * @param 
 	 * @return 
 	 * @exception 
 	 */
 	public static void setContentFromMBR() {
-		String mar = new String(Memory.readMAR().getStr());
+		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		
-		content = Memory.readMBR();
-		Memory.mem.remove(Integer.parseInt(mar, 2));
-		Memory.mem.put(Integer.parseInt(mar, 2), content.getStr());
+		content = readMBR();
+		getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)] = content.getStr();
 	}
 	
 }
