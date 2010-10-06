@@ -81,9 +81,6 @@ public class Controller {
 		
 		/*decode IR instruction*/
 		DecodeINF.decode();
-		
-		/*update PC to point at the address of next instruction*/
-		PcINF.pcAdder(offset);
 	}
 	
 	
@@ -95,11 +92,15 @@ public class Controller {
 	 * @exception
 	 */
 	private void run(){
+		
 		/*simulate the instruction circuit*/
 		while(true){
 			
 			/*circle: get instruction*/
 			getInstr();
+			
+			/*update PC to point at the address of next instruction*/
+			PcINF.pcAdder(offset);
 			
 			/*circle: execute instruction*/
 			
@@ -111,14 +112,37 @@ public class Controller {
 			/*LDR*/
 			if(opcode.equals("000001")){
 				IsaControl.execLdr();
+				continue;
 			}
 			/*STR*/
 			if(opcode.equals("000010")){
 				IsaControl.execStr();
+				continue;
 			}
 			/*LDA*/
 			if(opcode.equals("000011")){
 				IsaControl.execLda();
+				continue;
+			}
+			/*JZ*/
+			if(opcode.equals("001000")){
+				Formatstr jTo;
+				if((jTo = IsaControl.execJz()) != null){
+					/*set PC to new address*/
+					PcINF.setPc(jTo);
+					continue;
+				}
+				continue;
+			}
+			/*JE*/
+			if(opcode.equals("001001")){
+				Formatstr jTo;
+				if((jTo = IsaControl.execJne()) != null){
+					/*set PC to new address*/
+					PcINF.setPc(jTo);
+					continue;
+				}
+				continue;
 			}
 			/*HLT*/
 			if(opcode.equals("000000")){

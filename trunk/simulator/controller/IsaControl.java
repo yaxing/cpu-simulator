@@ -210,7 +210,7 @@ public class IsaControl {
 		String grNo = OutregsINF.getROP1().getStr();
 		int gN = Integer.parseInt(grNo,2);
 		
-		//set MBR with register content
+		//set general register with address
 		switch(gN){
 		case 0:
 			GrINF.setR0(buffer);
@@ -227,5 +227,85 @@ public class IsaControl {
 		default:
 			break;
 		}
+	}
+	
+	/**
+	 * Execute instruction JZ
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static Formatstr execJz(){
+		/*generate EA and store in buffer*/
+		genEa();
+		
+		/*get the target register AC from ROP1*/
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		
+		//set MBR with register content
+		String condition = new String();
+		switch(gN){
+		case 0:
+			condition = GrINF.getR0().getStr();
+			break;
+		case 1:
+			condition = GrINF.getR1().getStr();
+			break;
+		case 2:
+			condition = GrINF.getR2().getStr();
+			break;
+		case 3:
+			condition = GrINF.getR3().getStr();
+			break;
+		default:
+			break;
+		}
+		if(Integer.parseInt(condition) == 0){
+			return buffer;
+		}
+		else
+			return null;
+	}
+	
+	/**
+	 * Execute instruction JNE
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static Formatstr execJne(){
+		/*generate EA and store in buffer*/
+		genEa();
+		
+		/*get the target register AC from ROP1*/
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		
+		//set MBR with register content
+		String condition = new String();
+		switch(gN){
+		case 0:
+			condition = GrINF.getR0().getStr();
+			break;
+		case 1:
+			condition = GrINF.getR1().getStr();
+			break;
+		case 2:
+			condition = GrINF.getR2().getStr();
+			break;
+		case 3:
+			condition = GrINF.getR3().getStr();
+			break;
+		default:
+			break;
+		}
+		if(Integer.parseInt(condition) != 0){
+			return buffer;
+		}
+		else
+			return null;
 	}
 }
