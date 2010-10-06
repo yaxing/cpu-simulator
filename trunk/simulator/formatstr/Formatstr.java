@@ -91,8 +91,10 @@ public class Formatstr {
 	 * @exception 
 	 */
 	public void formatInstruction(){
-		String format = "000000000000000000000000";
-		this.str = format.substring(0, format.length() - str.length()) + str;
+		if(str.length() < 24){
+			String format = "000000000000000000000000";
+			this.str = format.substring(0, format.length() - str.length()) + str;
+		}
 	}
 	
 	/**
@@ -103,7 +105,9 @@ public class Formatstr {
 	 * @exception 
 	 */
 	public void formatAddress(){
-		String format = "00000000000000";
-		this.str = format.substring(0, format.length() - str.length()) + str;
+		if(str.length() < 14){
+			String format = "00000000000000";
+			this.str = format.substring(0, format.length() - str.length()) + str;
+	    }
 	}
 }

@@ -107,12 +107,20 @@ public class Controller {
 			String opcode = OutregsINF.getOPCODE().getStr();
 			
 			/*execute instruction based on opcode*/
+			
+			/*LDR*/
 			if(opcode.equals("000001")){
 				IsaControl.execLdr();
 			}
+			/*STR*/
 			if(opcode.equals("000010")){
 				IsaControl.execStr();
 			}
+			/*LDA*/
+			if(opcode.equals("000011")){
+				IsaControl.execLda();
+			}
+			/*HLT*/
 			if(opcode.equals("000000")){
 				break;
 			}

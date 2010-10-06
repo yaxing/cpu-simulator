@@ -12,7 +12,7 @@ import simulator.formatstr.*;
  * control execution logic of all instructions 
  *                          
  * @author Yaxing Chen
- * @version 10-02-2010
+ * @version 10-05-2010
  * @see simulator.controller
  * @since JDK 1.6
  */
@@ -30,37 +30,86 @@ public class IsaControl {
 	 * @exception
 	 */
 	private static void pendIxGr(){
+		
 		/*get IX from ROP2*/
 		String ix = OutregsINF.getROP2().getStr();
+		int gr = Integer.parseInt(ix);
+		String offset = new String();
+		switch(gr){
+		case 0:
+			offset = GrINF.getR0().getStr();
+			break;
+		case 1:
+			offset = GrINF.getR1().getStr();
+			break;
+		case 2:
+			offset = GrINF.getR2().getStr();
+			break;
+		case 3:
+			offset = GrINF.getR3().getStr();
+			break;
+		default:
+			break;
+			
+		}
 		/*get Address from OPD*/
 		String address = OutregsINF.getOPD().getStr();
+		
 		/*add them together and store in buffer as needed address*/
-		Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
-		buffer.setStr(Integer.toBinaryString(ea));
+		//Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
+		
+		offset = offset.substring(0,offset.length()-address.length());
+		address = offset + address;
+		buffer.setStr(address);
 		buffer.formatAddress();
 	}
 	
 	/**
-	 * get EA and fetch it into MAR
+	 * Direct address
+	 * get EA
 	 * 
 	 * @param
 	 * @return 
 	 * @exception
 	 */
-	private static void genEaToMar(){
-		/*judge whether it is direct or indirect address*/
+	private static void dirGetEa(){
+		pendIxGr();
+	}
+	
+	/**
+	 * Indirect address
+	 * get EA
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private static void inDirGetEa(){
+		pendIxGr();
+		OutregsINF.setMAR(buffer);
+		
+		OutregsINF.setMCR(new Formatstr("0"));
+		MemoryINF.operateMemory();
+		buffer = OutregsINF.getMBR();
+	}
+	
+	/**
+	 * Generate EA based on direct or indirect address
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private static void genEa(){
+		/*
+		 * judge whether it is direct or indirect address
+		 * and then execute corresponding process 
+		 */
 		if(OutregsINF.getIBIT().getStr().equals("0")){
-			pendIxGr();
-			OutregsINF.setMAR(buffer);
+			dirGetEa();
 		}
 		else{
-			pendIxGr();
-			OutregsINF.setMAR(buffer);
-			
-			OutregsINF.setMCR(new Formatstr("0"));
-			MemoryINF.operateMemory();
-			
-			OutregsINF.setMAR(OutregsINF.getMBR());
+			inDirGetEa();
 		}
 	}
 	
@@ -71,12 +120,14 @@ public class IsaControl {
 	 * @return 
 	 * @exception
 	 */
-	public static boolean execLdr(){
+	public static void execLdr(){
 		
-		//get EA to MAR
-		genEaToMar();
+		/*generate EA and store in buffer*/
+		genEa();
+		/*fetch MAR*/
+		OutregsINF.setMAR(buffer);
 		
-		//set MBR with memory data from address in MAR
+		/*set MBR with memory data from address in MAR*/
 		OutregsINF.setMCR(new Formatstr("0"));
 		MemoryINF.operateMemory();
 		
@@ -101,7 +152,6 @@ public class IsaControl {
 		default:
 			break;
 		}
-		return true;
 	}
 	
 	/**
@@ -111,9 +161,12 @@ public class IsaControl {
 	 * @return 
 	 * @exception
 	 */
-	public static boolean execStr(){
-		//get EA to MAR
-		genEaToMar();
+	public static void execStr(){
+		
+		/*generate EA and store in buffer*/
+		genEa();
+		/*fetch MAR*/
+		OutregsINF.setMAR(buffer);
 		
 		/*get the target register AC from ROP1*/
 		String grNo = OutregsINF.getROP1().getStr();
@@ -125,13 +178,13 @@ public class IsaControl {
 			OutregsINF.setMBR(GrINF.getR0());
 			break;
 		case 1:
-			OutregsINF.setMBR(GrINF.getR0());
+			OutregsINF.setMBR(GrINF.getR1());
 			break;
 		case 2:
-			OutregsINF.setMBR(GrINF.getR0());
+			OutregsINF.setMBR(GrINF.getR2());
 			break;
 		case 3:
-			OutregsINF.setMBR(GrINF.getR0());
+			OutregsINF.setMBR(GrINF.getR3());
 			break;
 		default:
 			break;
@@ -140,6 +193,39 @@ public class IsaControl {
 		//write MBR content into memory unit located in MAR address
 		OutregsINF.setMCR(new Formatstr("1"));
 		MemoryINF.operateMemory();
-		return true;
+	}
+	
+	/**
+	 * Execute instruction LDA
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execLda(){
+		/*generate EA and store in buffer*/
+		genEa();
+		
+		/*get the target register AC from ROP1*/
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		
+		//set MBR with register content
+		switch(gN){
+		case 0:
+			GrINF.setR0(buffer);
+			break;
+		case 1:
+			GrINF.setR1(buffer);
+			break;
+		case 2:
+			GrINF.setR2(buffer);
+			break;
+		case 3:
+			GrINF.setR3(buffer);
+			break;
+		default:
+			break;
+		}
 	}
 }
