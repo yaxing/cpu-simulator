@@ -29,7 +29,7 @@ public class IsaControl {
 	 * @return 
 	 * @exception
 	 */
-	private static void calEa(){
+	private static void pendIxGr(){
 		/*get IX from ROP2*/
 		String ix = OutregsINF.getROP2().getStr();
 		/*get Address from OPD*/
@@ -41,6 +41,30 @@ public class IsaControl {
 	}
 	
 	/**
+	 * get EA and fetch it into MAR
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private static void genEaToMar(){
+		/*judge whether it is direct or indirect address*/
+		if(OutregsINF.getIBIT().getStr().equals("0")){
+			pendIxGr();
+			OutregsINF.setMAR(buffer);
+		}
+		else{
+			pendIxGr();
+			OutregsINF.setMAR(buffer);
+			
+			OutregsINF.setMCR(new Formatstr("0"));
+			MemoryINF.operateMemory();
+			
+			OutregsINF.setMAR(OutregsINF.getMBR());
+		}
+	}
+	
+	/**
 	 * Execute instruction LDR
 	 * 
 	 * @param
@@ -49,26 +73,12 @@ public class IsaControl {
 	 */
 	public static boolean execLdr(){
 		
-		/*judge whether it is direct or indirect address*/
-		if(OutregsINF.getIBIT().getStr().equals("0")){
-			calEa();
-			OutregsINF.setMAR(buffer);
-			
-			OutregsINF.setMCR(new Formatstr("0"));
-			MemoryINF.operateMemory();
-		}
-		else{
-			calEa();
-			OutregsINF.setMAR(buffer);
-			
-			OutregsINF.setMCR(new Formatstr("0"));
-			MemoryINF.operateMemory();
-			
-			OutregsINF.setMAR(OutregsINF.getMBR());
-			
-			OutregsINF.setMCR(new Formatstr("0"));
-			MemoryINF.operateMemory();
-		}
+		//get EA to MAR
+		genEaToMar();
+		
+		//set MBR with memory data from address in MAR
+		OutregsINF.setMCR(new Formatstr("0"));
+		MemoryINF.operateMemory();
 		
 		/*get the target register AC from ROP1*/
 		String grNo = OutregsINF.getROP1().getStr();
@@ -91,6 +101,45 @@ public class IsaControl {
 		default:
 			break;
 		}
+		return true;
+	}
+	
+	/**
+	 * Execute instruction STR
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static boolean execStr(){
+		//get EA to MAR
+		genEaToMar();
+		
+		/*get the target register AC from ROP1*/
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		
+		//set MBR with register content
+		switch(gN){
+		case 0:
+			OutregsINF.setMBR(GrINF.getR0());
+			break;
+		case 1:
+			OutregsINF.setMBR(GrINF.getR0());
+			break;
+		case 2:
+			OutregsINF.setMBR(GrINF.getR0());
+			break;
+		case 3:
+			OutregsINF.setMBR(GrINF.getR0());
+			break;
+		default:
+			break;
+		}
+		
+		//write MBR content into memory unit located in MAR address
+		OutregsINF.setMCR(new Formatstr("1"));
+		MemoryINF.operateMemory();
 		return true;
 	}
 }

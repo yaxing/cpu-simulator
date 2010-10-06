@@ -110,6 +110,9 @@ public class Controller {
 			if(opcode.equals("000001")){
 				IsaControl.execLdr();
 			}
+			if(opcode.equals("000010")){
+				IsaControl.execStr();
+			}
 			if(opcode.equals("000000")){
 				break;
 			}
@@ -122,5 +125,7 @@ public class Controller {
 		ISA.run();
 	    System.out.println(GrINF.getR0().getStr());
 	    System.out.println(GrINF.getR1().getStr());
+	    System.out.println(GrINF.getR2().getStr());
+	    System.out.println(GrINF.getR3().getStr());
 	}	
 }

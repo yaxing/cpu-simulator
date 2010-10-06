@@ -16,10 +16,11 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class GenRegs {
-	private Formatstr R0;
-	private Formatstr R1;
-	private Formatstr R2;
-	private Formatstr R3;
+	private static String format = "000000000000000000000000";
+	private static Formatstr R0 = new Formatstr(format);
+	private static Formatstr R1 = new Formatstr(format);
+	private static Formatstr R2 = new Formatstr(format);
+	private static Formatstr R3 = new Formatstr(format);
 	
 	public void setR0(Formatstr R0){
 		this.R0 = R0;

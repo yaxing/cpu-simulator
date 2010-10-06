@@ -16,44 +16,46 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class OutRegs {
+	private static String format = "000000000000000000000000";
+	
 	/**Register MAR, MBR, MCR*/
-	private Formatstr mar;
-	private Formatstr mbr;
-	private Formatstr mcr;
+	private static Formatstr mar = new Formatstr(format);
+	private static Formatstr mbr = new Formatstr(format);
+	private static Formatstr mcr = new Formatstr("0");
 	
 	/**Instruction Register*/
-	private Formatstr ir;
+	private static Formatstr ir = new Formatstr(format);
 	
 	/**MSR*/
-	private Formatstr msr;
+	private static Formatstr msr  = new Formatstr(format);
 	
 	/**MFR*/
-	private Formatstr mfr;
+	private static Formatstr mfr = new Formatstr("0000");
 	
 	/**Registers that store OPCode & OPD*/
-	private Formatstr opcode;
-	private Formatstr opd;
+	private Formatstr opcode = new Formatstr(format);
+	private Formatstr opd = new Formatstr(format);
 	
 	/**Register that store I-bit*/
-	private Formatstr iBit;
+	private Formatstr iBit = new Formatstr("0");
 	
 	/**Registers that store the # of general registers*/
-	private Formatstr rop1;
-	private Formatstr rop2;
+	private Formatstr rop1 = new Formatstr(format);
+	private Formatstr rop2 = new Formatstr(format);
 	
 	/**Registers that store Operands*/
-	private Formatstr in1;
-	private Formatstr in2;
+	private Formatstr in1 = new Formatstr(format);
+	private Formatstr in2 = new Formatstr(format);
 	
 	/**ALU result*/
-	private Formatstr out;
+	private Formatstr out = new Formatstr(format);
 	
 	/**Registers that store Shift/Rotate Operation*/
-	private Formatstr lr;
-	private Formatstr ar;
+	private Formatstr lr = new Formatstr(format);
+	private Formatstr ar = new Formatstr(format);
 	
 	/**Register that store device ID for I/O instruction*/
-	private Formatstr devid;
+	private Formatstr devid = new Formatstr(format);
 	
 	public Formatstr getOPCODE() {
 		return opcode;
