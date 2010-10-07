@@ -21,6 +21,7 @@ public class GenRegs {
 	private static Formatstr R1 = new Formatstr(format);
 	private static Formatstr R2 = new Formatstr(format);
 	private static Formatstr R3 = new Formatstr(format);
+	private static Formatstr R7 = new Formatstr(format);
 	
 	public void setR0(Formatstr R0){
 		this.R0 = R0;
@@ -38,6 +39,10 @@ public class GenRegs {
 		this.R3 = R3;
 	}
 	
+	public void setR7(Formatstr R7){
+		this.R7 = R7;
+	}
+	
 	public Formatstr getR0(){
 		return R0;
 	}
@@ -52,5 +57,9 @@ public class GenRegs {
 	
 	public Formatstr getR3(){
 		return R3;
+	}
+	
+	public Formatstr getR7(){
+		return R7;
 	}
 }

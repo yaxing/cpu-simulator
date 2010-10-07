@@ -36,6 +36,10 @@ public class GrINF {
 		gr.setR3(R3);
 	}
 	
+	public static void setR7(Formatstr R7){
+		gr.setR7(R7);
+	}
+	
 	public static Formatstr getR0(){
 		return gr.getR0();
 	}
@@ -50,5 +54,9 @@ public class GrINF {
 	
 	public static Formatstr getR3(){
 		return gr.getR3();
+	}
+	
+	public static Formatstr getR7(){
+		return gr.getR7();
 	}
 }

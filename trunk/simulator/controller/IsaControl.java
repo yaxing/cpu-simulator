@@ -20,6 +20,16 @@ public class IsaControl {
 	/**buffer is used to temporarily store data got from registers*/
 	private static Formatstr buffer = new Formatstr();
 	
+	
+	/**
+	 * return the number of register designated by AC bits
+	 */
+	private static int getAc(){
+		String grNo = OutregsINF.getROP1().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		return gN;
+	}
+	
 	/**
 	 * calculate the address
 	 * when needed, this function adds IX and Address together
@@ -132,8 +142,7 @@ public class IsaControl {
 		MemoryINF.operateMemory();
 		
 		/*get the target register AC from ROP1*/
-		String grNo = OutregsINF.getROP1().getStr();
-		int gN = Integer.parseInt(grNo,2);
+		int gN = getAc();
 		
 		/*store MBR content into the target register*/
 		switch(gN){
@@ -169,8 +178,7 @@ public class IsaControl {
 		OutregsINF.setMAR(buffer);
 		
 		/*get the target register AC from ROP1*/
-		String grNo = OutregsINF.getROP1().getStr();
-		int gN = Integer.parseInt(grNo,2);
+		int gN = getAc();
 		
 		//set MBR with register content
 		switch(gN){
@@ -207,8 +215,7 @@ public class IsaControl {
 		genEa();
 		
 		/*get the target register AC from ROP1*/
-		String grNo = OutregsINF.getROP1().getStr();
-		int gN = Integer.parseInt(grNo,2);
+		int gN = getAc();
 		
 		//set general register with address
 		switch(gN){
@@ -233,7 +240,7 @@ public class IsaControl {
 	 * Execute instruction JZ
 	 * 
 	 * @param
-	 * @return 
+	 * @return Formatstr the address need to jump to, if no jump, then return null
 	 * @exception
 	 */
 	public static Formatstr execJz(){
@@ -241,10 +248,9 @@ public class IsaControl {
 		genEa();
 		
 		/*get the target register AC from ROP1*/
-		String grNo = OutregsINF.getROP1().getStr();
-		int gN = Integer.parseInt(grNo,2);
+		int gN = getAc();
 		
-		//set MBR with register content
+		/*get condition from register*/
 		String condition = new String();
 		switch(gN){
 		case 0:
@@ -273,7 +279,7 @@ public class IsaControl {
 	 * Execute instruction JNE
 	 * 
 	 * @param
-	 * @return 
+	 * @return Formatstr the address need to jump to, if no jump, then return null
 	 * @exception
 	 */
 	public static Formatstr execJne(){
@@ -281,10 +287,9 @@ public class IsaControl {
 		genEa();
 		
 		/*get the target register AC from ROP1*/
-		String grNo = OutregsINF.getROP1().getStr();
-		int gN = Integer.parseInt(grNo,2);
+		int gN = getAc();
 		
-		//set MBR with register content
+		/*get destination address from designated register*/
 		String condition = new String();
 		switch(gN){
 		case 0:
@@ -307,5 +312,40 @@ public class IsaControl {
 		}
 		else
 			return null;
+	}
+	
+	/**
+	 * Execute instruction JMP
+	 * 
+	 * @param
+	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @exception
+	 */
+	public static Formatstr execJmp(){
+		/*generate EA and store in buffer*/
+		genEa();
+		
+		/*return destination address to PC*/
+		return buffer;
+	}
+	
+	/**
+	 * Execute instruction JSR
+	 * 
+	 * @param
+	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @exception
+	 */
+	public static Formatstr execJsr(){
+		/*generate EA and store in buffer*/
+		genEa();
+		
+		/*get pc content*/
+		Formatstr tmp = PcINF.getPc();
+		
+		/*save pc content into designated register*/
+		GrINF.setR7(tmp);
+		/*return destination address to PC*/
+		return buffer;
 	}
 }
