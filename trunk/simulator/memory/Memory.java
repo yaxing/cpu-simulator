@@ -22,7 +22,7 @@ public class Memory {
 	private static String[] bank3 = new String[bankSize];
 	
 	
-	
+	private static String memAddr = "00000000000010";		//for 
 	private static String enterAddr;
 	/**
 	 * Default constructor
@@ -68,12 +68,12 @@ public class Memory {
 	public static boolean initLine(String content) {
 		String format = "00000000000000";
 		
-		int address = Integer.valueOf(enterAddr.substring(0, enterAddr.length() - 2), 2);
+		int address = Integer.valueOf(memAddr.substring(0, memAddr.length() - 2), 2);
 		//System.out.println("memory address "+Integer.valueOf(enterAddr, 2));
 		//System.out.println("bank address "+address);
-		getBank(enterAddr)[address] = content;
-		enterAddr = Integer.toBinaryString(Integer.valueOf(enterAddr, 2) + 1);
-		enterAddr = format.substring(0, format.length() - enterAddr.length()) + enterAddr;
+		getBank(memAddr)[address] = content;
+		memAddr = Integer.toBinaryString(Integer.valueOf(memAddr, 2) + 1);
+		memAddr = format.substring(0, format.length() - memAddr.length()) + memAddr;
 		return true;
 	}
 	
