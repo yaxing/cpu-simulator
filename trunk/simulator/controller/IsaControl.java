@@ -44,32 +44,40 @@ public class IsaControl {
 		/*get IX from ROP2*/
 		String ix = OutregsINF.getROP2().getStr();
 		int gr = Integer.parseInt(ix);
-		String offset = new String();
-		switch(gr){
-		case 0:
-			offset = GrINF.getR0().getStr();
-			break;
-		case 1:
-			offset = GrINF.getR1().getStr();
-			break;
-		case 2:
-			offset = GrINF.getR2().getStr();
-			break;
-		case 3:
-			offset = GrINF.getR3().getStr();
-			break;
-		default:
-			break;
-			
+		String index = new String("00000000000000");
+		/*if IX != 0 then index the address
+		 *else no index 
+		 */
+		if (gr != 0){	
+			switch(gr){
+			case 1:
+				index = GrINF.getR1().getStr();
+				break;
+			case 2:
+				index = GrINF.getR2().getStr();
+				break;
+			case 3:
+				index = GrINF.getR3().getStr();
+				break;
+			default:
+				break;
+				
+			}
 		}
+		
 		/*get Address from OPD*/
 		String address = OutregsINF.getOPD().getStr();
 		
 		/*add them together and store in buffer as needed address*/
 		//Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		
-		offset = offset.substring(0,offset.length()-address.length());
-		address = offset + address;
+		index = index.substring(0,index.length()-address.length());
+		address = index + address;
+		
+		/*
+		 * store the EA into buffer
+		 * and format it as a 14 bit address
+		 */
 		buffer.setStr(address);
 		buffer.format14();
 	}
@@ -83,6 +91,7 @@ public class IsaControl {
 	 * @exception
 	 */
 	private static void dirGetEa(){
+		/*get EA depending on IX and designated general register content*/
 		pendIxGr();
 	}
 	
@@ -95,11 +104,15 @@ public class IsaControl {
 	 * @exception
 	 */
 	private static void inDirGetEa(){
+		/*get indirect address depending on IX and designated general register content*/
 		pendIxGr();
+		
 		OutregsINF.setMAR(buffer);
 		
 		OutregsINF.setMCR(new Formatstr("0"));
 		MemoryINF.operateMemory();
+		
+		/*get EA from MBR*/
 		buffer = OutregsINF.getMBR();
 	}
 	
@@ -114,6 +127,7 @@ public class IsaControl {
 		/*
 		 * judge whether it is direct or indirect address
 		 * and then execute corresponding process 
+		 * EA will be stored into buffer
 		 */
 		if(OutregsINF.getIBIT().getStr().equals("0")){
 			dirGetEa();
@@ -179,6 +193,8 @@ public class IsaControl {
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
+		
+		GrINF.setR2(new Formatstr(Integer.toBinaryString(Integer.parseInt(GrINF.getR2().getStr(),2)+1)));
 		
 		//set MBR with register content
 		switch(gN){
