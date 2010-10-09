@@ -90,7 +90,7 @@ public class Formatstr {
 	 * @return 
 	 * @exception 
 	 */
-	public void formatInstruction(){
+	public void format24(){
 		if(str.length() < 24){
 			String format = "000000000000000000000000";
 			this.str = format.substring(0, format.length() - str.length()) + str;
@@ -104,7 +104,7 @@ public class Formatstr {
 	 * @return 
 	 * @exception 
 	 */
-	public void formatAddress(){
+	public void format14(){
 		if(str.length() < 14){
 			String format = "00000000000000";
 			this.str = format.substring(0, format.length() - str.length()) + str;

@@ -71,7 +71,7 @@ public class IsaControl {
 		offset = offset.substring(0,offset.length()-address.length());
 		address = offset + address;
 		buffer.setStr(address);
-		buffer.formatAddress();
+		buffer.format14();
 	}
 	
 	/**
@@ -240,10 +240,10 @@ public class IsaControl {
 	 * Execute instruction JZ
 	 * 
 	 * @param
-	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @return 
 	 * @exception
 	 */
-	public static Formatstr execJz(){
+	public static void execJz(){
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -269,20 +269,18 @@ public class IsaControl {
 			break;
 		}
 		if(Integer.parseInt(condition) == 0){
-			return buffer;
+			PcINF.setPc(buffer);
 		}
-		else
-			return null;
 	}
 	
 	/**
 	 * Execute instruction JNE
 	 * 
 	 * @param
-	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @return s
 	 * @exception
 	 */
-	public static Formatstr execJne(){
+	public static void execJne(){
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -308,35 +306,33 @@ public class IsaControl {
 			break;
 		}
 		if(Integer.parseInt(condition) != 0){
-			return buffer;
+			PcINF.setPc(buffer);
 		}
-		else
-			return null;
 	}
 	
 	/**
 	 * Execute instruction JMP
 	 * 
 	 * @param
-	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @return 
 	 * @exception
 	 */
-	public static Formatstr execJmp(){
+	public static void execJmp(){
 		/*generate EA and store in buffer*/
 		genEa();
 		
 		/*return destination address to PC*/
-		return buffer;
+		PcINF.setPc(buffer);
 	}
 	
 	/**
 	 * Execute instruction JSR
 	 * 
 	 * @param
-	 * @return Formatstr the address need to jump to, if no jump, then return null
+	 * @return 
 	 * @exception
 	 */
-	public static Formatstr execJsr(){
+	public static void execJsr(){
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -346,6 +342,92 @@ public class IsaControl {
 		/*save pc content into designated register*/
 		GrINF.setR7(tmp);
 		/*return destination address to PC*/
-		return buffer;
+		PcINF.setPc(buffer);
+	}
+	
+	/**
+	 * Execute instruction RFS
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execRfs(){
+		/*get return code*/
+		buffer = OutregsINF.getOPD();
+		
+		/*store return code into R0*/
+		GrINF.setR0(buffer);
+		
+		/*set PC = c(R7)*/
+		PcINF.setPc(GrINF.getR7());
+	}
+	
+	/**
+	 * Execute instruction SOB
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execSob(){
+		/*get register content*/
+		int gN = getAc();
+		
+		/*buffer the register content*/
+		String con = new String();
+		switch(gN){
+		case 0:
+			con = GrINF.getR0().getStr();
+			break;
+		case 1:
+			con = GrINF.getR1().getStr();
+			break;
+		case 2:
+			con = GrINF.getR2().getStr();
+			break;
+		case 3:
+			con = GrINF.getR3().getStr();
+			break;
+		default:
+			break;
+		}
+		
+		/*if(c(r)!=0)
+		 * then r <- c(r) - 1
+		 *      PC <- EA or PC <- (EA) if I is set 
+		 * else PC<-PC+1
+		 */
+		int cr = Integer.parseInt(con);
+		
+		if( cr != 0){
+			cr = cr - 1;
+			Formatstr tempC = new Formatstr(Integer.toBinaryString(cr));
+			tempC.format24();
+			switch(gN){
+			case 0:
+				GrINF.setR0(tempC);
+				break;
+			case 1:
+				GrINF.setR1(tempC);
+				break;
+			case 2:
+				GrINF.setR2(tempC);
+				break;
+			case 3:
+				GrINF.setR3(tempC);
+				break;
+			default:
+				break;
+			}
+			
+			/*get EA*/
+			genEa();
+			
+			PcINF.setPc(buffer);
+		}
+		else{
+			return;
+		}
 	}
 }

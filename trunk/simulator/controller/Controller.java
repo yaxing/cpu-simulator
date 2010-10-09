@@ -31,7 +31,6 @@ public class Controller {
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
 	
-	
 	/**
 	 * Default constructor
 	*/
@@ -51,7 +50,7 @@ public class Controller {
 	private void initial(){
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
-		busBuffer.formatAddress();
+		busBuffer.format14();
 		
 		/*initiate PC*/
 		PcINF.setPc(busBuffer);
@@ -82,7 +81,6 @@ public class Controller {
 		/*decode IR instruction*/
 		DecodeINF.decode();
 	}
-	
 	
 	/**
 	 * control instruction circles
@@ -126,45 +124,34 @@ public class Controller {
 			}
 			/*JZ*/
 			if(opcode.equals("001000")){
-				Formatstr jTo;
-				if((jTo = IsaControl.execJz()) != null){
-					/*set PC to new address*/
-					PcINF.setPc(jTo);
-					continue;
-				}
+				IsaControl.execJz();
 				continue;
 			}
 			/*JNE*/
 			if(opcode.equals("001001")){
-				Formatstr jTo;
-				if((jTo = IsaControl.execJne()) != null){
-					/*set PC to new address*/
-					PcINF.setPc(jTo);
-					continue;
-				}
+				IsaControl.execJne();
 				continue;
 			}
 			/*JMP*/
 			if(opcode.equals("001011")){
-				Formatstr jTo;
-				if((jTo = IsaControl.execJmp()) != null){
-					/*set PC to new address*/
-					PcINF.setPc(jTo);
-					continue;
-				}
+				IsaControl.execJmp();
 				continue;
 			}
 			/*JSR*/
 			if(opcode.equals("001100")){
-				Formatstr jTo;
-				if((jTo = IsaControl.execJsr()) != null){
-					/*set PC to new address*/
-					PcINF.setPc(jTo);
-					continue;
-				}
+				IsaControl.execJsr();
 				continue;
 			}
-			
+			/*RFS*/
+			if(opcode.equals("001101")){
+				IsaControl.execRfs();
+				continue;
+			}
+			/*SOB*/
+			if(opcode.equals("001110")){
+				IsaControl.execSob();
+				continue;
+			}
 			/*HLT*/
 			if(opcode.equals("000000")){
 				break;
@@ -176,9 +163,9 @@ public class Controller {
 		Controller ISA = new Controller();
 		ISA.initial();
 		ISA.run();
-	    System.out.println(GrINF.getR0().getStr());
-	    System.out.println(GrINF.getR1().getStr());
-	    System.out.println(GrINF.getR2().getStr());
-	    System.out.println(GrINF.getR3().getStr());
+	    System.out.println("R0:"+GrINF.getR0().getStr());
+	    System.out.println("R1:"+GrINF.getR1().getStr());
+	    System.out.println("R2:"+GrINF.getR2().getStr());
+	    System.out.println("R3:"+GrINF.getR3().getStr());
 	}	
 }
