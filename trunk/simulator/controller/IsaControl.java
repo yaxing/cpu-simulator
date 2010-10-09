@@ -398,9 +398,14 @@ public class IsaControl {
 		 *      PC <- EA or PC <- (EA) if I is set 
 		 * else PC<-PC+1
 		 */
-		int cr = Integer.parseInt(con);
+		int cr = Integer.parseInt(con, 2);
 		
 		if( cr != 0){
+			/*Formatstr a = GrINF.getR3();
+			int b = Integer.parseInt(a.getStr(), 2)+1;
+			a.setStr(Integer.toBinaryString(b));
+			GrINF.setR3(a);*/
+			
 			cr = cr - 1;
 			Formatstr tempC = new Formatstr(Integer.toBinaryString(cr));
 			tempC.format24();

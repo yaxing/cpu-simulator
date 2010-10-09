@@ -21,12 +21,9 @@ public class Controller {
 	
 	/**For address or data buffer, temporarily store address, instructions or data get from other modules*/
 	private static Formatstr busBuffer = new Formatstr();
-	
+		
 	/**Define the end instruction*/
-	private static String endInstr = "HLT";
-	
-	/**Define the end instruction*/
-	private static String insFile = "instruction.txt";
+	private static String insFile = "sob.txt";
 	
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
