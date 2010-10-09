@@ -194,9 +194,13 @@ public class IsaControl {
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
 		
-		GrINF.setR2(new Formatstr(Integer.toBinaryString(Integer.parseInt(GrINF.getR2().getStr(),2)+1)));
 		
-		//set MBR with register content
+		/*test code*/
+		/*GrINF.setR2(new Formatstr(Integer.toBinaryString(Integer.parseInt(GrINF.getR2().getStr(),2)+1)));
+		*/
+		
+		
+		/*set MBR with register content*/
 		switch(gN){
 		case 0:
 			OutregsINF.setMBR(GrINF.getR0());
