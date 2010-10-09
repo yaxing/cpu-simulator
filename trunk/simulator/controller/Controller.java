@@ -92,7 +92,7 @@ public class Controller {
 		while(true){
 			
 			/*circle: get instruction*/
-			getInstr();
+			getInstr();			
 			
 			/*update PC to point at the address of next instruction*/
 			PcINF.pcAdder(offset);
