@@ -265,7 +265,7 @@ public class IsaControl {
 	 */
 	public static void execJz(){
 		/*generate EA and store in buffer*/
-		genEa();
+		//genEa();
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
@@ -289,7 +289,7 @@ public class IsaControl {
 			break;
 		}
 		if(Integer.parseInt(condition) == 0){
-			PcINF.setPc(buffer);
+			PcINF.pcAdder(new Formatstr("00000000000001"));
 		}
 	}
 	

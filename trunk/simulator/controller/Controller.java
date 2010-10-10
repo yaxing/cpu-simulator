@@ -32,7 +32,6 @@ public class Controller {
 	 * Default constructor
 	*/
 	Controller(){
-
 	}
 	
 	/**
