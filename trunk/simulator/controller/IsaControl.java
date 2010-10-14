@@ -31,6 +31,15 @@ public class IsaControl {
 	}
 	
 	/**
+	 * return the number of register designated by IX bits
+	 */
+	private static int getIx(){
+		String grNo = OutregsINF.getROP2().getStr();
+		int gN = Integer.parseInt(grNo,2);
+		return gN;
+	}
+	
+	/**
 	 * calculate the address
 	 * when needed, this function adds IX and Address together
 	 * and get the needed address
@@ -454,5 +463,81 @@ public class IsaControl {
 		else{
 			return;
 		}
+	}
+	
+	/**
+	 * Execute instruction ADD
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execAdd(){
+		
+		/*get c(ROP1) and c(ROP2) 
+		 * store them in bus buffer to pass into IN1 and IN2
+		*/
+		int r1 = getAc();		
+		int r2 = getIx();
+		
+		switch(r1){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR0();
+			break;
+		case 2:
+			buffer = GrINF.getR0();
+			break;
+		case 3:
+			buffer = GrINF.getR0();
+			break;
+		default:
+			break;
+		}
+		
+		AluINF.setIn1(buffer);
+		
+		switch(r2){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR0();
+			break;
+		case 2:
+			buffer = GrINF.getR0();
+			break;
+		case 3:
+			buffer = GrINF.getR0();
+			break;
+		default:
+			break;
+		}
+		
+		AluINF.setIn2(buffer);
+		
+		/*store the output into r1*/
+		buffer = AluINF.getOutput();
+		
+		switch(r1){
+		case 0:
+			GrINF.setR0(buffer);
+			break;
+		case 1:
+			GrINF.setR0(buffer);
+			break;
+		case 2:
+			GrINF.setR0(buffer);
+			break;
+		case 3:
+			GrINF.setR0(buffer);
+			break;
+		default:
+			break;
+		}
+		
+		return;
 	}
 }
