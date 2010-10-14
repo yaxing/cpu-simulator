@@ -43,7 +43,7 @@ public class Controller {
 	 * @return whether the initiation success or not
 	 * @exception
 	 */
-	private void initial(){
+	public void initial(){
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
 		busBuffer.format14();
@@ -59,7 +59,7 @@ public class Controller {
 	 * @return
 	 * @exception
 	 */
-	private void getInstr(){
+	public void getInstr(){
 		/*get address from PC and fetch MAR*/
 		OutregsINF.setMAR(PcINF.getPc());
 		
