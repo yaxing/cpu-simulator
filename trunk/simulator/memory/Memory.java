@@ -10,6 +10,15 @@ import java.util.*;
 import simulator.interfaces.*;
 import simulator.formatstr.*;
 
+/** 
+ * Class Memory
+ * Memory operation:load, store and device.
+ *                          
+ * @author Yichao Yu
+ * @version 09-25-2010
+ * @see simulator.memory
+ * @since JDK 1.6
+ */
 public class Memory {
 	private static Integer length = new Integer(0);	//the last address of the content.
 	private static final int numBank = 4;

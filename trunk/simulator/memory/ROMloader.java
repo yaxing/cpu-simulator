@@ -7,6 +7,15 @@ package simulator.memory;
 
 import java.io.*;
 
+/** 
+ * Class ROMloader
+ * ROM loader operation. Load content of ROM into Memory
+ *                          
+ * @author Yichao Yu
+ * @version 09-29-2010
+ * @see simulator.memory
+ * @since JDK 1.6
+ */
 public class ROMloader {
 	
 	//used for test
