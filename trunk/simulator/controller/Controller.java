@@ -117,7 +117,7 @@ public class Controller {
 			/*circle: execute instruction*/
 			
 			/*get opcode*/
-			String opcode = OutregsINF.getOPCODE().getStr();
+			String opcode = OutregsINF.getOPCODE().getStr().substring(18,24);
 			
 			/*execute instruction based on opcode*/
 			
