@@ -25,7 +25,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR1value.setText("000000000000000000000000");
         GPR2value.setText("000000000000000000000000");
         GPR3value.setText("000000000000000000000000");
-        PCvalue.setText("000000000000000000000000");
+        PCvalue.setText("00000000000000");
 	}
 	
 	private void setAll() {
@@ -222,7 +222,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         PC.setBorder(javax.swing.BorderFactory.createTitledBorder("PC"));
 
-        PCvalue.setText("000000000000000000000000");
+        PCvalue.setText("00000000000000");
 
         javax.swing.GroupLayout PCLayout = new javax.swing.GroupLayout(PC);
         PC.setLayout(PCLayout);
@@ -315,18 +315,18 @@ public class SimulatorConsole extends javax.swing.JFrame {
     	//show the content of all registers first.
     	setAll();
     	//then execute the instruction.
-    	mainControl.debugNext = true;
+    	//mainControl.debugNext = true;
     }
 
     private void debugButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(debugButton.isSelected()) {
-        	mainControl.isDebugModel = true;
-        	debugButton.setText("Debug Mode On");
-        }
-        else {
-        	mainControl.isDebugModel = false;
-        	debugButton.setText("Debug Mode Off");
-        }
+//        if(debugButton.isSelected()) {
+//        	mainControl.isDebugModel = true;
+//        	debugButton.setText("Debug Mode On");
+//        }
+//        else {
+//        	mainControl.isDebugModel = false;
+//        	debugButton.setText("Debug Mode Off");
+//        }
     }
     
     /**
