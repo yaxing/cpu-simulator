@@ -55,7 +55,6 @@ public class Pc {
 		PcAdd = PcAdd + off;
 		Formatstr temp = new Formatstr();
 		temp.setStr(Integer.toBinaryString(PcAdd));
-		temp.format14();
 		this.setPc(temp);
 	}
 }
