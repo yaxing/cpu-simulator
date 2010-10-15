@@ -34,16 +34,12 @@ public class Controller {
 	 */
 	public static boolean isDebugModel = false;
 	
-	/**Define the debug flag
-	 * if false, then stop and wait
-	 * if true, then run next instruction
-	 */
-	public static boolean debugNext = false;
-	
 	/**Define the lock for synchronization with UI
 	 * when debugging 
 	 */
 	private Thread lock;
+	
+	
 	
 	/**
 	 * Default constructor
@@ -171,7 +167,7 @@ public class Controller {
 		/*simulate the instruction circuit*/
 		while(true){
 			
-			/*if debugging, stop until user continue*/
+			/*if debugging, wait until user continue*/
 			if(isDebugModel){
 				synchronized(lock){
 					try{
