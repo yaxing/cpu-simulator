@@ -88,7 +88,6 @@ public class IsaControl {
 		 * and format it as a 14 bit address
 		 */
 		buffer.setStr(address);
-		buffer.format14();
 	}
 	
 	/**
@@ -437,7 +436,6 @@ public class IsaControl {
 			
 			cr = cr - 1;
 			Formatstr tempC = new Formatstr(Integer.toBinaryString(cr));
-			tempC.format24();
 			switch(gN){
 			case 0:
 				GrINF.setR0(tempC);
