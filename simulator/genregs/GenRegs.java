@@ -11,7 +11,7 @@ import simulator.formatstr.*;
  * control all four general registers
  *                          
  * @author Yaxing Chen
- * @version 09-26-2010
+ * @version 10-15-2010
  * @see simulator.genregs
  * @since JDK 1.6
  */
@@ -23,23 +23,46 @@ public class GenRegs {
 	private static Formatstr R3 = new Formatstr(format);
 	private static Formatstr R7 = new Formatstr(format);
 	
+	/**
+	 * Guarantee that general register is 24 bits
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private void formatStr(Formatstr gr){
+		String temp = gr.getStr();
+		if(temp.length() < 24){
+			gr.setStr(format.substring(0,24 - gr.getStr().length()) + temp);
+		}
+		else if (temp.length() > 24){
+			
+		}
+		return;
+	}
+	
 	public void setR0(Formatstr R0){
+		formatStr(R0);
 		this.R0 = R0;
 	}
 	
 	public void setR1(Formatstr R1){
+		formatStr(R1);
 		this.R1 = R1;
 	}
 	
 	public void setR2(Formatstr R2){
+		formatStr(R2);
 		this.R2 = R2;
 	}
 	
 	public void setR3(Formatstr R3){
+		formatStr(R3);
 		this.R3 = R3;
 	}
 	
 	public void setR7(Formatstr R7){
+		formatStr(R7);
 		this.R7 = R7;
 	}
 	
