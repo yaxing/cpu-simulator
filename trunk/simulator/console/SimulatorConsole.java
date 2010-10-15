@@ -19,7 +19,7 @@ import simulator.interfaces.*;
 public class SimulatorConsole extends javax.swing.JFrame {
 	
 	private void resetAll() {
-		MARvalue.setText("00000000000000");
+		MARvalue.setText("000000000000000000000000");
 		MBRvalue.setText("000000000000000000000000");
         GPR0value.setText("000000000000000000000000");
         GPR1value.setText("000000000000000000000000");
@@ -93,7 +93,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         MAR.setBorder(javax.swing.BorderFactory.createTitledBorder("MAR"));
 
-        MARvalue.setText("00000000000000");
+        MARvalue.setText("000000000000000000000000");
 
         javax.swing.GroupLayout MARLayout = new javax.swing.GroupLayout(MAR);
         MAR.setLayout(MARLayout);
