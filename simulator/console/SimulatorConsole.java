@@ -17,7 +17,25 @@ import simulator.interfaces.*;
  * @since JDK 1.6
  */
 public class SimulatorConsole extends javax.swing.JFrame {
-
+	
+	private void resetAll() {
+		MARvalue.setText("00000000000000");
+		MBRvalue.setText("000000000000000000000000");
+        GPR0value.setText("000000000000000000000000");
+        GPR1value.setText("000000000000000000000000");
+        GPR2value.setText("000000000000000000000000");
+        GPR3value.setText("000000000000000000000000");
+	}
+	
+	private void setAll() {
+		MARvalue.setText(OutregsINF.getMAR().getStr());
+        MBRvalue.setText(OutregsINF.getMBR().getStr());
+        GPR0value.setText(GrINF.getR0().getStr());
+        GPR1value.setText(GrINF.getR1().getStr());
+        GPR2value.setText(GrINF.getR2().getStr());
+        GPR3value.setText(GrINF.getR3().getStr());
+	}
+	
     /** Creates new form SimulatorConsole */
     public SimulatorConsole() {
         initComponents();
@@ -237,19 +255,21 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void powerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("power on");
-        mainControl.initial();
-        mainControl.run();
+        
+        if(!powerButton.isSelected()) {
+        	System.out.println("power off");
+        	resetAll();
+        }
+        else {
+        	System.out.println("power on");
+	        mainControl.initial();
+	        mainControl.run();
+        }
     }
 
     private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        System.out.println("romloader");
-        MARvalue.setText(OutregsINF.getMAR().getStr());
-        MBRvalue.setText(OutregsINF.getMBR().getStr());
-        GPR0value.setText(GrINF.getR0().getStr());
-        GPR1value.setText(GrINF.getR1().getStr());
-        GPR2value.setText(GrINF.getR2().getStr());
-        GPR3value.setText(GrINF.getR3().getStr());
+        
+        
     }
 
     /**
@@ -281,4 +301,5 @@ public class SimulatorConsole extends javax.swing.JFrame {
     // End of variables declaration
     private static Controller mainControl = new Controller();
 
+    
 }
