@@ -11,7 +11,7 @@ import simulator.formatstr.*;
  * control all out registers
  *                          
  * @author Yaxing Chen, Lei Li
- * @version 10-2-2010
+ * @version 10-15-2010
  * @see simulator.outerregs
  * @since JDK 1.6
  */
@@ -33,92 +33,212 @@ public class OutRegs {
 	private static Formatstr mfr = new Formatstr("0000");
 	
 	/**Registers that store OPCode & OPD*/
-	private Formatstr opcode = new Formatstr(format);
-	private Formatstr opd = new Formatstr(format);
+	private static Formatstr opcode = new Formatstr(format);
+	private static Formatstr opd = new Formatstr(format);
 	
 	/**Register that store I-bit*/
-	private Formatstr iBit = new Formatstr("0");
+	private static Formatstr iBit = new Formatstr("0");
 	
 	/**Registers that store the # of general registers*/
-	private Formatstr rop1 = new Formatstr(format);
-	private Formatstr rop2 = new Formatstr(format);
+	private static Formatstr rop1 = new Formatstr(format);
+	private static Formatstr rop2 = new Formatstr(format);
 	
 	/**Registers that store Operands*/
-	private Formatstr in1 = new Formatstr(format);
-	private Formatstr in2 = new Formatstr(format);
+	private static Formatstr in1 = new Formatstr(format);
+	private static Formatstr in2 = new Formatstr(format);
+	
+	/**Condition code*/
+	private static Formatstr cc = new Formatstr("0000");
 	
 	/**ALU result*/
-	private Formatstr out = new Formatstr(format);
+	private static Formatstr out = new Formatstr(format);
 	
 	/**Registers that store Shift/Rotate Operation*/
-	private Formatstr lr = new Formatstr(format);
-	private Formatstr ar = new Formatstr(format);
+	private static Formatstr lr = new Formatstr(format);
+	private static Formatstr ar = new Formatstr(format);
 	
 	/**Register that store device ID for I/O instruction*/
-	private Formatstr devid = new Formatstr(format);
+	private static Formatstr devid = new Formatstr(format);
 	
+	/**
+	 * Guarantee that general register is 24 bits
+	 * 
+	 * @param Formatstr gr-formatstr need to be formated
+	 * 		  String grName-gr name
+	 * @return 
+	 * @exception
+	 */
+	private void formatStr(Formatstr gr, String grName){
+		String temp = gr.getStr();
+		
+		if(gr.getStr() == null){
+			return;
+		}
+		
+		/*format mfr, cc*/
+		if(grName.equals("mfr")||grName.equals("cc")){
+			if(temp.length() < 4){
+				gr.setStr(format.substring(0,4 - gr.getStr().length()) + temp);
+			}
+			else if (temp.length() > 4){
+				
+			}
+		}
+		
+		/*format mcr, i*/
+		else if(grName.equals("mcr")||grName.equals("iBit")){
+			if(temp.length() == 0){
+				gr.setStr("0");
+			}
+			else if (temp.length() > 1){
+				
+			}
+		}
+		
+		/*format other registers*/
+		else{
+			if(temp.length() < 24){
+				gr.setStr(format.substring(0,24 - gr.getStr().length()) + temp);
+			}
+			else if (temp.length() > 24){
+				
+			}
+		}
+		return;
+	}
+	
+	
+	/*set methods*/
+	public void setOPCODE(Formatstr opcode) {
+		formatStr(opcode, "opcode");
+		this.opcode = opcode;
+	}
+	
+	public void setIBIT(Formatstr iBit) {
+		formatStr(iBit, "iBit");
+		this.iBit = iBit;
+	}
+
+	public void setROP1(Formatstr rop1) {
+		formatStr(rop1, "rop1");
+		this.rop1 = rop1;
+	}
+	
+	public void setROP2(Formatstr rop2) {
+		formatStr(rop2, "rop2");
+		this.rop2 = rop2;
+	}
+	
+	public void setIN1(Formatstr in1) {
+		formatStr(in1, "in1");
+		this.in1 = in1;
+	}
+	
+	public void setIN2(Formatstr in2) {
+		formatStr(in2, "in2");
+		this.in2 = in2;
+	}
+
+	public void setOUT(Formatstr out) {
+		formatStr(out, "out");
+		this.out = out;
+	}
+
+	public void setLR(Formatstr lr) {
+		formatStr(lr, "lr");
+		this.lr = lr;
+	}
+
+	public void setDEVID(Formatstr devid) {
+		formatStr(devid, "devid");
+		this.devid = devid;
+	}
+
+	public void setAR(Formatstr ar) {
+		formatStr(ar, "ar");
+		this.ar = ar;
+	}
+
+	public void setOPD(Formatstr opd){
+		formatStr(opd, "opd");
+		this.opd = opd;
+	}
+	
+	public void setMAR(Formatstr mar){
+		formatStr(mar, "mar");
+		this.mar = mar;
+	}
+	
+	public void setMBR(Formatstr mbr){
+		formatStr(mbr, "mbr");
+		this.mbr = mbr;
+	}
+	
+	public void setMCR(Formatstr mcr){
+		formatStr(mcr, "mcr");
+		this.mcr = mcr;
+	}
+	
+	public void setMFR(Formatstr mfr){
+		formatStr(mfr, "mfr");
+		this.mfr = mfr;
+	}
+	
+	public void setIR(Formatstr ir){
+		formatStr(ir, "ir");
+		this.ir = ir;
+	}
+	
+	public void setMSR(Formatstr msr){
+		formatStr(msr, "msr");
+		this.msr = msr;
+	}
+	
+	public void setCc1(int i){
+		int[] temp = new int[4];
+		String buffer = "";
+		for(int j = 0; j < 4; j++){
+			temp[j] = this.mcr.getStr().charAt(j);
+		}
+		temp[0] = i;
+		for(int j = 0; j < 4; j++){
+			buffer += String.valueOf(temp[j]);
+		}
+		this.mcr.setStr(buffer);
+	}
+
+	
+	/*get methods*/
 	public Formatstr getOPCODE() {
 		return opcode;
 	}
 	
-	public void setOPCODE(Formatstr opcode) {
-		this.opcode = opcode;
-	}
-
 	public Formatstr getIBIT() {
 		return iBit;
-	}
-
-	public void setIBIT(Formatstr iBit) {
-		this.iBit = iBit;
 	}
 
 	public Formatstr getROP1() {
 		return rop1;
 	}
 
-	public void setROP1(Formatstr rop1) {
-		this.rop1 = rop1;
-	}
-
 	public Formatstr getROP2() {
 		return rop2;
-	}
-
-	public void setROP2(Formatstr rop2) {
-		this.rop2 = rop2;
 	}
 
 	public Formatstr getIN1() {
 		return in1;
 	}
 
-	public void setIN1(Formatstr in1) {
-		this.in1 = in1;
-	}
-
 	public Formatstr getIN2() {
 		return in2;
-	}
-
-	public void setIN2(Formatstr in2) {
-		this.in2 = in2;
 	}
 	
 	public Formatstr getOUT() {
 		return out;
 	}
 
-	public void setOUT(Formatstr out) {
-		this.out = out;
-	}
-
 	public Formatstr getLR() {
 		return lr;
-	}
-
-	public void setLR(Formatstr lr) {
-		this.lr = lr;
 	}
 
 	public Formatstr getAR() {
@@ -128,69 +248,36 @@ public class OutRegs {
 	public Formatstr getDEVID() {
 		return devid;
 	}
-
-	public void setDEVID(Formatstr devid) {
-		this.devid = devid;
-	}
-
-	public void setAR(Formatstr ar) {
-		this.ar = ar;
-	}
-
-	public void setOPD(Formatstr opd){ 
-		this.opd = opd;
-	}
 	
 	public Formatstr getOPD(){
 		return this.opd;
-	}
-	
-	public void setMAR(Formatstr mar){ 
-		this.mar = mar;
 	}
 	
 	public Formatstr getMAR(){
 		return this.mar;
 	}
 	
-	public void setMBR(Formatstr mbr){ 
-		this.mbr = mbr;
-	}
-	
 	public Formatstr getMBR(){
 		return this.mbr;
-	}
-	
-	public void setMCR(Formatstr mcr){ 
-		this.mcr = mcr;
 	}
 	
 	public Formatstr getMCR(){
 		return this.mcr;
 	}
 	
-	
-	public void setIR(Formatstr ir){ 
-		this.ir = ir;
-	}
-	
 	public Formatstr getIR(){
 		return this.ir;
-	}
-	
-	public void setMSR(Formatstr msr){
-		this.msr = msr;
 	}
 	
 	public Formatstr getMSR(){
 		return this.msr;
 	}
 	
-	public void setMFR(Formatstr mfr){
-		this.mfr = mfr;
-	}
-	
 	public Formatstr getMFR(){
 		return this.mfr;
+	}
+	
+	public Formatstr getCc(){
+		return this.cc;
 	}
 }
