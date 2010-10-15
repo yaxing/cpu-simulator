@@ -28,8 +28,17 @@ public class Controller {
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
 	
-	/**Define the debug flag*/
+	/**Define the debug model flag
+	 * if false, then it's normal running model
+	 * if true, then it's in debug model
+	 */
 	public static boolean isDebugModel = false;
+	
+	/**Define the debug flag
+	 * if false, then stop and wait
+	 * if true, then run next instruction
+	 */
+	public static boolean debugNext = false;
 	
 	/**
 	 * Default constructor
@@ -95,7 +104,9 @@ public class Controller {
 			
 			/*if debugging, stop until user continue*/
 			if(isDebugModel){
-				continue;
+				if(!debugNext){
+					continue;
+				}
 			}
 			
 			/*circle: get instruction*/
