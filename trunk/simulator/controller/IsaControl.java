@@ -53,7 +53,7 @@ public class IsaControl {
 		/*get IX from ROP2*/
 		String ix = OutregsINF.getROP2().getStr();
 		int gr = Integer.parseInt(ix);
-		String index = new String("00000000000000");
+		String index = new String("000000000000000000000000");
 		/*if IX != 0 then index the address
 		 *else no index 
 		 */
@@ -80,8 +80,8 @@ public class IsaControl {
 		/*add them together and store in buffer as needed address*/
 		//Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		
-		index = index.substring(0,index.length()-address.length());
-		address = index + address;
+		index = index.substring(23,24);
+		address = index + address.substring(12,24);
 		
 		/*
 		 * store the EA into buffer

@@ -20,6 +20,28 @@ public class Pc {
 	private Formatstr instrAdd;
 	
 	/**
+	 * Guarantee that PC is 24 bits
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private void formatPc(Formatstr pc){
+		String format = "000000000000000000000000";
+		String temp = pc.getStr();
+		if(temp == null){
+			return;
+		}
+		if(temp.length() < 24){
+			pc.setStr(format.substring(0,24 - pc.getStr().length()) + temp);
+		}
+		else if (temp.length() > 24){
+			
+		}
+		return;
+	}
+	
+	/**
 	 * Execute push instruction address into PC
 	 * 
 	 * @param
@@ -27,6 +49,7 @@ public class Pc {
 	 * @exception
 	 */
 	public void setPc(Formatstr add){
+		formatPc(add);
 		instrAdd = add;
 	}
 	
