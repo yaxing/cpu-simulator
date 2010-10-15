@@ -85,7 +85,7 @@ public class Controller {
 	 * @return execStat  indicating the state of instruction execution
 	 * @exception
 	 */
-	private void run(){
+	public void run(){
 		
 		/*simulate the instruction circuit*/
 		while(true){
