@@ -58,7 +58,6 @@ public class Controller {
 	public void initial(){
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
-		busBuffer.format14();
 		
 		/*initiate PC*/
 		PcINF.setPc(busBuffer);

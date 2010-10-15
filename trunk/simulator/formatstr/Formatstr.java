@@ -81,33 +81,5 @@ public class Formatstr {
 		this.str = Integer.toHexString(buffer);
 		return;
 	}
-	
-	/**
-	 * format instruction string
-	 * to 24 bit binary
-	 * 
-	 * @param 
-	 * @return 
-	 * @exception 
-	 */
-	public void format24(){
-		if(str.length() < 24){
-			String format = "000000000000000000000000";
-			this.str = format.substring(0, format.length() - str.length()) + str;
-		}
-	}
-	
-	/**
-	 * format address string to 14 bit binary
-	 * 
-	 * @param 
-	 * @return 
-	 * @exception 
-	 */
-	public void format14(){
-		if(str.length() < 14){
-			String format = "00000000000000";
-			this.str = format.substring(0, format.length() - str.length()) + str;
-	    }
-	}
+
 }
