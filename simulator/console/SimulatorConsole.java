@@ -25,6 +25,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR1value.setText("000000000000000000000000");
         GPR2value.setText("000000000000000000000000");
         GPR3value.setText("000000000000000000000000");
+        PCvalue.setText("000000000000000000000000");
 	}
 	
 	private void setAll() {
@@ -34,11 +35,13 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR1value.setText(GrINF.getR1().getStr());
         GPR2value.setText(GrINF.getR2().getStr());
         GPR3value.setText(GrINF.getR3().getStr());
+        PCvalue.setText(PcINF.getPc().getStr());
 	}
 	
     /** Creates new form SimulatorConsole */
     public SimulatorConsole() {
         initComponents();
+        resetAll();
     }
 
     /** This method is called from within the constructor to
@@ -64,6 +67,9 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR2value = new javax.swing.JLabel();
         GPR3 = new javax.swing.JPanel();
         GPR3value = new javax.swing.JLabel();
+        debugButton = new javax.swing.JToggleButton();
+        PC = new javax.swing.JPanel();
+        PCvalue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -87,7 +93,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         MAR.setBorder(javax.swing.BorderFactory.createTitledBorder("MAR"));
 
-        MARvalue.setText("000000000000000000000000");
+        MARvalue.setText("00000000000000");
 
         javax.swing.GroupLayout MARLayout = new javax.swing.GroupLayout(MAR);
         MAR.setLayout(MARLayout);
@@ -95,7 +101,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MARLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MARvalue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(MARvalue, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                 .addContainerGap())
         );
         MARLayout.setVerticalGroup(
@@ -205,6 +211,35 @@ public class SimulatorConsole extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        debugButton.setText("Debug Mode Off");
+        debugButton.setBorder(null);
+        debugButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        debugButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debugButtonActionPerformed(evt);
+            }
+        });
+
+        PC.setBorder(javax.swing.BorderFactory.createTitledBorder("PC"));
+
+        PCvalue.setText("000000000000000000000000");
+
+        javax.swing.GroupLayout PCLayout = new javax.swing.GroupLayout(PC);
+        PC.setLayout(PCLayout);
+        PCLayout.setHorizontalGroup(
+            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PCLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PCvalue)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PCLayout.setVerticalGroup(
+            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PCLayout.createSequentialGroup()
+                .addComponent(PCvalue)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,7 +251,9 @@ public class SimulatorConsole extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(stepButton, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
                             .addComponent(powerButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE))
-                        .addContainerGap(789, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(debugButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(GPR3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,17 +262,24 @@ public class SimulatorConsole extends javax.swing.JFrame {
                             .addComponent(GPR0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MBR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(MAR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(647, 647, 647))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(465, 465, 465))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(powerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(debugButton, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                            .addComponent(powerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MBR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,10 +312,23 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }
 
     private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        
+    	//show the content of all registers first.
+    	setAll();
+    	//then execute the instruction.
+    	mainControl.debugNext = true;
     }
 
+    private void debugButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(debugButton.isSelected()) {
+        	mainControl.isDebugModel = true;
+        	debugButton.setText("Debug Mode On");
+        }
+        else {
+        	mainControl.isDebugModel = false;
+        	debugButton.setText("Debug Mode Off");
+        }
+    }
+    
     /**
     * @param args the command line arguments
     */
@@ -296,6 +353,10 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JLabel MARvalue;
     private javax.swing.JPanel MBR;
     private javax.swing.JLabel MBRvalue;
+    private javax.swing.JLabel MBRvalue1;
+    private javax.swing.JPanel PC;
+    private javax.swing.JLabel PCvalue;
+    private javax.swing.JToggleButton debugButton;
     private javax.swing.JToggleButton powerButton;
     private javax.swing.JButton stepButton;
     // End of variables declaration
