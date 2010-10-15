@@ -32,6 +32,9 @@ public class GenRegs {
 	 */
 	private void formatStr(Formatstr gr){
 		String temp = gr.getStr();
+		if(temp == null){
+			return;
+		}
 		if(temp.length() < 24){
 			gr.setStr(format.substring(0,24 - gr.getStr().length()) + temp);
 		}
