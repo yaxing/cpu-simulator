@@ -1,5 +1,4 @@
 /*
- * SimulatorConsole.java
  * Created on 2010-10-14, 22:45:00
  * By Yichao Yu
  */

@@ -163,5 +163,5 @@ public class Controller {
 	    System.out.println("R1:"+GrINF.getR1().getStr());
 	    System.out.println("R2:"+GrINF.getR2().getStr());
 	    System.out.println("R3:"+GrINF.getR3().getStr());
-	}*/	
+	}*/
 }
