@@ -28,6 +28,9 @@ public class Controller {
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
 	
+	/**Define the debug flag*/
+	public static boolean isDebugModel = false;
+	
 	/**
 	 * Default constructor
 	*/
@@ -89,6 +92,11 @@ public class Controller {
 		
 		/*simulate the instruction circuit*/
 		while(true){
+			
+			/*if debugging, stop until user continue*/
+			if(isDebugModel){
+				continue;
+			}
 			
 			/*circle: get instruction*/
 			getInstr();			
