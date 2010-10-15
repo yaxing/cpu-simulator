@@ -40,10 +40,27 @@ public class Controller {
 	 */
 	public static boolean debugNext = false;
 	
+	/**Define the lock for synchronization with UI
+	 * when debugging 
+	 */
+	private Thread lock;
+	
 	/**
 	 * Default constructor
 	*/
 	public Controller(){
+	}
+	
+	/**
+	 * constructor for synchronization
+	 * get the object lock: UI thread
+	 * 
+	 * @param Thread UI
+	 * @return 
+	 * @exception
+	*/
+	public Controller(Thread ui){
+		this.lock = ui;
 	}
 	
 	/**
@@ -90,6 +107,59 @@ public class Controller {
 	}
 	
 	/**
+	 * select corresponding instruction execution strategy
+	 * based on opcode
+	 * 
+	 * @param String opcode-operation code
+	 * @return boolean state-if true than continue execution
+	 *                       else stop
+	 * @exception
+	 */
+	public boolean execOpcode(String opcode){
+		/*LDR*/
+		if(opcode.equals("000001")){
+			IsaControl.execLdr();
+		}
+		/*STR*/
+		else if(opcode.equals("000010")){
+			IsaControl.execStr();
+		}
+		/*LDA*/
+		else if(opcode.equals("000011")){
+			IsaControl.execLda();
+		}
+		/*JZ*/
+		else if(opcode.equals("001000")){
+			IsaControl.execJz();
+		}
+		/*JNE*/
+		else if(opcode.equals("001001")){
+			IsaControl.execJne();
+		}
+		/*JMP*/
+		else if(opcode.equals("001011")){
+			IsaControl.execJmp();
+		}
+		/*JSR*/
+		else if(opcode.equals("001100")){
+			IsaControl.execJsr();
+		}
+		/*RFS*/
+		else if(opcode.equals("001101")){
+			IsaControl.execRfs();
+		}
+		/*SOB*/
+		else if(opcode.equals("001110")){
+			IsaControl.execSob();
+		}
+		/*HLT*/
+		else if(opcode.equals("000000")){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * control instruction circles
 	 * 
 	 * @param
@@ -103,8 +173,10 @@ public class Controller {
 			
 			/*if debugging, stop until user continue*/
 			if(isDebugModel){
-				if(!debugNext){
-					continue;
+				synchronized(lock){
+					try{
+						lock.wait();
+					}catch(Exception e){}
 				}
 			}
 			
@@ -121,53 +193,7 @@ public class Controller {
 			
 			/*execute instruction based on opcode*/
 			
-			/*LDR*/
-			if(opcode.equals("000001")){
-				IsaControl.execLdr();
-				continue;
-			}
-			/*STR*/
-			if(opcode.equals("000010")){
-				IsaControl.execStr();
-				continue;
-			}
-			/*LDA*/
-			if(opcode.equals("000011")){
-				IsaControl.execLda();
-				continue;
-			}
-			/*JZ*/
-			if(opcode.equals("001000")){
-				IsaControl.execJz();
-				continue;
-			}
-			/*JNE*/
-			if(opcode.equals("001001")){
-				IsaControl.execJne();
-				continue;
-			}
-			/*JMP*/
-			if(opcode.equals("001011")){
-				IsaControl.execJmp();
-				continue;
-			}
-			/*JSR*/
-			if(opcode.equals("001100")){
-				IsaControl.execJsr();
-				continue;
-			}
-			/*RFS*/
-			if(opcode.equals("001101")){
-				IsaControl.execRfs();
-				continue;
-			}
-			/*SOB*/
-			if(opcode.equals("001110")){
-				IsaControl.execSob();
-				continue;
-			}
-			/*HLT*/
-			if(opcode.equals("000000")){
+			if(!execOpcode(opcode)){
 				break;
 			}
 		}
