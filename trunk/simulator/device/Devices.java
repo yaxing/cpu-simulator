@@ -24,10 +24,13 @@ public class Devices {
 	//IN instruction method, overridden by subclass
 	public static void in() {}
 	//OUT instruction method, overridden by subclass
-	public static void out(Formatstr devid, Formatstr content) {}
+	public static boolean out(Formatstr devid, Formatstr content) {
+		String id = new String(devid.getStr().substring(19, 24));
+		return device[Integer.valueOf(id)].out(devid, content);
+	}
 	
 	public static void init() {
-		device[0] = new Printer();
-		device[1] = new KeyBoard();
+		device[1] = new Printer();
+		device[0] = new KeyBoard();
 	}
 }
