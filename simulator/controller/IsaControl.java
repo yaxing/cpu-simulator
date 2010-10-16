@@ -464,6 +464,35 @@ public class IsaControl {
 	}
 	
 	/**
+	 * Execute instruction OUT
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execOut(){
+		/*get output content*/
+		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
+		switch(gr){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR1();
+			break;
+		case 2:
+			buffer = GrINF.getR2();
+			break;
+		case 3:
+			buffer = GrINF.getR3();
+			break;
+		default:
+			break;
+		}
+		
+	}
+	
+	/**
 	 * Execute instruction ADD
 	 * 
 	 * @param
