@@ -7,6 +7,7 @@
 package simulator.interfaces;
 
 import simulator.device.Devices;
+import simulator.device.Printer;
 import simulator.formatstr.*;
 
 /** 
@@ -23,7 +24,8 @@ public class DevicesINF {
 	 * OUT instruction
 	 * 
 	 * @param devid		the id of device(5 bits).
-	 * 		  content	register content of instruction.
+	 * 					from OPD(24 bits).
+	 * 		  content	register content of instruction.	
 	 * @return 
 	 * @exception 
 	 */
@@ -35,6 +37,7 @@ public class DevicesINF {
 	 * IN instruction
 	 * 
 	 * @param devid		the id of device(5 bits).
+	 * 					from OPD(24 bits).
 	 * 		  content	register content of instruction.
 	 * @return 
 	 * @exception 
@@ -52,5 +55,16 @@ public class DevicesINF {
 	 */
 	public static void initDevices() {
 		Devices.init();
+	}
+	
+	/**
+	 * print the content of printer buffer.
+	 * 
+	 * @param 
+	 * @return String	the content of printer buffer.
+	 * @exception 
+	 */
+	public static String showPrinter() {
+		return Printer.showOnConsole();
 	}
 }
