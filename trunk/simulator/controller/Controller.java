@@ -13,7 +13,7 @@ import simulator.formatstr.*;
  * Control ISA instructions execution
  *                          
  * @author Yaxing Chen
- * @version 09-30-2010
+ * @version 10-16-2010
  * @see simulator.controller
  * @since JDK 1.6
  */
@@ -58,6 +58,10 @@ public class Controller {
 	 * @exception
 	 */
 	public void initial(){
+		
+		/*initial devices*/
+		//DevicesINF.initDevices();
+		
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
 		
@@ -137,6 +141,10 @@ public class Controller {
 		else if(opcode.equals("001110")){
 			IsaControl.execSob();
 		}
+		/*OUT*/
+		else if(opcode.equals("111110")){
+			IsaControl.execOut();
+		}
 		/*HLT*/
 		else if(opcode.equals("000000")){
 			return false;
@@ -161,21 +169,20 @@ public class Controller {
 				
 				while(!debugNext){}
 				debugNext = false;
-				
-				/*circle: get instruction*/
-				getInstr();			
-				
-				/*update PC to point at the address of next instruction*/
-				PcINF.pcAdder(offset);
-				
-				/*circle: execute instruction*/
-				/*get opcode*/
-				String opcode = OutregsINF.getOPCODE().getStr().substring(18,24);
-				
-				/*execute instruction based on opcode*/
-				if(!execOpcode(opcode)){
-					break;
-				}
+			}
+			/*circle: get instruction*/
+			getInstr();			
+			
+			/*update PC to point at the address of next instruction*/
+			PcINF.pcAdder(offset);
+			
+			/*circle: execute instruction*/
+			/*get opcode*/
+			String opcode = OutregsINF.getOPCODE().getStr().substring(18,24);
+			
+			/*execute instruction based on opcode*/
+			if(!execOpcode(opcode)){
+				break;
 			}
 		}
 	}
