@@ -25,7 +25,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR1value.setText("000000000000000000000000");
         GPR2value.setText("000000000000000000000000");
         GPR3value.setText("000000000000000000000000");
-        PCvalue.setText("00000000000000");
+        PCvalue.setText("000000000000000000000000");
 	}
 	
 	private void setAll() {
@@ -222,7 +222,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         PC.setBorder(javax.swing.BorderFactory.createTitledBorder("PC"));
 
-        PCvalue.setText("00000000000000");
+        PCvalue.setText("000000000000000000000000");
 
         javax.swing.GroupLayout PCLayout = new javax.swing.GroupLayout(PC);
         PC.setLayout(PCLayout);
@@ -306,8 +306,14 @@ public class SimulatorConsole extends javax.swing.JFrame {
         }
         else {
         	System.out.println("power on");
+        	debugCtrl = new Thread(new DebugCtrl());
+        	mainCtrl = new Thread(new MainController());
+        	mainControl = new Controller(debugCtrl);
+        	
 	        mainControl.initial();
-	        mainControl.run();
+	        
+	        mainCtrl.start();
+	        
         }
     }
 
@@ -315,18 +321,22 @@ public class SimulatorConsole extends javax.swing.JFrame {
     	//show the content of all registers first.
     	setAll();
     	//then execute the instruction.
-    	//mainControl.debugNext = true;
+    	//System.out.println("debug start");
+    	System.out.println("debug start " + debugCtrl.isAlive());
+    	if(!debugCtrl.isAlive())
+    		debugCtrl.start();
     }
 
     private void debugButtonActionPerformed(java.awt.event.ActionEvent evt) {
-//        if(debugButton.isSelected()) {
-//        	mainControl.isDebugModel = true;
-//        	debugButton.setText("Debug Mode On");
-//        }
-//        else {
-//        	mainControl.isDebugModel = false;
-//        	debugButton.setText("Debug Mode Off");
-//        }
+        if(debugButton.isSelected()) {
+        	mainControl.isDebugModel = true;
+        	debugButton.setText("Debug Mode On");
+        }
+        else {
+        	mainControl.isDebugModel = false;
+        	debugButton.setText("Debug Mode Off");
+        }
+        System.out.println(mainControl.isDebugModel);
     }
     
     /**
@@ -360,7 +370,27 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JToggleButton powerButton;
     private javax.swing.JButton stepButton;
     // End of variables declaration
-    private static Controller mainControl = new Controller();
+    //private Controller mainControl = new Controller();
+    private Controller mainControl;
+    private Thread debugCtrl;
+    private Thread mainCtrl;
 
+    class DebugCtrl implements Runnable {
+    	public void run() {
+    		synchronized(this){
+    			try{
+    				notify();
+    			}
+    			catch(Exception e){}
+    		}
+    	}
+    }
+    
+    class MainController implements Runnable {
+    	public void run() {
+    		mainControl.run();
+    	}
+    }
+    
     
 }
