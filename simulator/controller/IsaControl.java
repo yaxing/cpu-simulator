@@ -489,7 +489,8 @@ public class IsaControl {
 		default:
 			break;
 		}
-		
+		DevicesINF.toDevice(OutregsINF.getDEVID(), buffer);
+		return;
 	}
 	
 	/**

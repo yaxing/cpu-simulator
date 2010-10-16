@@ -54,7 +54,7 @@ public class DevicesINF {
 	 * @exception 
 	 */
 	public static void initDevices() {
-		Devices.init();
+		//Devices.init();
 	}
 	
 	/**
