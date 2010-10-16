@@ -23,7 +23,7 @@ public class Controller {
 	private static Formatstr busBuffer = new Formatstr();
 		
 	/**Define the end instruction*/
-	private static String insFile = "jsr.txt";
+	private static String insFile = "test.txt";
 	
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
@@ -34,10 +34,11 @@ public class Controller {
 	 */
 	public static boolean isDebugModel = false;
 	
-	/**Define the lock for synchronization with UI
-	 * when debugging 
-	 */
-	private Thread lock;
+	/**Define the debug flag
+	 * if false, then wait
+	 * if true, then execute next instruction
+	 */ 
+	public static boolean debugNext = false;
 	
 	
 	
@@ -45,18 +46,6 @@ public class Controller {
 	 * Default constructor
 	*/
 	public Controller(){
-	}
-	
-	/**
-	 * constructor for synchronization
-	 * get the object lock: UI thread
-	 * 
-	 * @param Thread UI
-	 * @return 
-	 * @exception
-	*/
-	public Controller(Thread ui){
-		this.lock = ui;
 	}
 	
 	/**
@@ -169,28 +158,24 @@ public class Controller {
 			
 			/*if debugging, wait until user continue*/
 			if(isDebugModel){
-				synchronized(lock){
-					try{
-						lock.wait();
-					}catch(Exception e){}
+				
+				while(!debugNext){}
+				debugNext = false;
+				
+				/*circle: get instruction*/
+				getInstr();			
+				
+				/*update PC to point at the address of next instruction*/
+				PcINF.pcAdder(offset);
+				
+				/*circle: execute instruction*/
+				/*get opcode*/
+				String opcode = OutregsINF.getOPCODE().getStr().substring(18,24);
+				
+				/*execute instruction based on opcode*/
+				if(!execOpcode(opcode)){
+					break;
 				}
-			}
-			
-			/*circle: get instruction*/
-			getInstr();			
-			
-			/*update PC to point at the address of next instruction*/
-			PcINF.pcAdder(offset);
-			
-			/*circle: execute instruction*/
-			
-			/*get opcode*/
-			String opcode = OutregsINF.getOPCODE().getStr().substring(18,24);
-			
-			/*execute instruction based on opcode*/
-			
-			if(!execOpcode(opcode)){
-				break;
 			}
 		}
 	}
