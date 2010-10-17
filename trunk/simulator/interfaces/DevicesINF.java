@@ -7,6 +7,7 @@
 package simulator.interfaces;
 
 import simulator.device.Devices;
+import simulator.device.KeyBoard;
 import simulator.device.Printer;
 import simulator.formatstr.*;
 
@@ -66,5 +67,16 @@ public class DevicesINF {
 	 */
 	public static String showPrinter() {
 		return Printer.showOnConsole();
+	}
+	
+	/**
+	 * print the content of printer buffer.
+	 * 
+	 * @param 
+	 * @return String	the content of printer buffer.
+	 * @exception 
+	 */
+	public static void characterEnc(char c) {
+		KeyBoard.encode(c);
 	}
 }
