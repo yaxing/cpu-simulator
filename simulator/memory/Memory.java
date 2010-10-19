@@ -13,6 +13,8 @@ import simulator.formatstr.*;
 /** 
  * Class Memory
  * Memory operation:load, store and device.
+ * Memory uses 4 memory banks. When there is a visit memory instruction,
+ * it will check the MAR, find the bank number and get or set the memory content. 
  *                          
  * @author Yichao Yu
  * @version 09-25-2010
@@ -31,7 +33,8 @@ public class Memory {
 	private static String[] bank3 = new String[bankSize];
 	
 	
-	private static String memAddr = "00000000000010";		//for 
+	private static String memAddr = "00000000000010";		//load data and instruction from 2
+															//because the first two addresses are invalid 
 	private static String enterAddr;
 	/**
 	 * Default constructor
@@ -39,11 +42,7 @@ public class Memory {
 	Memory() {}
 	
 	/**
-	 * set data of all banks to zero
-	 * 
-	 * @param
-	 * @return 
-	 * @exception 
+	 * initialize the memory, set data of all banks to 0. 
 	 */
 	public static void setZero() {
 		int i = 0;
@@ -59,27 +58,21 @@ public class Memory {
 	/**
 	 * set the first instruction's address
 	 * 
-	 * @param enteraddr		the first instruction's address
-	 * @return 
-	 * @exception 
+	 * @param enteraddr	the first instruction's address
 	 */
 	public static void setEnterAddr(String enteraddr) {
 		enterAddr = enteraddr;
 	}
 	
 	/**
-	 * load content of ROM to mem
+	 * load content of ROM to memory
 	 * 
 	 * @param content	binary content per line.
-	 * @return 
-	 * @exception 
 	 */
 	public static boolean initLine(String content) {
 		String format = "00000000000000";
 		
 		int address = Integer.valueOf(memAddr.substring(0, memAddr.length() - 2), 2);
-		//System.out.println("memory address "+Integer.valueOf(enterAddr, 2));
-		//System.out.println("bank address "+address);
 		getBank(memAddr)[address] = content;
 		memAddr = Integer.toBinaryString(Integer.valueOf(memAddr, 2) + 1);
 		memAddr = format.substring(0, format.length() - memAddr.length()) + memAddr;
@@ -90,8 +83,6 @@ public class Memory {
 	 * according to address string, get the corresponding bank
 	 * 
 	 * @param addr	memory address
-	 * @return 
-	 * @exception 
 	 */
 	private static String[] getBank(String addr) {
 		int tail = Integer.valueOf(addr.substring(addr.length()-2, addr.length()), 2);
@@ -109,22 +100,18 @@ public class Memory {
 	}
 	
 	/**
-	 * using the data/instruction write MBR
+	 * write MBR with the content of corresponding memory.
 	 * 
 	 * @param mbr	the data/instruction need to write into MBR.
-	 * @return 
-	 * @exception 
 	 */
 	private static void writeMBR(Formatstr mbr) {
 		OutregsINF.setMBR(mbr);
 	}
 	
 	/**
-	 * using MBR write the corresponding address
+	 * get the content of MBR to write the corresponding address
 	 * 
-	 * @param 
 	 * @return the data written into the memory
-	 * @exception 
 	 */
 	private static Formatstr readMBR() {
 		return OutregsINF.getMBR();
@@ -133,9 +120,7 @@ public class Memory {
 	/**
 	 * read address from MAR
 	 * 
-	 * @param 
 	 * @return the content of the MAR
-	 * @exception 
 	 */
 	private static Formatstr readMAR() {
 		return OutregsINF.getMAR();
@@ -145,12 +130,8 @@ public class Memory {
 	 * Get the content of the address ready in the MBR.
 	 * May have some exception, ie: a wrong address.
 	 * Address(14 bits) must be ready in MAR.
-	 * 
-	 * @param
-	 * @return 
-	 * @exception 
 	 */
-	public static void getContentToMBR() {
+	public static void getContentOfMBR() {
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		content.setStr(getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)]);
@@ -162,12 +143,8 @@ public class Memory {
 	 * store the content of MBR into memory.
 	 * Address(14 bits) must be ready in MAR.
 	 * Also MBR must ready.
-	 * 
-	 * @param 
-	 * @return 
-	 * @exception 
 	 */
-	public static void setContentFromMBR() {
+	public static void setContentOfMBR() {
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		
