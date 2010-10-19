@@ -21,21 +21,16 @@ public class MemoryINF {
 	
 	/**
 	 * set memory's(banks) all data to zero
-	 * 
-	 * @param
-	 * @return
-	 * @exception 
 	 */
 	public static void initMem() {
 		Memory.setZero();
 	}
 	
 	/**
-	 * load "filename" file into memory from ROMloader.
+	 * call the method to load "filename" file into memory from ROMloader.
 	 * 
-	 * @param filename	the "binary" file to be loaded.
+	 * @param filename	the instruction file to be loaded.
 	 * @return String	first instruction address(13 bits).
-	 * @exception 
 	 */
 	public static String ROMload(String filename) {
 		String enteraddr = new String();
@@ -52,15 +47,14 @@ public class MemoryINF {
 	 * according to MCR, do the corresponding operation
 	 * 0 is load, 1 is store
 	 * 
-	 * @param 
 	 * @return boolean whether the operation is correct.
-	 * @exception 
 	 */
 	public static boolean operateMemory() {
 		if(OutregsINF.getMCR().getStr().equals("0"))	//0 is load, 1 is store
-			Memory.getContentToMBR();
-		else
-			Memory.setContentFromMBR();
+			Memory.getContentOfMBR();
+		else if(OutregsINF.getMCR().getStr().equals("1"))
+			Memory.setContentOfMBR();
+		else return false;
 		return true;
 	}
 }
