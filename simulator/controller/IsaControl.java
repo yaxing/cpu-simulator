@@ -273,7 +273,7 @@ public class IsaControl {
 	 */
 	public static void execJz(){
 		/*generate EA and store in buffer*/
-		//genEa();
+		genEa();
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
@@ -297,7 +297,8 @@ public class IsaControl {
 			break;
 		}
 		if(Integer.parseInt(condition) == 0){
-			PcINF.pcAdder(new Formatstr("00000000000001"));
+			//PcINF.pcAdder(new Formatstr("00000000000001"));
+			PcINF.setPc(buffer);
 		}
 	}
 	
@@ -494,10 +495,33 @@ public class IsaControl {
 	}
 	
 	/**
-	 * 
+	 * Execute instruction IN
+	 * @param
+	 * @return 
+	 * @exception
 	 */
 	public static void execIN(){
+		/*get device id*/
+		buffer = OutregsINF.getDEVID();
 		
+		/*get the target register*/
+		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
+		switch(gr){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR1();
+			break;
+		case 2:
+			buffer = GrINF.getR2();
+			break;
+		case 3:
+			buffer = GrINF.getR3();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/**
