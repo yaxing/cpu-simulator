@@ -8,14 +8,16 @@ package simulator.device;
 
 /** 
  * Class KeyBoard
- * Keyboard device. Extends from Devices.
+ * Keyboard device. IN instruction uses this device.
+ * The keyboard has its own buffer. If the device use interrupt, it can decrease the 
+ * number of interrupt and flush all the buffered input into memory at one time.
  *                          
  * @author Yichao Yu
  * @version 10-16-2010
  * @see simulator.device
  * @since JDK 1.6
  */
-public class KeyBoard extends Devices {
+public class KeyBoard {
 	private static String keyBuffer = new String("");
 	//IN instruction method, called by controller
 	public static void in() {}
@@ -24,6 +26,12 @@ public class KeyBoard extends Devices {
 	*/
 	public KeyBoard() {}
 	
+	/**
+	 * encode the keyboard input letter to binary code.
+	 * And buffer the binary code in keyBuffer
+	 * 
+	 * @param c		the letter or number the user pressed.
+	 */
 	public static void encode(char c) {
 		System.out.println(keyBuffer);
 		String code = new String();
