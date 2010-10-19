@@ -20,21 +20,7 @@ public class alu {
 	//carry flag
 	private static int cf = 0;
 	
-	/**
-	 * Test the Equality of in1 and in2 
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void test()
-	{
-		OutregsINF.setCC(4, OutregsINF.getIN1() == OutregsINF.getIN2() ? -1 : 0 );
-		return;
-	}
-	
+
 	/**
 	 * Test the Equality of in1 and in2 
 	 * 
