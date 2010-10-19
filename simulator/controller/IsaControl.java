@@ -494,6 +494,13 @@ public class IsaControl {
 	}
 	
 	/**
+	 * 
+	 */
+	public static void execIN(){
+		
+	}
+	
+	/**
 	 * Execute instruction ADD
 	 * 
 	 * @param
@@ -525,7 +532,7 @@ public class IsaControl {
 			break;
 		}
 		
-		AluINF.setIn1(buffer);
+		OutregsINF.setIN1(buffer);
 		
 		switch(r2){
 		case 0:
@@ -544,10 +551,10 @@ public class IsaControl {
 			break;
 		}
 		
-		AluINF.setIn2(buffer);
+		OutregsINF.setIN1(buffer);
 		
 		/*store the output into r1*/
-		buffer = AluINF.getOutput();
+		
 		
 		switch(r1){
 		case 0:
