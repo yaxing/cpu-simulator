@@ -27,8 +27,6 @@ public class DevicesINF {
 	 * @param devid		the id of device(5 bits).
 	 * 					from OPD(24 bits).
 	 * 		  content	register content of instruction.	
-	 * @return 
-	 * @exception 
 	 */
 	public static void toDevice(Formatstr devid, Formatstr content) {
 		Devices.out(devid, content);
@@ -40,30 +38,15 @@ public class DevicesINF {
 	 * @param devid		the id of device(5 bits).
 	 * 					from OPD(24 bits).
 	 * 		  content	register content of instruction.
-	 * @return 
-	 * @exception 
 	 */
 	public static void fromDevice(Formatstr devid) {
 		
 	}
 	
 	/**
-	 * register all devices into Devices superclass
-	 * 
-	 * @param 
-	 * @return 
-	 * @exception 
-	 */
-	public static void initDevices() {
-		//Devices.init();
-	}
-	
-	/**
 	 * print the content of printer buffer.
 	 * 
-	 * @param 
 	 * @return String	the content of printer buffer.
-	 * @exception 
 	 */
 	public static String showPrinter() {
 		return Printer.showOnConsole();
@@ -72,9 +55,7 @@ public class DevicesINF {
 	/**
 	 * print the content of printer buffer.
 	 * 
-	 * @param 
 	 * @return String	the content of printer buffer.
-	 * @exception 
 	 */
 	public static void characterEnc(char c) {
 		KeyBoard.encode(c);
