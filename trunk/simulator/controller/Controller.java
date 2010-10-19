@@ -23,7 +23,7 @@ public class Controller {
 	private static Formatstr busBuffer = new Formatstr();
 		
 	/**Define the end instruction*/
-	private static String insFile = "test.txt";
+	private static String insFile = "test1.txt";
 	
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("00000000000001");
