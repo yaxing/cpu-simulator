@@ -81,5 +81,18 @@ public class Formatstr {
 		this.str = Integer.toHexString(buffer);
 		return;
 	}
-
+	
+	/**
+	 * recover binary string to 24 bits
+	 * 
+	 * @param 
+	 * @return 
+	 * @exception 
+	 */
+	public void binFormat(){
+		while (this.str.length() < 24)
+			this.str = "0" + this.str;
+		return;
+	}
+	
 }

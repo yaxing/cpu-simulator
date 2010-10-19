@@ -5,6 +5,7 @@
  */
 package simulator.alu;
 import simulator.formatstr.*;
+import simulator.interfaces.*;
 
 /** 
  * Class alu
@@ -49,10 +50,12 @@ public class alu {
 	{
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
+		String out;
 		in1.toBinary();
 		in2.toBinary();
 		
-		OutregsINF.setOUT(Integer.valueOf(in1.getStr(), 2) & Integer.valueOf(in2.getStr(), 2));
+		out = Integer.toBinaryString(Integer.valueOf(in1.getStr(), 2) & Integer.valueOf(in2.getStr(), 2));
+		OutregsINF.setOUT(new Formatstr(out));
 		return;
 	}
 	
@@ -69,10 +72,12 @@ public class alu {
 	{
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
+		String out;
 		in1.toBinary();
 		in2.toBinary();
 		
-		OutregsINF.setOUT(Integer.valueOf(in1.getStr(), 2) | Integer.valueOf(in2.getStr(), 2));
+		out = Integer.toBinaryString(Integer.valueOf(in1.getStr(), 2) | Integer.valueOf(in2.getStr(), 2));
+		OutregsINF.setOUT(new Formatstr(out));
 		return;
 	}
 	
@@ -88,9 +93,11 @@ public class alu {
 	public void not()
 	{
 		Formatstr in1 = OutregsINF.getIN1();
+		String out;
 		in1.toBinary();
 		
-		OutregsINF.setOUT(~Integer.valueOf(in1.getStr(), 2));
+		out = Integer.toBinaryString(~Integer.valueOf(in1.getStr(), 2));
+		OutregsINF.setOUT(new Formatstr(out));
 		return;
 	}
 	
@@ -110,25 +117,29 @@ public class alu {
 		Formatstr out = new Formatstr();
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
-				
+
 		in1.toBinary();
 		in2.toBinary();
+		in1.binFormat();
+		in2.binFormat();
+		
 		
 		String op1 = in1.getStr();
 		String op2 = in2.getStr();
 		String sum = new String();
-		
-		for (int i=0; i<24; i++)
+
+		   
+		for (int i=23; i>=0; i--)
 		{
-			ai = op1.charAt(i) - 0x30;
-			bi = op2.charAt(i) - 0x30;
+			ai = (int)op1.charAt(i) - 0x30;
+			bi = (int)op2.charAt(i) - 0x30;
+			
 			
 			//si = ai XOR bi XOR ci
 			sum = Integer.toBinaryString(ai ^ bi ^ this.cf) + sum;
 			
 			//ci+1 = aibi + aici + bici
-			this.cf = ai&bi +ai&this.cf + bi&this.cf;
-						
+			this.cf = (ai & bi) + (ai & this.cf) + (bi & this.cf);
 		}
 		out.setStr(sum);
 		OutregsINF.setOUT(out);
@@ -198,7 +209,7 @@ public class alu {
 		while(result.length()<24)
 			result = result + "0";
 		
-		out = new Formatstr(result)
+		out = new Formatstr(result);
 		OutregsINF.setOUT(out);
 		
 		//set overflow flag
@@ -254,7 +265,7 @@ public class alu {
 		while(result.length()<24)
 			result = "0" + result;
 		
-		out = new Formatstr(result)
+		out = new Formatstr(result);
 		OutregsINF.setOUT(out);
 		
 		//set overflow flag
@@ -280,11 +291,13 @@ public class alu {
 		Formatstr in2;
 		//ones-complemental code
 		in2 = convertOCCode(OutregsINF.getIN2());
+		OutregsINF.setIN2(in2);
+				
 		//set c0=1 to implement complemental code calculation
 		this.cf = 1;
 		
 		//forward to adder
-		this.adder();
+		this.add();
 	}
 	
 	/**
@@ -306,7 +319,7 @@ public class alu {
 		
 		//xor with 0xFFFFFF
 		cCode.setStr(Integer.toBinaryString(tvalue ^ 0xFFFFFF));
-		
+		cCode.toHex();
 		return cCode;
 	}
 	
@@ -321,6 +334,7 @@ public class alu {
 	 */
 	public void calc()
 	{
+		this.cf = 0;
 		Formatstr OP = OutregsINF.getOPCODE();
 		OP.toBinary();
 		switch (Integer.valueOf(OP.getStr(), 2)){
@@ -345,7 +359,7 @@ public class alu {
 		case 21:
 			Formatstr lr = OutregsINF.getLR();
 			lr.toHex();
-			if(lr == "000001")
+			if(lr.getStr() == "000001")
 				this.shifterLeft();
 			else
 				this.shifterRight();
@@ -355,5 +369,25 @@ public class alu {
 		
 		}
 	}
+	/*
+   public static void main(String args[])
+   {
+	   Formatstr in1 = new Formatstr("9");
+	   Formatstr in2 = new Formatstr("3");
+	   Formatstr op = new Formatstr("5");
+	   Formatstr out = new Formatstr();
+	   
+	   OutregsINF.setIN1(in1);
+	   OutregsINF.setIN2(in2);
+	   OutregsINF.setOPCODE(op);
+	   //AluINF.calc();
+	   //out = OutregsINF.getOUT();
+	   //System.out.println(out.getStr());
+	   OutregsINF.setCC(1, 1);
+	   
+	   Formatstr c = OutregsINF.getCC();
+	   System.out.println(c.getStr());
+   }
+*/
 	
 }

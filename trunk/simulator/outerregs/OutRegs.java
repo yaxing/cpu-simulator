@@ -198,13 +198,13 @@ public class OutRegs {
 		int[] temp = new int[4];
 		String buffer = "";
 		for(int j = 0; j < 4; j++){
-			temp[j] = this.mcr.getStr().charAt(j);
+			temp[j] = (int)this.cc.getStr().charAt(j) - 0x30;
 		}
 		temp[pos - 1] = i;
 		for(int j = 0; j < 4; j++){
 			buffer += String.valueOf(temp[j]);
 		}
-		this.mcr.setStr(buffer);
+		this.cc.setStr(buffer);
 	}
 
 	/*get methods*/
