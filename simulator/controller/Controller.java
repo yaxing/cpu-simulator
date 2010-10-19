@@ -186,14 +186,4 @@ public class Controller {
 			}
 		}
 	}
-	
-	/*static public void main(String[] args){
-		Controller ISA = new Controller();
-		ISA.initial();
-		ISA.run();
-	    System.out.println("R0:"+GrINF.getR0().getStr());
-	    System.out.println("R1:"+GrINF.getR1().getStr());
-	    System.out.println("R2:"+GrINF.getR2().getStr());
-	    System.out.println("R3:"+GrINF.getR3().getStr());
-	}*/
 }
