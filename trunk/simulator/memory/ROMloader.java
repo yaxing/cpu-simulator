@@ -9,7 +9,10 @@ import java.io.*;
 
 /** 
  * Class ROMloader
- * ROM loader operation. Load content of ROM into Memory
+ * ROM loader operation. Load content of ROM(file) into Memory.
+ * May change the implement of this module as a IO device later.
+ * Use the card reader to read the card(file) and store in the ROM,
+ * and then load into the memory.
  *                          
  * @author Yichao Yu
  * @version 09-29-2010
@@ -31,11 +34,12 @@ public class ROMloader {
 	}*/
 	/**
 	 * After press the IPL button, read the "filename" file,
-	 *  load the content(data and instruction) to Memory 
+	 *  load the content(data and instruction) to Memory.
 	 * 
 	 * @param mbr	the data/instruction need to write into MBR.
-	 * @return String	program's instruction first address(14 bits).
-	 * @exception 
+	 * @return String	program's instruction entrance address(14 bits).
+	 * @exception IOException if there is no proper file with the filename,
+	 * 						it will cast an IOException
 	 */
 	public static String LoadToMemory(String filename) throws IOException {
 		File filein = new File(filename);
@@ -52,7 +56,6 @@ public class ROMloader {
 			Memory.initLine(line);			
 		}
 		
-		//System.out.println("test");
 		return enteraddr;
 	}
 }
