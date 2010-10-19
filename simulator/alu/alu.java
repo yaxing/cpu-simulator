@@ -16,96 +16,294 @@ import simulator.formatstr.*;
  * @since JDK 1.6
  */
 public class alu {
-
-	/**
-	 * Arithmetic result 
-	 */
-	private static Formatstr out;
 	
-	/**
-	 * Two operands
-	 */
-	private static Formatstr in1;
-	private static Formatstr in2;	
-	
-	/**
-	 * ALU control operation
-	 */
-	private static int ctl;
-	
-	/**
-	 * MUX
-	 */
-	private static int mux;
-	
-	/**
-	 * Zero flag
-	 * Carry flag (unsigned int overflow) 
-	 * oVerflow flag (signed int overflow)
-	 * Negative flag 
-	 */
-	private static int zf = 0;
+	//carry flag
 	private static int cf = 0;
-	private static int vf = 0;
-	private static int nf = 0;
 	
-
 	/**
-	 * set input & get output
+	 * Test the Equality of in1 and in2 
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
 	 */
-	public void setIn1(Formatstr myIn1)
+	public void test()
 	{
-		this.in1 = myIn1;
+		OutregsINF.setCC(4, OutregsINF.getIN1() == OutregsINF.getIN2() ? -1 : 0 );
 		return;
 	}
 	
-	public void setIn2(Formatstr myIn2)
+	/**
+	 * Test the Equality of in1 and in2 
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void test()
 	{
-		this.in2 = myIn2;
+		OutregsINF.setCC(4, OutregsINF.getIN1() == OutregsINF.getIN2() ? -1 : 0 );
 		return;
 	}
 	
-	public void setCtl(int myCtl)
+	/**
+	 * Logical And of in1 and in2 
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void and()
 	{
-		this.ctl = myCtl;
-		return;
-	}
-	
-	public void setMux(int myMux)
-	{
-		this.mux = myMux;
-		return;
-	}
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+		in1.toBinary();
+		in2.toBinary();
 		
-	public Formatstr getOutput()
-	{
-		return this.out;
+		OutregsINF.setOUT(Integer.valueOf(in1.getStr(), 2) & Integer.valueOf(in2.getStr(), 2));
+		return;
 	}
 	
-	public int getZf()
+	/**
+	 * Logical Or of in1 and in2 
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void or()
 	{
-		return this.zf;
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+		in1.toBinary();
+		in2.toBinary();
+		
+		OutregsINF.setOUT(Integer.valueOf(in1.getStr(), 2) | Integer.valueOf(in2.getStr(), 2));
+		return;
 	}
 	
-	public int getCf()
+	/**
+	 * Logical Not of in1 
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void not()
 	{
-		return this.cf;
+		Formatstr in1 = OutregsINF.getIN1();
+		in1.toBinary();
+		
+		OutregsINF.setOUT(~Integer.valueOf(in1.getStr(), 2));
+		return;
 	}
 	
-	public int getVf()
+	/**
+	 * Add two operands
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void add()
 	{
-		return this.vf;
+		//ai, bi
+		int ai, bi;
+		Formatstr out = new Formatstr();
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+				
+		in1.toBinary();
+		in2.toBinary();
+		
+		String op1 = in1.getStr();
+		String op2 = in2.getStr();
+		String sum = new String();
+		
+		for (int i=0; i<24; i++)
+		{
+			ai = op1.charAt(i) - 0x30;
+			bi = op2.charAt(i) - 0x30;
+			
+			//si = ai XOR bi XOR ci
+			sum = Integer.toBinaryString(ai ^ bi ^ this.cf) + sum;
+			
+			//ci+1 = aibi + aici + bici
+			this.cf = ai&bi +ai&this.cf + bi&this.cf;
+						
+		}
+		out.setStr(sum);
+		OutregsINF.setOUT(out);
+		
+		//set zero flag (equal or not)
+		if (Integer.valueOf(sum, 2) == 0)
+			OutregsINF.setCC(4, 1);
+		else
+			OutregsINF.setCC(4, 0);
+		
+		//set overflow flag
+		if (sum.charAt(0) == 0x31 && this.cf == 0)
+			OutregsINF.setCC(1, 1);
+		else
+			OutregsINF.setCC(1, 0);
+		
+		//set underflow flag
+		if (sum.charAt(0) == 0x30 && this.cf == 1)
+			OutregsINF.setCC(2, 1);
+		else
+			OutregsINF.setCC(2, 0);
+		
+		return;
 	}
 	
-	public int getNf()
+	/**
+	 * Left shift (SHL dst, n)
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void shifterLeft()
 	{
-		return this.nf;
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+		Formatstr out;
+		in1.toBinary();
+		in2.toHex();
+		char cf = '0';
+		
+		//shift times
+		int n = Integer.valueOf(in2.getStr(), 16);
+
+		//target register
+		String dst = in1.getStr();
+		String result = new String();
+		
+		if (n<24)
+		{
+			//cut the remaining part of register
+			result = dst.substring(n, dst.length()-1);
+		}
+		else
+			result = "000000000000000000000000";
+		
+		if (n<=24)
+		{
+			//carry flag
+			cf = dst.charAt(n-1);
+		}
+		else
+			cf = '0';
+		
+		while(result.length()<24)
+			result = result + "0";
+		
+		out = new Formatstr(result)
+		OutregsINF.setOUT(out);
+		
+		//set overflow flag
+		if (cf == '1')
+			OutregsINF.setCC(1, 1);
+		else
+			OutregsINF.setCC(1, 0);
+		
+		return;
 	}
 	
+	/**
+	 * right shift (SHR dst, n)
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void shifterRight()
+	{
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+		Formatstr out;
+		in1.toBinary();
+		in2.toHex();
+		char cf = '0';
+		
+		//shift times
+		int n = Integer.valueOf(in2.getStr(), 16);
+		
+		//target register
+		String dst = in1.getStr();
+		String result = new String();
+		
+		if (n<24)
+		{
+			//cut the remaining part of register
+			result = dst.substring(0, dst.length()-n-1);
+		}
+		else
+			result = "000000000000000000000000";
+		
+		if (n<=24)
+		{
+			//carry flag
+			cf = dst.charAt(dst.length()-n);
+		}
+		else
+			cf = '0';
+		
+		while(result.length()<24)
+			result = "0" + result;
+		
+		out = new Formatstr(result)
+		OutregsINF.setOUT(out);
+		
+		//set overflow flag
+		if (cf == '1')
+			OutregsINF.setCC(1, 1);
+		else
+			OutregsINF.setCC(1, 0);
+		
+		return;
+	}
+	
+	/**
+	 * Sub two operands
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void sub()
+	{
+		Formatstr in2;
+		//ones-complemental code
+		in2 = convertOCCode(OutregsINF.getIN2());
+		//set c0=1 to implement complemental code calculation
+		this.cf = 1;
+		
+		//forward to adder
+		this.adder();
+	}
 	
 	/**
 	 * Convert true code into ones-complemental code, in case of the substruction
-	 * 转反码，设置初始进位c0为1即可完成补码运算
+	 * 
 	 * @param 
 	 * 		String tCode: true code, binary
 	 * @return 
@@ -127,7 +325,7 @@ public class alu {
 	}
 	
 	/**
-	 * Add two operands
+	 * Activate caculation
 	 * 
 	 *  @param
 	 *  
@@ -135,159 +333,41 @@ public class alu {
 	 *  @exception
 	 *  	
 	 */
-	public void adder()
+	public void calc()
 	{
-		//ai, bi
-		int ai, bi;
+		Formatstr OP = OutregsINF.getOPCODE();
+		OP.toBinary();
+		switch (Integer.valueOf(OP.getStr(), 2)){
+		case 4:
+			this.add();
+			break;
+		case 5:
+			this.sub();
+			break;
+		case 17:
+			this.test();
+			break;
+		case 18:
+			this.and();
+			break;
+		case 19:
+			this.or();
+			break;
+		case 20:
+			this.not();
+			break;
+		case 21:
+			Formatstr lr = OutregsINF.getLR();
+			lr.toHex();
+			if(lr == "000001")
+				this.shifterLeft();
+			else
+				this.shifterRight();
+			break;
+		default:
+			break;
 		
-		this.in1.toBinary();
-		this.in2.toBinary();
-		
-		String op1 = in1.getStr();
-		String op2 = in2.getStr();
-		String sum = new String();
-		
-		for (int i=0; i<24; i++)
-		{
-			ai = op1.charAt(i) - 0x30;
-			bi = op2.charAt(i) - 0x30;
-			
-			//si = ai XOR bi XOR ci
-			sum = Integer.toBinaryString(ai ^ bi ^ this.cf) + sum;
-			
-			//ci+1 = aibi + aici + bici
-			this.cf = ai&bi +ai&this.cf + bi&this.cf;
-						
 		}
-		
-		this.out.setStr(sum);
-		
-		//set negative flag
-		if (sum.charAt(0) == 0x31)
-			this.nf = 1;
-		
-		//set zero flag
-		if (Integer.valueOf(sum, 2) == 0)
-			this.zf = 1;
-		
-		//set overflow flag
-		/********************
-		 * check it...
-		 */
-		if (sum.charAt(0) == 0x31)
-			this.vf = 1;
-		
-		return;
 	}
 	
-	/**
-	 * Left shift (SHL dst, n)
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void shifterLeft()
-	{
-		this.in1.toBinary();
-		this.in2.toHex();
-		
-		//shift times
-		int n = Integer.valueOf(this.in2.getStr(), 16);
-
-		//target register
-		String dst = this.in1.getStr();
-		String result = new String();
-		
-		if (n<24)
-		{
-			//cut the remaining part of register
-			result = dst.substring(n, dst.length()-1);
-		}
-		else
-			result = "000000000000000000000000";
-		
-		if (n<=24)
-		{
-			//carry flag
-			this.cf = dst.charAt(n-1) - 0x30;
-		}
-		else
-			this.cf = 0;
-		
-		while(result.length()<24)
-			result = result + "0";
-		
-		this.out = new Formatstr(result);
-		
-		return;
-	}
-	
-	/**
-	 * right shift (SHR dst, n)
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void shifterRight()
-	{
-		
-		this.in1.toBinary();
-		this.in2.toHex();
-		
-		//shift times
-		int n = Integer.valueOf(this.in2.getStr(), 16);
-		
-		//target register
-		String dst = this.in1.getStr();
-		String result = new String();
-		
-		if (n<24)
-		{
-			//cut the remaining part of register
-			result = dst.substring(0, dst.length()-n-1);
-		}
-		else
-			result = "000000000000000000000000";
-		
-		if (n<=24)
-		{
-			//carry flag
-			this.cf = dst.charAt(dst.length()-n) - 0x30;
-		}
-		else
-			this.cf = 0;
-		
-		while(result.length()<24)
-			result = "0" + result;
-		
-		this.out = new Formatstr(result);
-		
-		return;
-	}
-	
-	/**
-	 * Sub two operands
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void sub()
-	{
-		//ones-complemental code
-		this.in2 = convertOCCode(this.in2);
-		//set c0=1 to implement complemental code calculation
-		this.cf = 1;
-		
-		//forward to adder
-		this.adder();
-	}
 }

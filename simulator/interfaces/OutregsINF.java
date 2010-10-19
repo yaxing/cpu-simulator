@@ -85,6 +85,9 @@ public class OutregsINF {
 		or.setDEVID(devid);
 	}
 	
+	public static void setCC(int pos, int i){
+		or.setCC(pos, i);
+	}
 	
 	public static Formatstr getOPD(){
 		return or.getOPD();
@@ -149,5 +152,9 @@ public class OutregsINF {
 	
 	public static Formatstr getDEVID() {
 		return or.getDEVID();
+	}
+	
+	public static Formatstr getCC() {
+		return or.getCC();
 	}
 }

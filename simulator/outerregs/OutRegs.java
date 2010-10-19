@@ -194,20 +194,19 @@ public class OutRegs {
 		this.msr = msr;
 	}
 	
-	public void setCc1(int i){
+	public void setCC(int pos, int i){
 		int[] temp = new int[4];
 		String buffer = "";
 		for(int j = 0; j < 4; j++){
 			temp[j] = this.mcr.getStr().charAt(j);
 		}
-		temp[0] = i;
+		temp[pos - 1] = i;
 		for(int j = 0; j < 4; j++){
 			buffer += String.valueOf(temp[j]);
 		}
 		this.mcr.setStr(buffer);
 	}
 
-	
 	/*get methods*/
 	public Formatstr getOPCODE() {
 		return opcode;
@@ -277,7 +276,7 @@ public class OutRegs {
 		return this.mfr;
 	}
 	
-	public Formatstr getCc(){
+	public Formatstr getCC(){
 		return this.cc;
 	}
 }
