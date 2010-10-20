@@ -23,7 +23,7 @@ public class Controller {
 	private static Formatstr busBuffer = new Formatstr();
 		
 	/**Define the end instruction*/
-	private static String insFile = "test1.txt";
+	private static String insFile = "inTest.txt";
 	
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("000000000000000000000001");
@@ -140,6 +140,10 @@ public class Controller {
 		/*SOB*/
 		else if(opcode.equals("001110")){
 			IsaControl.execSob();
+		}
+		/*IN*/
+		else if(opcode.equals("111101")){
+			IsaControl.execIn();
 		}
 		/*OUT*/
 		else if(opcode.equals("111110")){

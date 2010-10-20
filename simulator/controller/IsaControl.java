@@ -527,12 +527,20 @@ public class IsaControl {
 	 * @return 
 	 * @exception
 	 */
-	public static void execIN(){
+	public static void execIn(){
 		/*flush buffer*/
 		buffer.setStr("");
 		
 		/*get device id*/
 		buffer = OutregsINF.getDEVID();
+		
+		while(DevicesINF.checkStatus() != 1){
+			
+		}
+		
+		String input = DevicesINF.fromDevice(buffer);
+		
+		System.out.printf(input);
 		
 		/*get the target register*/
 		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
