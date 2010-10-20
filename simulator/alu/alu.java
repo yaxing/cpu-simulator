@@ -118,8 +118,8 @@ public class alu {
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
 
-		in1.binFormat();
-		in2.binFormat();
+		//in1.binFormat();
+		//in2.binFormat();
 				
 		String op1 = in1.getStr();
 		String op2 = in2.getStr();
@@ -245,14 +245,14 @@ public class alu {
 	private Formatstr convertOCCode(Formatstr tCode)
 	{
 		Formatstr cCode = new Formatstr();
-		tCode.toBinary();
+		//tCode.toBinary();
 		String tstr = tCode.getStr();
 		
 		int tvalue = Integer.valueOf(tstr,2);
 		
 		//xor with 0xFFFFFF
 		cCode.setStr(Integer.toBinaryString(tvalue ^ 0xFFFFFF));
-		cCode.toHex();
+		//cCode.toHex();
 		return cCode;
 	}
 	
@@ -270,7 +270,7 @@ public class alu {
 	{
 		this.cf = 0;
 		Formatstr OP = OutregsINF.getOPCODE();
-		OP.toBinary();
+		//OP.toBinary();
 		switch (Integer.valueOf(OP.getStr(), 2)){
 		//ADD r1,r2
 		case 4:
@@ -333,6 +333,4 @@ public class alu {
 	   //Formatstr c = OutregsINF.getCC();
 	   //System.out.println(c.getStr());
    }
-
-	
 }

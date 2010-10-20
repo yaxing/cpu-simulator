@@ -88,4 +88,11 @@ public class GenRegs {
 	public Formatstr getR7(){
 		return R7;
 	}
+	
+	public void clear(){
+		R0.setStr(format);
+		R1.setStr(format);
+		R2.setStr(format);
+		R3.setStr(format);	
+	}
 }
