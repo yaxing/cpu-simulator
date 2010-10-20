@@ -39,8 +39,8 @@ public class DevicesINF {
 	 * 					from OPD(24 bits).
 	 * @return String 	the content the register want.
 	 */
-	public static void fromDevice(Formatstr devid) {
-		Devices.in(devid);
+	public static String fromDevice(Formatstr devid) {
+		return Devices.in(devid);
 	}
 	
 	/**
