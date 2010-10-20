@@ -58,10 +58,8 @@ public class Controller {
 	 * @exception
 	 */
 	public void initial(){
-		
-		/*initial devices*/
-		//DevicesINF.initDevices();
-		
+		/*clear register files*/
+		GrINF.clear();
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
 		
@@ -168,7 +166,7 @@ public class Controller {
 	 * control instruction circles
 	 * 
 	 * @param
-	 * @return execStat  indicating the state of instruction execution
+	 * @return 
 	 * @exception
 	 */
 	public void run(){

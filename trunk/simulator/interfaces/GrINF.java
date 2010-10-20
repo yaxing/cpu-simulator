@@ -59,4 +59,8 @@ public class GrINF {
 	public static Formatstr getR7(){
 		return gr.getR7();
 	}
+	
+	public static void clear(){
+		gr.clear();
+	}
 }

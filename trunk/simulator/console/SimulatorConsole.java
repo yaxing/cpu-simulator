@@ -41,6 +41,9 @@ public class SimulatorConsole extends javax.swing.JFrame {
         GPR2value.setText("000000000000000000000000");
         GPR3value.setText("000000000000000000000000");
         PCvalue.setText("000000000000000000000000");
+        stepButton.setEnabled(true);
+        Printervalue.setText("");
+        Printervalue.setEditable(false);
 	}
 	
 	/**
@@ -852,16 +855,18 @@ public class SimulatorConsole extends javax.swing.JFrame {
         	
 	        mainControl.initial();
 	        mainCtrl.start();
-	        
         }
     }
 
     private void stepButtonActionPerformed(java.awt.event.ActionEvent evt) {
     	//show the content of all registers first.
     	setAll();
+    	if(!mainCtrl.isAlive()){
+    		stepButton.setEnabled(false);
+    		stepButton.setText("End");
+    	}
     	//then execute the instruction.
     	mainControl.debugNext = true;
-    	
     }
 
     private void debugButtonActionPerformed(java.awt.event.ActionEvent evt) {
