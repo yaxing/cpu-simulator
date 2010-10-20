@@ -135,7 +135,7 @@ public class alu {
 			sum = Integer.toBinaryString(ai ^ bi ^ this.cf) + sum;
 			
 			//ci+1 = aibi + aici + bici
-			this.cf = (ai & bi) + (ai & this.cf) + (bi & this.cf);
+			this.cf = (ai & bi) | (ai & this.cf) | (bi & this.cf);
 		}
 		out.setStr(sum);
 		OutregsINF.setOUT(out);
@@ -257,7 +257,7 @@ public class alu {
 	}
 	
 	/**
-	 * Activate calculation
+	 * The trigger of activating all ALU functions
 	 * provide ALU operations in instruction execution
 	 * 
 	 *  @param
@@ -309,12 +309,12 @@ public class alu {
 		
 		}
 	}
-	/*
+	
    public static void main(String args[])
    {
-	   Formatstr in1 = new Formatstr("7F");
-	   Formatstr in2 = new Formatstr("3");
-	   Formatstr op = new Formatstr("5");
+	   Formatstr in1 = new Formatstr("110");
+	   Formatstr in2 = new Formatstr("110");
+	   Formatstr op = new Formatstr("4");
 	   Formatstr out = new Formatstr();
 	   Formatstr lr = new Formatstr("000001");
 	   
@@ -334,5 +334,5 @@ public class alu {
 	   //System.out.println(c.getStr());
    }
 
-	*/
+	
 }
