@@ -46,27 +46,27 @@ public class GenRegs {
 	
 	public void setR0(Formatstr R0){
 		formatStr(R0);
-		this.R0 = R0;
+		this.R0.setStr(R0.getStr());
 	}
 	
 	public void setR1(Formatstr R1){
 		formatStr(R1);
-		this.R1 = R1;
+		this.R1.setStr(R1.getStr());
 	}
 	
 	public void setR2(Formatstr R2){
 		formatStr(R2);
-		this.R2 = R2;
+		this.R2.setStr(R2.getStr());
 	}
 	
 	public void setR3(Formatstr R3){
 		formatStr(R3);
-		this.R3 = R3;
+		this.R3.setStr(R3.getStr());
 	}
 	
 	public void setR7(Formatstr R7){
 		formatStr(R7);
-		this.R7 = R7;
+		this.R7.setStr(R7.getStr());
 	}
 	
 	public Formatstr getR0(){

@@ -17,7 +17,7 @@ import simulator.formatstr.*;
  */
 public class Pc {
 	/**address of next instruction*/
-	private Formatstr instrAdd;
+	private static Formatstr instrAdd = new Formatstr();
 	
 	/**
 	 * Guarantee that PC is 24 bits
@@ -26,7 +26,7 @@ public class Pc {
 	 * @return 
 	 * @exception
 	 */
-	private void formatPc(Formatstr pc){
+	private static void formatPc(Formatstr pc){
 		String format = "000000000000000000000000";
 		String temp = pc.getStr();
 		if(temp == null){
@@ -48,9 +48,9 @@ public class Pc {
 	 * @return 
 	 * @exception
 	 */
-	public void setPc(Formatstr add){
+	public static void setPc(Formatstr add){
 		formatPc(add);
-		instrAdd = add;
+		instrAdd.setStr(add.getStr());
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Pc {
 	 * @return Formatstr PC content
 	 * @exception
 	 */
-	public Formatstr getPc(){
+	public static Formatstr getPc(){
 		return instrAdd;
 	}
 	
@@ -72,12 +72,12 @@ public class Pc {
 	 * @return 
 	 * @exception
 	 */
-	public void pcAdder(Formatstr offset){
+	public static void pcAdder(Formatstr offset){
 		Integer PcAdd = Integer.parseInt(instrAdd.getStr(),2);
 		Integer off = Integer.parseInt(offset.getStr(),2);
 		PcAdd = PcAdd + off;
 		Formatstr temp = new Formatstr();
 		temp.setStr(Integer.toBinaryString(PcAdd));
-		this.setPc(temp);
+		setPc(temp);
 	}
 }

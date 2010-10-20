@@ -111,87 +111,87 @@ public class OutRegs {
 	/*set methods*/
 	public void setOPCODE(Formatstr opcode) {
 		formatStr(opcode, "opcode");
-		this.opcode = opcode;
+		this.opcode.setStr(opcode.getStr());
 	}
 	
 	public void setIBIT(Formatstr iBit) {
 		formatStr(iBit, "iBit");
-		this.iBit = iBit;
+		this.iBit.setStr(iBit.getStr());
 	}
 
 	public void setROP1(Formatstr rop1) {
 		formatStr(rop1, "rop1");
-		this.rop1 = rop1;
+		this.rop1.setStr(rop1.getStr());
 	}
 	
 	public void setROP2(Formatstr rop2) {
 		formatStr(rop2, "rop2");
-		this.rop2 = rop2;
+		this.rop2.setStr(rop2.getStr());
 	}
 	
 	public void setIN1(Formatstr in1) {
 		formatStr(in1, "in1");
-		this.in1 = in1;
+		this.in1.setStr(in1.getStr());
 	}
 	
 	public void setIN2(Formatstr in2) {
 		formatStr(in2, "in2");
-		this.in2 = in2;
+		this.in2.setStr(in2.getStr());
 	}
 
 	public void setOUT(Formatstr out) {
 		formatStr(out, "out");
-		this.out = out;
+		this.out.setStr(out.getStr());
 	}
 
 	public void setLR(Formatstr lr) {
 		formatStr(lr, "lr");
-		this.lr = lr;
+		this.lr.setStr(lr.getStr());
 	}
 
 	public void setDEVID(Formatstr devid) {
 		formatStr(devid, "devid");
-		this.devid = devid;
+		this.devid.setStr(devid.getStr());
 	}
 
 	public void setAR(Formatstr ar) {
 		formatStr(ar, "ar");
-		this.ar = ar;
+		this.ar.setStr(ar.getStr());
 	}
 
 	public void setOPD(Formatstr opd){
 		formatStr(opd, "opd");
-		this.opd = opd;
+		this.opd.setStr(opd.getStr());
 	}
 	
 	public void setMAR(Formatstr mar){
 		formatStr(mar, "mar");
-		this.mar = mar;
+		this.mar.setStr(mar.getStr());
 	}
 	
 	public void setMBR(Formatstr mbr){
 		formatStr(mbr, "mbr");
-		this.mbr = mbr;
+		this.mbr.setStr(mbr.getStr());
 	}
 	
 	public void setMCR(Formatstr mcr){
 		formatStr(mcr, "mcr");
-		this.mcr = mcr;
+		this.mcr.setStr(mcr.getStr());
 	}
 	
 	public void setMFR(Formatstr mfr){
 		formatStr(mfr, "mfr");
-		this.mfr = mfr;
+		this.mfr.setStr(mfr.getStr());
 	}
 	
 	public void setIR(Formatstr ir){
 		formatStr(ir, "ir");
-		this.ir = ir;
+		this.ir.setStr(ir.getStr());
 	}
 	
 	public void setMSR(Formatstr msr){
 		formatStr(msr, "msr");
-		this.msr = msr;
+		this.msr.setStr(msr.getStr());
 	}
 	
 	public void setCC(int pos, int i){
@@ -205,7 +205,7 @@ public class OutRegs {
 			buffer += String.valueOf(temp[j]);
 		}
 		this.cc.setStr(buffer);
-	}
+	} 
 
 	/*get methods*/
 	public Formatstr getOPCODE() {

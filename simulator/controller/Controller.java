@@ -26,7 +26,7 @@ public class Controller {
 	private static String insFile = "test1.txt";
 	
 	/**Define PC offset*/
-	private static Formatstr offset = new Formatstr("00000000000001");
+	private static Formatstr offset = new Formatstr("000000000000000000000001");
 	
 	/**Define the debug model flag
 	 * if false, then it's normal running model
