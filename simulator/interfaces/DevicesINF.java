@@ -37,10 +37,10 @@ public class DevicesINF {
 	 * 
 	 * @param devid		the id of device(5 bits).
 	 * 					from OPD(24 bits).
-	 * 		  content	register content of instruction.
+	 * @return String 	the content the register want.
 	 */
 	public static void fromDevice(Formatstr devid) {
-		
+		Devices.in(devid);
 	}
 	
 	/**
@@ -53,11 +53,33 @@ public class DevicesINF {
 	}
 	
 	/**
-	 * print the content of printer buffer.
-	 * 
-	 * @return String	the content of printer buffer.
+	 * encode the charactor input
 	 */
 	public static void characterEnc(char c) {
 		KeyBoard.encode(c);
+	}
+	
+	/**
+	 * when finished input, add EOI to the end of keyBuffer.
+	 */
+	public static void addEndLine() {
+		KeyBoard.addEndLine();
+	}
+	
+	/**
+	 * check the device status.
+	 */
+	public static int checkStatus() {
+		return KeyBoard.getStatus();
+	}
+	
+	/**
+	 * change the device status.
+	 * 
+	 * @param s		0: idle; 1: working; 2:done;
+	 * 				
+	 */
+	public static void changeStatus(int s) {
+		KeyBoard.setStatus(s);
 	}
 }
