@@ -18,7 +18,7 @@ import simulator.formatstr.*;
  */
 public class IsaControl {
 	/**buffer is used to temporarily store data got from registers*/
-	private static Formatstr buffer = new Formatstr();
+	private static Formatstr buffer;
 	
 	
 	/**
@@ -152,9 +152,9 @@ public class IsaControl {
 	 * @return 
 	 * @exception
 	 */
-	public static void execLdr(){
+	public static void execLdr(){		
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -196,7 +196,7 @@ public class IsaControl {
 	 */
 	public static void execStr(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -244,7 +244,7 @@ public class IsaControl {
 	 */
 	public static void execLda(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -279,7 +279,7 @@ public class IsaControl {
 	 */
 	public static void execJz(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -320,7 +320,7 @@ public class IsaControl {
 	 */
 	public static void execJne(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -360,7 +360,7 @@ public class IsaControl {
 	 */
 	public static void execJmp(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -378,7 +378,7 @@ public class IsaControl {
 	 */
 	public static void execJsr(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -401,7 +401,7 @@ public class IsaControl {
 	 */
 	public static void execRfs(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get return code*/
 		buffer = OutregsINF.getOPD();
@@ -422,7 +422,7 @@ public class IsaControl {
 	 */
 	public static void execSob(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get register content*/
 		int gN = getAc();
@@ -497,7 +497,7 @@ public class IsaControl {
 	 */
 	public static void execOut(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get output content*/
 		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
@@ -529,7 +529,7 @@ public class IsaControl {
 	 */
 	public static void execIn(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get device id*/
 		buffer = OutregsINF.getDEVID();
@@ -571,7 +571,7 @@ public class IsaControl {
 	 */
 	public static void execAddSub(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get c(ROP1) and c(ROP2) 
 		 * store them in bus buffer to pass into IN1 and IN2
@@ -584,13 +584,13 @@ public class IsaControl {
 			buffer = GrINF.getR0();
 			break;
 		case 1:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR1();
 			break;
 		case 2:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR2();
 			break;
 		case 3:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR3();
 			break;
 		default:
 			break;
@@ -603,13 +603,13 @@ public class IsaControl {
 			buffer = GrINF.getR0();
 			break;
 		case 1:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR1();
 			break;
 		case 2:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR2();
 			break;
 		case 3:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR3();
 			break;
 		default:
 			break;
@@ -626,13 +626,13 @@ public class IsaControl {
 			GrINF.setR0(buffer);
 			break;
 		case 1:
-			GrINF.setR0(buffer);
+			GrINF.setR1(buffer);
 			break;
 		case 2:
-			GrINF.setR0(buffer);
+			GrINF.setR2(buffer);
 			break;
 		case 3:
-			GrINF.setR0(buffer);
+			GrINF.setR3(buffer);
 			break;
 		default:
 			break;
@@ -650,74 +650,33 @@ public class IsaControl {
 	 */
 	public static void execAirSir(){
 		/*flush buffer*/
-		buffer.setStr("");
+		buffer = new Formatstr();
 		
 		/*get c(ROP1) and c(ROP2) 
-		 * store them in bus buffer to pass into IN1 and IN2
 		*/
 		int r1 = getAc();		
 		int r2 = getIx();
-		String opd = OutregsINF.getOPD().getStr();
 		
-		if(Integer.parseInt(opd,2) == 0){
-		
-			switch(r2){
-			case 0:
-				buffer = GrINF.getR0();
-				break;
-			case 1:
-				buffer = GrINF.getR1();
-				break;
-			case 2:
-				buffer = GrINF.getR2();
-				break;
-			case 3:
-				buffer = GrINF.getR3();
-				break;
-			default:
-				break;
-			}
-			
-			switch(r1){
-			case 0:
-				GrINF.setR0(buffer);
-				break;
-			case 1:
-				GrINF.setR1(buffer);
-				break;
-			case 2:
-				GrINF.setR2(buffer);
-				break;
-			case 3:
-				GrINF.setR3(buffer);
-				break;
-			default:
-				break;
-			}
-			
-			return;
-		}
+		/*immediate number is already passed into IN2 by decode module*/
 		
 		switch(r2){
 		case 0:
 			buffer = GrINF.getR0();
 			break;
 		case 1:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR1();
 			break;
 		case 2:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR2();
 			break;
 		case 3:
-			buffer = GrINF.getR0();
+			buffer = GrINF.getR3();
 			break;
 		default:
 			break;
 		}
 		
 		OutregsINF.setIN1(buffer);
-		
-		OutregsINF.setIN2(OutregsINF.getOPD());
 		
 		/*store the output into r1*/
 		
