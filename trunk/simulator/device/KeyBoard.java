@@ -32,7 +32,7 @@ public class KeyBoard {
 	public static String in() {
 		String result = new String();
 		int pos = (numInput % 4)*EOI.length();
-		if(!keyBuffer.substring(pos - 6, pos).equals(EOI)) {
+		if(!keyBuffer.substring(pos, pos+6).equals(EOI)) {
 			result = keyBuffer.substring(0, 24);
 		}
 		else {

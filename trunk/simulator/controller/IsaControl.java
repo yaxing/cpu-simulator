@@ -534,7 +534,7 @@ public class IsaControl {
 		/*get device id*/
 		buffer = OutregsINF.getDEVID();
 		
-		while(DevicesINF.checkStatus() != 1){
+		while(DevicesINF.checkStatus() != 2){
 			
 		}
 		
