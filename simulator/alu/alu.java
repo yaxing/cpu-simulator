@@ -118,17 +118,13 @@ public class alu {
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
 
-		in1.toBinary();
-		in2.toBinary();
 		in1.binFormat();
 		in2.binFormat();
-		
-		
+				
 		String op1 = in1.getStr();
 		String op2 = in2.getStr();
 		String sum = new String();
 
-		   
 		for (int i=23; i>=0; i--)
 		{
 			ai = (int)op1.charAt(i) - 0x30;
@@ -144,20 +140,14 @@ public class alu {
 		out.setStr(sum);
 		OutregsINF.setOUT(out);
 		
-		//set zero flag (equal or not)
-		if (Integer.valueOf(sum, 2) == 0)
-			OutregsINF.setCC(4, 1);
-		else
-			OutregsINF.setCC(4, 0);
-		
 		//set overflow flag
-		if (sum.charAt(0) == 0x31 && this.cf == 0)
+		if (sum.charAt(0) == 0x30 && sum.charAt(1) == 0x31)
 			OutregsINF.setCC(1, 1);
 		else
 			OutregsINF.setCC(1, 0);
 		
 		//set underflow flag
-		if (sum.charAt(0) == 0x30 && this.cf == 1)
+		if (sum.charAt(0) == 0x31 && sum.charAt(1) == 0x30)
 			OutregsINF.setCC(2, 1);
 		else
 			OutregsINF.setCC(2, 0);
@@ -165,117 +155,6 @@ public class alu {
 		return;
 	}
 	
-	/**
-	 * Left shift (SHL dst, n)
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void shifterLeft()
-	{
-		Formatstr in1 = OutregsINF.getIN1();
-		Formatstr in2 = OutregsINF.getIN2();
-		Formatstr out;
-		in1.toBinary();
-		in2.toHex();
-		char cf = '0';
-		
-		//shift times
-		int n = Integer.valueOf(in2.getStr(), 16);
-
-		//target register
-		String dst = in1.getStr();
-		String result = new String();
-		
-		if (n<24)
-		{
-			//cut the remaining part of register
-			result = dst.substring(n, dst.length()-1);
-		}
-		else
-			result = "000000000000000000000000";
-		
-		if (n<=24)
-		{
-			//carry flag
-			cf = dst.charAt(n-1);
-		}
-		else
-			cf = '0';
-		
-		while(result.length()<24)
-			result = result + "0";
-		
-		out = new Formatstr(result);
-		OutregsINF.setOUT(out);
-		
-		//set overflow flag
-		if (cf == '1')
-			OutregsINF.setCC(1, 1);
-		else
-			OutregsINF.setCC(1, 0);
-		
-		return;
-	}
-	
-	/**
-	 * right shift (SHR dst, n)
-	 * 
-	 *  @param
-	 *  
-	 *  @return
-	 *  @exception
-	 *  	
-	 */
-	public void shifterRight()
-	{
-		Formatstr in1 = OutregsINF.getIN1();
-		Formatstr in2 = OutregsINF.getIN2();
-		Formatstr out;
-		in1.toBinary();
-		in2.toHex();
-		char cf = '0';
-		
-		//shift times
-		int n = Integer.valueOf(in2.getStr(), 16);
-		
-		//target register
-		String dst = in1.getStr();
-		String result = new String();
-		
-		if (n<24)
-		{
-			//cut the remaining part of register
-			result = dst.substring(0, dst.length()-n-1);
-		}
-		else
-			result = "000000000000000000000000";
-		
-		if (n<=24)
-		{
-			//carry flag
-			cf = dst.charAt(dst.length()-n);
-		}
-		else
-			cf = '0';
-		
-		while(result.length()<24)
-			result = "0" + result;
-		
-		out = new Formatstr(result);
-		OutregsINF.setOUT(out);
-		
-		//set overflow flag
-		if (cf == '1')
-			OutregsINF.setCC(1, 1);
-		else
-			OutregsINF.setCC(1, 0);
-		
-		return;
-	}
 	
 	/**
 	 * Sub two operands
@@ -301,6 +180,60 @@ public class alu {
 	}
 	
 	/**
+	 * Left shift (SHL dst, n)
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void shift()
+	{
+		Formatstr in1 = OutregsINF.getIN1();
+		Formatstr in2 = OutregsINF.getIN2();
+		Formatstr out;
+		Formatstr al = OutregsINF.getAR();
+		al.toHex();
+		
+		//Logical shift or Arithmetical shift, duplicate new bits with 0/1
+		String dup = Integer.valueOf(al.getStr(), 16) == 0 ? "1" : "0";		
+		
+		in1.toBinary();
+		in2.toHex();
+		
+		//shift times
+		int n = Integer.valueOf(in2.getStr(), 16);
+
+		//target register
+		String dst = in1.getStr();
+		String result = new String("");
+		
+		if (n<24)
+		{
+			//cut the remaining part of register
+			result = OutregsINF.getLR().getStr() == "000001" ? dst.substring(n, dst.length()-1) : dst.substring(0, dst.length()-n-1);
+		}
+		
+		while(result.length()<24)
+			result = result + dup;
+		
+		out = new Formatstr(result);
+		OutregsINF.setOUT(out);
+		
+		//set overflow flag
+		/*
+		if (cf == '1')
+			OutregsINF.setCC(1, 1);
+		else
+			OutregsINF.setCC(1, 0);
+		*/
+		
+		return;
+	}
+	
+	
+	/**
 	 * Convert true code into ones-complemental code, in case of the substruction
 	 * 
 	 * @param 
@@ -324,7 +257,8 @@ public class alu {
 	}
 	
 	/**
-	 * Activate caculation
+	 * Activate calculation
+	 * provide ALU operations in instruction execution
 	 * 
 	 *  @param
 	 *  
@@ -338,31 +272,37 @@ public class alu {
 		Formatstr OP = OutregsINF.getOPCODE();
 		OP.toBinary();
 		switch (Integer.valueOf(OP.getStr(), 2)){
+		//ADD r1,r2
 		case 4:
 			this.add();
 			break;
+		//SUB r1,r2
 		case 5:
 			this.sub();
 			break;
+		//JZ r, x, address[,I]
+		case 8:
+			this.test();
+			break;
+		//TST r, address[,I]
 		case 17:
 			this.test();
 			break;
+		//AND r, address[,I]
 		case 18:
 			this.and();
 			break;
+		//OR r, address[.I]
 		case 19:
 			this.or();
 			break;
+		//NOT r, address[,I]
 		case 20:
 			this.not();
 			break;
+		//SRC r, count, L/R, A/L
 		case 21:
-			Formatstr lr = OutregsINF.getLR();
-			lr.toHex();
-			if(lr.getStr() == "000001")
-				this.shifterLeft();
-			else
-				this.shifterRight();
+			this.shift();
 			break;
 		default:
 			break;
@@ -372,22 +312,27 @@ public class alu {
 	/*
    public static void main(String args[])
    {
-	   Formatstr in1 = new Formatstr("9");
+	   Formatstr in1 = new Formatstr("7F");
 	   Formatstr in2 = new Formatstr("3");
 	   Formatstr op = new Formatstr("5");
 	   Formatstr out = new Formatstr();
+	   Formatstr lr = new Formatstr("000001");
+	   
 	   
 	   OutregsINF.setIN1(in1);
 	   OutregsINF.setIN2(in2);
 	   OutregsINF.setOPCODE(op);
-	   //AluINF.calc();
-	   //out = OutregsINF.getOUT();
-	   //System.out.println(out.getStr());
-	   OutregsINF.setCC(1, 1);
+	   AluINF.calc();
+	   out = OutregsINF.getOUT();
 	   
-	   Formatstr c = OutregsINF.getCC();
-	   System.out.println(c.getStr());
+	   System.out.println(out.getStr());
+	   
+	   
+	   //OutregsINF.setCC(1, 1);
+	   
+	   //Formatstr c = OutregsINF.getCC();
+	   //System.out.println(c.getStr());
    }
-*/
-	
+
+	*/
 }
