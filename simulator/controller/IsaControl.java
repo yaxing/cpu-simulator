@@ -563,13 +563,13 @@ public class IsaControl {
 	}
 	
 	/**
-	 * Execute instruction ADD
+	 * Execute instruction ADD or SUB
 	 * 
 	 * @param
 	 * @return 
 	 * @exception
 	 */
-	public static void execAdd(){
+	public static void execAddSub(){
 		/*flush buffer*/
 		buffer.setStr("");
 		
@@ -615,11 +615,12 @@ public class IsaControl {
 			break;
 		}
 		
-		OutregsINF.setIN1(buffer);
+		OutregsINF.setIN2(buffer);
 		
 		/*store the output into r1*/
 		
-		
+		AluINF.calc();
+		buffer = OutregsINF.getOUT();
 		switch(r1){
 		case 0:
 			GrINF.setR0(buffer);
@@ -632,6 +633,108 @@ public class IsaControl {
 			break;
 		case 3:
 			GrINF.setR0(buffer);
+			break;
+		default:
+			break;
+		}
+		
+		return;
+	}
+	
+	/**
+	 * Execute instruction AIR or SIR
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execAirSir(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
+		/*get c(ROP1) and c(ROP2) 
+		 * store them in bus buffer to pass into IN1 and IN2
+		*/
+		int r1 = getAc();		
+		int r2 = getIx();
+		String opd = OutregsINF.getOPD().getStr();
+		
+		if(Integer.parseInt(opd,2) == 0){
+		
+			switch(r2){
+			case 0:
+				buffer = GrINF.getR0();
+				break;
+			case 1:
+				buffer = GrINF.getR1();
+				break;
+			case 2:
+				buffer = GrINF.getR2();
+				break;
+			case 3:
+				buffer = GrINF.getR3();
+				break;
+			default:
+				break;
+			}
+			
+			switch(r1){
+			case 0:
+				GrINF.setR0(buffer);
+				break;
+			case 1:
+				GrINF.setR1(buffer);
+				break;
+			case 2:
+				GrINF.setR2(buffer);
+				break;
+			case 3:
+				GrINF.setR3(buffer);
+				break;
+			default:
+				break;
+			}
+			
+			return;
+		}
+		
+		switch(r2){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR0();
+			break;
+		case 2:
+			buffer = GrINF.getR0();
+			break;
+		case 3:
+			buffer = GrINF.getR0();
+			break;
+		default:
+			break;
+		}
+		
+		OutregsINF.setIN1(buffer);
+		
+		OutregsINF.setIN2(OutregsINF.getOPD());
+		
+		/*store the output into r1*/
+		
+		AluINF.calc();
+		buffer = OutregsINF.getOUT();
+		switch(r1){
+		case 0:
+			GrINF.setR0(buffer);
+			break;
+		case 1:
+			GrINF.setR1(buffer);
+			break;
+		case 2:
+			GrINF.setR2(buffer);
+			break;
+		case 3:
+			GrINF.setR3(buffer);
 			break;
 		default:
 			break;
