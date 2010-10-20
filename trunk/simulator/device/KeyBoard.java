@@ -11,6 +11,7 @@ package simulator.device;
  * Keyboard device. IN instruction uses this device.
  * The keyboard has its own buffer. If the device use interrupt, it can decrease the 
  * number of interrupt and flush all the buffered input into memory at one time.
+ * 
  *                          
  * @author Yichao Yu
  * @version 10-16-2010
@@ -18,14 +19,36 @@ package simulator.device;
  * @since JDK 1.6
  */
 public class KeyBoard {
+	private static final String EOI = "111111";		//end of input
 	private static String keyBuffer = new String("");
-	//IN instruction method, called by controller
-	public static void in() {}
+	private static int numInput = 0;
+	private static int statusPort;
+	/**
+	 * get the 24bits of keyBuffer 
+	 * 
+	 * @param c		the letter or number the user pressed.
+	 * @return String	the input the register want.
+	 */
+	public static String in() {
+		String result = new String();
+		int pos = (numInput % 4)*EOI.length();
+		if(!keyBuffer.substring(pos, pos + 6).equals(EOI)) {
+			result = keyBuffer.substring(0, 24);
+		}
+		else {
+			result = keyBuffer;
+			setStatus(0);
+		}
+		keyBuffer = keyBuffer.substring(24);
+				
+		return result;
+	}
 	/**
 	 * Default constructor
 	*/
 	public KeyBoard() {}
 	
+		
 	/**
 	 * encode the keyboard input letter to binary code.
 	 * And buffer the binary code in keyBuffer
@@ -114,7 +137,25 @@ public class KeyBoard {
 			break;
 		}
 		keyBuffer = keyBuffer.concat(code);
+		numInput++;
 	}
 	
+	public static void addEndLine() {
+		keyBuffer = keyBuffer.concat(EOI);
+		numInput++;
+	}
 	
+	public static int getStatus() {
+		return statusPort;
+	}
+	
+	/**
+	 * When press the key, enter "working" status. When press the EOI key, change to
+	 * "done" status. When the IN instruction read all keyBuffer, change to "idle" status.
+	 * 
+	 * @param s		the status will be set.
+	 */
+	public static void setStatus(int s) {
+		statusPort = s;
+	}
 }
