@@ -540,22 +540,22 @@ public class IsaControl {
 		
 		String input = DevicesINF.fromDevice(buffer);
 		
-		System.out.printf(input);
+		buffer.setStr(input);
 		
 		/*get the target register*/
 		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
 		switch(gr){
 		case 0:
-			buffer = GrINF.getR0();
+			GrINF.setR0(buffer);
 			break;
 		case 1:
-			buffer = GrINF.getR1();
+			GrINF.setR1(buffer);
 			break;
 		case 2:
-			buffer = GrINF.getR2();
+			GrINF.setR2(buffer);
 			break;
 		case 3:
-			buffer = GrINF.getR3();
+			GrINF.setR3(buffer);
 			break;
 		default:
 			break;
