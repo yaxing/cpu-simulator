@@ -20,7 +20,6 @@ import java.io.*;
  * @since JDK 1.6
  */
 public class ROMloader {
-	
 	//used for test
 	/*public static void main(String[] args) {
 		try {
