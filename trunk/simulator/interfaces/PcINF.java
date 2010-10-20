@@ -21,7 +21,7 @@ public class PcINF {
 	/**
 	 * Instantiate objects for pc
 	 */
-	public static Pc pc = new Pc();
+	//public static Pc pc = new Pc();
 	
 	/**
 	 * set pc
@@ -31,7 +31,7 @@ public class PcINF {
 	 * @exception 
 	 */
 	public static void setPc(Formatstr add){
-		pc.setPc(add);
+		Pc.setPc(add);
 		return;
 	}
 	
@@ -43,7 +43,7 @@ public class PcINF {
 	 * @exception 
 	 */
 	public static Formatstr getPc(){
-		return pc.getPc();
+		return Pc.getPc();
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class PcINF {
 	 * @exception 
 	 */
 	public static void pcAdder(Formatstr offset){
-		pc.pcAdder(offset);
+		Pc.pcAdder(offset);
 		return;
 	}
 }

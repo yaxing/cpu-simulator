@@ -81,7 +81,7 @@ public class IsaControl {
 		//Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		
 		index = index.substring(23,24);
-		address = index + address.substring(12,24);
+		address = index + address.substring(11,24);
 		
 		/*
 		 * store the EA into buffer
@@ -153,6 +153,8 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execLdr(){
+		/*flush buffer*/
+		buffer.setStr("");
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -193,6 +195,8 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execStr(){
+		/*flush buffer*/
+		buffer.setStr("");
 		
 		/*generate EA and store in buffer*/
 		genEa();
@@ -239,12 +243,14 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execLda(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*generate EA and store in buffer*/
 		genEa();
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
-		
 		//set general register with address
 		switch(gN){
 		case 0:
@@ -272,6 +278,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execJz(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -310,6 +319,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execJne(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -347,6 +359,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execJmp(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -362,6 +377,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execJsr(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*generate EA and store in buffer*/
 		genEa();
 		
@@ -382,6 +400,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execRfs(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*get return code*/
 		buffer = OutregsINF.getOPD();
 		
@@ -400,6 +421,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execSob(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*get register content*/
 		int gN = getAc();
 		
@@ -472,6 +496,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execOut(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*get output content*/
 		int gr = Integer.parseInt(OutregsINF.getROP1().getStr(), 2);
 		switch(gr){
@@ -501,6 +528,9 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execIN(){
+		/*flush buffer*/
+		buffer.setStr("");
+		
 		/*get device id*/
 		buffer = OutregsINF.getDEVID();
 		
@@ -532,6 +562,8 @@ public class IsaControl {
 	 * @exception
 	 */
 	public static void execAdd(){
+		/*flush buffer*/
+		buffer.setStr("");
 		
 		/*get c(ROP1) and c(ROP2) 
 		 * store them in bus buffer to pass into IN1 and IN2
