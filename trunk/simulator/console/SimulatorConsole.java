@@ -65,7 +65,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        powerButton = new javax.swing.JToggleButton();
+    	powerButton = new javax.swing.JToggleButton();
         stepButton = new javax.swing.JButton();
         MAR = new javax.swing.JPanel();
         MARvalue = new javax.swing.JLabel();
@@ -124,6 +124,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         buttonN = new javax.swing.JButton();
         buttonSpace = new javax.swing.JButton();
         buttonShift = new javax.swing.JToggleButton();
+        buttonEnter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -236,7 +237,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GPR2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GPR2value, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(GPR2value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         GPR2Layout.setVerticalGroup(
@@ -256,7 +257,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GPR3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GPR3value, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addComponent(GPR3value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         GPR3Layout.setVerticalGroup(
@@ -286,7 +287,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             .addGroup(PCLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PCvalue)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PCLayout.setVerticalGroup(
             PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,7 +506,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         buttonM.setText("M");
         buttonM.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        buttonM.addActionListener(new java.awt.event.ActionListener() {
+        buttonP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMActionPerformed(evt);
             }
@@ -623,6 +624,13 @@ public class SimulatorConsole extends javax.swing.JFrame {
             }
         });
 
+        buttonEnter.setText("Enter");
+        buttonEnter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEnterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -671,7 +679,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonM, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSpace, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                                .addComponent(buttonSpace, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(buttonS, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -687,7 +695,9 @@ public class SimulatorConsole extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonK, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonL, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(buttonL, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEnter, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(buttonNum1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -747,7 +757,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
                     .addComponent(buttonH)
                     .addComponent(buttonJ)
                     .addComponent(buttonK)
-                    .addComponent(buttonL))
+                    .addComponent(buttonL)
+                    .addComponent(buttonEnter))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonZ)
@@ -768,27 +779,21 @@ public class SimulatorConsole extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(GPR1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MAR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MBR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GPR0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(stepButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(powerButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(debugButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(GPR2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(GPR3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(GPR2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GPR1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MAR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MBR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GPR0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GPR3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -872,22 +877,27 @@ public class SimulatorConsole extends javax.swing.JFrame {
     
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {                                        
         DevicesINF.characterEnc('f');
+        DevicesINF.changeStatus(1);
     }                                       
 
     private void buttonRActionPerformed(java.awt.event.ActionEvent evt) {                                        
     	DevicesINF.characterEnc('r');
+    	DevicesINF.changeStatus(1);
     }                                       
 
     private void buttonVActionPerformed(java.awt.event.ActionEvent evt) {                                        
     	DevicesINF.characterEnc('v');
+    	DevicesINF.changeStatus(1);
     }                                       
 
     private void buttonNum4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     	DevicesINF.characterEnc('4');
+    	DevicesINF.changeStatus(1);
     }                                          
 
     private void buttonNum2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     	DevicesINF.characterEnc('2');
+    	DevicesINF.changeStatus(1);
     }                                          
 
     private void buttonShiftActionPerformed(java.awt.event.ActionEvent evt) {
@@ -896,132 +906,168 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
     private void buttonSpaceActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc(' ');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum1ActionPerformed(java.awt.event.ActionEvent evt) {
         DevicesINF.characterEnc('1');
+        DevicesINF.changeStatus(1);
     }
 
     private void buttonNum3ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('3');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum5ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('5');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum6ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('6');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum7ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('7');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum8ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('8');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum9ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('9');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNum0ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('0');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonQActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('q');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonWActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('w');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonEActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('e');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonTActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('t');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonYActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('y');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonUActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('u');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonIActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('i');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonOActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('o');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonPActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('p');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonAActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('a');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonSActionPerformed(java.awt.event.ActionEvent evt) {
         DevicesINF.characterEnc('s');
+        DevicesINF.changeStatus(1);
     }
 
     private void buttonDActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('d');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonGActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('g');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonHActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('h');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonJActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('j');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonKActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('k');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonLActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('l');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonZActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('z');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonXActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('x');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonCActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('c');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonBActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('b');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonNActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('n');
+    	DevicesINF.changeStatus(1);
     }
 
     private void buttonMActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('m');
+    	DevicesINF.changeStatus(1);
     }
     
+    private void buttonEnterActionPerformed(java.awt.event.ActionEvent evt) {
+        DevicesINF.addEndLine();
+        DevicesINF.changeStatus(2);
+    }
     
     /**
     * @param args the command line arguments
@@ -1081,6 +1127,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JButton buttonS;
     private javax.swing.JToggleButton buttonShift;
     private javax.swing.JButton buttonSpace;
+    private javax.swing.JButton buttonEnter;
     private javax.swing.JButton buttonT;
     private javax.swing.JButton buttonU;
     private javax.swing.JButton buttonV;
@@ -1104,5 +1151,5 @@ public class SimulatorConsole extends javax.swing.JFrame {
     	}
     }
     
-    
+        
 }
