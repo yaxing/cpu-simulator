@@ -19,7 +19,7 @@ import simulator.formatstr.Formatstr;
  * @since JDK 1.6
  */
 public class Printer {
-	private static String buffer = new String("");
+	private static String printBuffer = new String("");
 	
 	/**
 	 * OUT instruction. 
@@ -28,7 +28,7 @@ public class Printer {
 	 * @param content	content to be set.	
 	 */
 	public static boolean out(Formatstr content) {
-		buffer = buffer.concat(content.getStr() + System.getProperty("line.separator"));
+		printBuffer = printBuffer.concat(content.getStr() + System.getProperty("line.separator"));
 		System.out.println("printer buffered content!");
 		return true;
 	}
@@ -38,7 +38,7 @@ public class Printer {
 	 * 
 	 * @return String	the printer buffer
 	 */
-	public static String showOnConsole() { return buffer; }
+	public static String showOnConsole() { return printBuffer; }
 	/**
 	 * Default constructor
 	*/

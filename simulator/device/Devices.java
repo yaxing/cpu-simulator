@@ -26,7 +26,17 @@ public class Devices {
 	 * 
 	 * @param 
 	 */
-	public static void in() {}
+	public static String in(Formatstr devid) {
+		String id = new String(devid.getStr().substring(20, 24));
+		String result = new String();
+		
+		switch(Integer.parseInt(id,2)){
+		case 0:
+			result = KeyBoard.in();
+			break;
+		}
+		return result;
+	}
 	/**
 	 * OUT instruction
 	 * 
@@ -34,16 +44,15 @@ public class Devices {
 	 * 					from OPD(24 bits).
 	 * 		  content	register content of instruction.	
 	 */
-	public static boolean out(Formatstr devid, Formatstr content) {
+	public static void out(Formatstr devid, Formatstr content) {
 		String id = new String(devid.getStr().substring(20, 24));
 		
-		boolean flag = false;
 		switch(Integer.parseInt(id,2)){
 		case 1:
-			flag = Printer.out(content);
+			Printer.out(content);
 			break;
 		}
-		return flag;
+
 	}
 	
 }
