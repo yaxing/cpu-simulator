@@ -24,7 +24,7 @@ public class Devices {
 	/**
 	 * IN instruction
 	 * 
-	 * @param 
+	 * @param devid 	device id
 	 */
 	public static String in(Formatstr devid) {
 		String id = new String(devid.getStr().substring(20, 24));
