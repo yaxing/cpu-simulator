@@ -83,6 +83,7 @@ public class Memory {
 	 * according to address string, get the corresponding bank
 	 * 
 	 * @param addr	memory address
+	 * @return String[] the corresponding banks
 	 */
 	private static String[] getBank(String addr) {
 		int tail = Integer.valueOf(addr.substring(addr.length()-2, addr.length()), 2);
