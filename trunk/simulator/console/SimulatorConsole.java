@@ -30,18 +30,34 @@ import simulator.interfaces.*;
  */
 public class SimulatorConsole extends javax.swing.JFrame {
 	
+	private String setLight(int flag) {
+		if(flag == 1)
+			return "/simulator/console/red.png";
+		else
+			return "/simulator/console/blue.png";
+	}
+	
 	/**
 	 * reset of outer register monitor to zero.
 	 */
 	private void resetAll() {
-		MARvalue.setText("000000000000000000000000");
-		MBRvalue.setText("000000000000000000000000");
-        GPR0value.setText("000000000000000000000000");
-        GPR1value.setText("000000000000000000000000");
-        GPR2value.setText("000000000000000000000000");
-        GPR3value.setText("000000000000000000000000");
-        PCvalue.setText("000000000000000000000000");
-        stepButton.setEnabled(true);
+		MARvalue = "000000000000000000000000";
+		MBRvalue = "000000000000000000000000";
+        GPR0value = "000000000000000000000000";
+        GPR1value = "000000000000000000000000";
+        GPR2value = "000000000000000000000000";
+        GPR3value = "000000000000000000000000";
+        PCvalue = "000000000000000000000000";
+        for(int i=0;i<24;i++) {
+        	((javax.swing.JLabel)GPR0.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)GPR1.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)GPR2.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)GPR3.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)MAR.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)MBR.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        	((javax.swing.JLabel)PC.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(0))));
+        }
+        
         Printervalue.setText("");
         Printervalue.setEditable(false);
 	}
@@ -50,45 +66,48 @@ public class SimulatorConsole extends javax.swing.JFrame {
 	 * set of outer register monitors to the current value of corresponding registers.
 	 */
 	private void setAll() {
-		MARvalue.setText(OutregsINF.getMAR().getStr());
-        MBRvalue.setText(OutregsINF.getMBR().getStr());
-        GPR0value.setText(GrINF.getR0().getStr());
-        GPR1value.setText(GrINF.getR1().getStr());
-        GPR2value.setText(GrINF.getR2().getStr());
-        GPR3value.setText(GrINF.getR3().getStr());
-        PCvalue.setText(PcINF.getPc().getStr());
+		MARvalue = OutregsINF.getMAR().getStr();
+        MBRvalue = OutregsINF.getMBR().getStr();
+        GPR0value = GrINF.getR0().getStr();
+        GPR1value = GrINF.getR1().getStr();
+        GPR2value = GrINF.getR2().getStr();
+        GPR3value = GrINF.getR3().getStr();
+        PCvalue = PcINF.getPc().getStr();
+        for(int i=0;i<24;i++) {
+        	((javax.swing.JLabel)GPR0.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(GPR0value.substring(i,i+1))))));
+        	((javax.swing.JLabel)GPR1.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(GPR1value.substring(i,i+1))))));
+        	((javax.swing.JLabel)GPR2.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(GPR2value.substring(i,i+1))))));
+        	((javax.swing.JLabel)GPR3.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(GPR3value.substring(i,i+1))))));
+        	((javax.swing.JLabel)MAR.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(MARvalue.substring(i,i+1))))));
+        	((javax.swing.JLabel)MBR.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(MBRvalue.substring(i,i+1))))));
+        	((javax.swing.JLabel)PC.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(PCvalue.substring(i,i+1))))));
+        }
         Printervalue.setText(DevicesINF.showPrinter());
+        //reset all device buffer
+        
 	}
 	
     /** Creates new form SimulatorConsole */
     public SimulatorConsole() {
         initComponents();
         resetAll();
+        mainControl = new Controller();
+        lightsPanel.setVisible(false);
+    	printPanel.setVisible(false);
+    	keyPanel.setVisible(false);
+    	programPanel.setVisible(false);
+    	IPLButton.setEnabled(false);
+    	stepButton.setEnabled(false);
+    	debugButton.setEnabled(false);
     }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-    	powerButton = new javax.swing.JToggleButton();
-        stepButton = new javax.swing.JButton();
-        MAR = new javax.swing.JPanel();
-        MARvalue = new javax.swing.JLabel();
-        MBR = new javax.swing.JPanel();
-        MBRvalue = new javax.swing.JLabel();
-        GPR0 = new javax.swing.JPanel();
-        GPR0value = new javax.swing.JLabel();
-        GPR1 = new javax.swing.JPanel();
-        GPR1value = new javax.swing.JLabel();
-        GPR2 = new javax.swing.JPanel();
-        GPR2value = new javax.swing.JLabel();
-        GPR3 = new javax.swing.JPanel();
-        GPR3value = new javax.swing.JLabel();
-        debugButton = new javax.swing.JToggleButton();
-        PC = new javax.swing.JPanel();
-        PCvalue = new javax.swing.JLabel();
         printPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Printervalue = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        keyPanel = new javax.swing.JPanel();
         buttonA = new javax.swing.JButton();
         buttonS = new javax.swing.JButton();
         buttonD = new javax.swing.JButton();
@@ -128,176 +147,193 @@ public class SimulatorConsole extends javax.swing.JFrame {
         buttonSpace = new javax.swing.JButton();
         buttonShift = new javax.swing.JToggleButton();
         buttonEnter = new javax.swing.JButton();
+        lightsPanel = new javax.swing.JPanel();
+        MAR = new javax.swing.JPanel();
+        MAR0 = new javax.swing.JLabel();
+        MAR1 = new javax.swing.JLabel();
+        MAR2 = new javax.swing.JLabel();
+        MAR3 = new javax.swing.JLabel();
+        MAR4 = new javax.swing.JLabel();
+        MAR5 = new javax.swing.JLabel();
+        MAR6 = new javax.swing.JLabel();
+        MAR7 = new javax.swing.JLabel();
+        MAR8 = new javax.swing.JLabel();
+        MAR9 = new javax.swing.JLabel();
+        MAR10 = new javax.swing.JLabel();
+        MAR11 = new javax.swing.JLabel();
+        MAR12 = new javax.swing.JLabel();
+        MAR13 = new javax.swing.JLabel();
+        MAR14 = new javax.swing.JLabel();
+        MAR15 = new javax.swing.JLabel();
+        MAR16 = new javax.swing.JLabel();
+        MAR17 = new javax.swing.JLabel();
+        MAR18 = new javax.swing.JLabel();
+        MAR19 = new javax.swing.JLabel();
+        MAR20 = new javax.swing.JLabel();
+        MAR21 = new javax.swing.JLabel();
+        MAR22 = new javax.swing.JLabel();
+        MAR23 = new javax.swing.JLabel();
+        MBR = new javax.swing.JPanel();
+        MBR0 = new javax.swing.JLabel();
+        MBR1 = new javax.swing.JLabel();
+        MBR2 = new javax.swing.JLabel();
+        MBR3 = new javax.swing.JLabel();
+        MBR4 = new javax.swing.JLabel();
+        MBR5 = new javax.swing.JLabel();
+        MBR7 = new javax.swing.JLabel();
+        MBR8 = new javax.swing.JLabel();
+        MBR9 = new javax.swing.JLabel();
+        MBR10 = new javax.swing.JLabel();
+        MBR11 = new javax.swing.JLabel();
+        MBR12 = new javax.swing.JLabel();
+        MBR13 = new javax.swing.JLabel();
+        MBR14 = new javax.swing.JLabel();
+        MBR15 = new javax.swing.JLabel();
+        MBR16 = new javax.swing.JLabel();
+        MBR17 = new javax.swing.JLabel();
+        MBR18 = new javax.swing.JLabel();
+        MBR20 = new javax.swing.JLabel();
+        MBR21 = new javax.swing.JLabel();
+        MBR23 = new javax.swing.JLabel();
+        MBR6 = new javax.swing.JLabel();
+        MBR19 = new javax.swing.JLabel();
+        MBR22 = new javax.swing.JLabel();
+        PC = new javax.swing.JPanel();
+        PC0 = new javax.swing.JLabel();
+        PC1 = new javax.swing.JLabel();
+        PC2 = new javax.swing.JLabel();
+        PC3 = new javax.swing.JLabel();
+        PC4 = new javax.swing.JLabel();
+        PC7 = new javax.swing.JLabel();
+        PC8 = new javax.swing.JLabel();
+        PC10 = new javax.swing.JLabel();
+        PC12 = new javax.swing.JLabel();
+        PC14 = new javax.swing.JLabel();
+        PC17 = new javax.swing.JLabel();
+        PC18 = new javax.swing.JLabel();
+        PC20 = new javax.swing.JLabel();
+        PC23 = new javax.swing.JLabel();
+        PC5 = new javax.swing.JLabel();
+        PC6 = new javax.swing.JLabel();
+        PC9 = new javax.swing.JLabel();
+        PC11 = new javax.swing.JLabel();
+        PC13 = new javax.swing.JLabel();
+        PC15 = new javax.swing.JLabel();
+        PC16 = new javax.swing.JLabel();
+        PC19 = new javax.swing.JLabel();
+        PC21 = new javax.swing.JLabel();
+        PC22 = new javax.swing.JLabel();
+        GPR0 = new javax.swing.JPanel();
+        GPR0L0 = new javax.swing.JLabel();
+        GPR0L1 = new javax.swing.JLabel();
+        GPR0L2 = new javax.swing.JLabel();
+        GPR0L3 = new javax.swing.JLabel();
+        GPR0L4 = new javax.swing.JLabel();
+        GPR0L5 = new javax.swing.JLabel();
+        GPR0L6 = new javax.swing.JLabel();
+        GPR0L7 = new javax.swing.JLabel();
+        GPR0L8 = new javax.swing.JLabel();
+        GPR0L9 = new javax.swing.JLabel();
+        GPR0L10 = new javax.swing.JLabel();
+        GPR0L11 = new javax.swing.JLabel();
+        GPR0L12 = new javax.swing.JLabel();
+        GPR0L13 = new javax.swing.JLabel();
+        GPR0L14 = new javax.swing.JLabel();
+        GPR0L15 = new javax.swing.JLabel();
+        GPR0L16 = new javax.swing.JLabel();
+        GPR0L17 = new javax.swing.JLabel();
+        GPR0L18 = new javax.swing.JLabel();
+        GPR0L19 = new javax.swing.JLabel();
+        GPR0L20 = new javax.swing.JLabel();
+        GPR0L21 = new javax.swing.JLabel();
+        GPR0L22 = new javax.swing.JLabel();
+        GPR0L23 = new javax.swing.JLabel();
+        GPR1 = new javax.swing.JPanel();
+        GPR1L0 = new javax.swing.JLabel();
+        GPR1L1 = new javax.swing.JLabel();
+        GPR1L2 = new javax.swing.JLabel();
+        GPR1L3 = new javax.swing.JLabel();
+        GPR1L4 = new javax.swing.JLabel();
+        GPR1L5 = new javax.swing.JLabel();
+        GPR1L6 = new javax.swing.JLabel();
+        GPR1L7 = new javax.swing.JLabel();
+        GPR1L8 = new javax.swing.JLabel();
+        GPR1L9 = new javax.swing.JLabel();
+        GPR1L10 = new javax.swing.JLabel();
+        GPR1L11 = new javax.swing.JLabel();
+        GPR1L12 = new javax.swing.JLabel();
+        GPR1L13 = new javax.swing.JLabel();
+        GPR1L14 = new javax.swing.JLabel();
+        GPR1L15 = new javax.swing.JLabel();
+        GPR1L16 = new javax.swing.JLabel();
+        GPR1L17 = new javax.swing.JLabel();
+        GPR1L18 = new javax.swing.JLabel();
+        GPR1L19 = new javax.swing.JLabel();
+        GPR1L20 = new javax.swing.JLabel();
+        GPR1L22 = new javax.swing.JLabel();
+        GPR1L23 = new javax.swing.JLabel();
+        GPR1L21 = new javax.swing.JLabel();
+        GPR2 = new javax.swing.JPanel();
+        GPR2L0 = new javax.swing.JLabel();
+        GPR2L1 = new javax.swing.JLabel();
+        GPR2L2 = new javax.swing.JLabel();
+        GPR2L3 = new javax.swing.JLabel();
+        GPR2L4 = new javax.swing.JLabel();
+        GPR2L5 = new javax.swing.JLabel();
+        GPR2L6 = new javax.swing.JLabel();
+        GPR2L7 = new javax.swing.JLabel();
+        GPR2L8 = new javax.swing.JLabel();
+        GPR2L9 = new javax.swing.JLabel();
+        GPR2L10 = new javax.swing.JLabel();
+        GPR2L11 = new javax.swing.JLabel();
+        GPR2L12 = new javax.swing.JLabel();
+        GPR2L13 = new javax.swing.JLabel();
+        GPR2L14 = new javax.swing.JLabel();
+        GPR2L15 = new javax.swing.JLabel();
+        GPR2L16 = new javax.swing.JLabel();
+        GPR2L17 = new javax.swing.JLabel();
+        GPR2L18 = new javax.swing.JLabel();
+        GPR2L19 = new javax.swing.JLabel();
+        GPR2L20 = new javax.swing.JLabel();
+        GPR2L21 = new javax.swing.JLabel();
+        GPR2L22 = new javax.swing.JLabel();
+        GPR2L23 = new javax.swing.JLabel();
+        GPR3 = new javax.swing.JPanel();
+        GPR3L0 = new javax.swing.JLabel();
+        GPR3L1 = new javax.swing.JLabel();
+        GPR3L2 = new javax.swing.JLabel();
+        GPR3L3 = new javax.swing.JLabel();
+        GPR3L4 = new javax.swing.JLabel();
+        GPR3L5 = new javax.swing.JLabel();
+        GPR3L6 = new javax.swing.JLabel();
+        GPR3L7 = new javax.swing.JLabel();
+        GPR3L8 = new javax.swing.JLabel();
+        GPR3L9 = new javax.swing.JLabel();
+        GPR3L10 = new javax.swing.JLabel();
+        GPR3L11 = new javax.swing.JLabel();
+        GPR3L12 = new javax.swing.JLabel();
+        GPR3L13 = new javax.swing.JLabel();
+        GPR3L14 = new javax.swing.JLabel();
+        GPR3L15 = new javax.swing.JLabel();
+        GPR3L16 = new javax.swing.JLabel();
+        GPR3L17 = new javax.swing.JLabel();
+        GPR3L18 = new javax.swing.JLabel();
+        GPR3L19 = new javax.swing.JLabel();
+        GPR3L20 = new javax.swing.JLabel();
+        GPR3L21 = new javax.swing.JLabel();
+        GPR3L22 = new javax.swing.JLabel();
+        GPR3L23 = new javax.swing.JLabel();
+        controlPanel = new javax.swing.JPanel();
+        debugButton = new javax.swing.JToggleButton();
+        powerButton = new javax.swing.JToggleButton();
+        IPLButton = new javax.swing.JButton();
+        stepButton = new javax.swing.JButton();
+        programPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inputfiles = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        powerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("off.png"))); // NOI18N
-        powerButton.setRolloverEnabled(false);
-        powerButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("on.png"))); // NOI18N
-        powerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                powerButtonActionPerformed(evt);
-            }
-        });
-
-        stepButton.setText("STEP");
-        stepButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        stepButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        stepButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stepButtonActionPerformed(evt);
-            }
-        });
-
-        MAR.setBorder(javax.swing.BorderFactory.createTitledBorder("MAR"));
-
-        MARvalue.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout MARLayout = new javax.swing.GroupLayout(MAR);
-        MAR.setLayout(MARLayout);
-        MARLayout.setHorizontalGroup(
-            MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MARLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MARvalue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        MARLayout.setVerticalGroup(
-            MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MARLayout.createSequentialGroup()
-                .addComponent(MARvalue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        MBR.setBorder(javax.swing.BorderFactory.createTitledBorder("MBR"));
-
-        MBRvalue.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout MBRLayout = new javax.swing.GroupLayout(MBR);
-        MBR.setLayout(MBRLayout);
-        MBRLayout.setHorizontalGroup(
-            MBRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MBRLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MBRvalue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        MBRLayout.setVerticalGroup(
-            MBRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MBRLayout.createSequentialGroup()
-                .addComponent(MBRvalue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        GPR0.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 0"));
-
-        GPR0value.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout GPR0Layout = new javax.swing.GroupLayout(GPR0);
-        GPR0.setLayout(GPR0Layout);
-        GPR0Layout.setHorizontalGroup(
-            GPR0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR0Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GPR0value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        GPR0Layout.setVerticalGroup(
-            GPR0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR0Layout.createSequentialGroup()
-                .addComponent(GPR0value)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        GPR1.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 1"));
-
-        GPR1value.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout GPR1Layout = new javax.swing.GroupLayout(GPR1);
-        GPR1.setLayout(GPR1Layout);
-        GPR1Layout.setHorizontalGroup(
-            GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GPR1value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        GPR1Layout.setVerticalGroup(
-            GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR1Layout.createSequentialGroup()
-                .addComponent(GPR1value)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        GPR2.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 2"));
-
-        GPR2value.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout GPR2Layout = new javax.swing.GroupLayout(GPR2);
-        GPR2.setLayout(GPR2Layout);
-        GPR2Layout.setHorizontalGroup(
-            GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GPR2value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        GPR2Layout.setVerticalGroup(
-            GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR2Layout.createSequentialGroup()
-                .addComponent(GPR2value)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        GPR3.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 3"));
-
-        GPR3value.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout GPR3Layout = new javax.swing.GroupLayout(GPR3);
-        GPR3.setLayout(GPR3Layout);
-        GPR3Layout.setHorizontalGroup(
-            GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GPR3value, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        GPR3Layout.setVerticalGroup(
-            GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GPR3Layout.createSequentialGroup()
-                .addComponent(GPR3value)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        debugButton.setText("Debug Mode Off");
-        debugButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        debugButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        debugButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                debugButtonActionPerformed(evt);
-            }
-        });
-
-        PC.setBorder(javax.swing.BorderFactory.createTitledBorder("PC"));
-
-        PCvalue.setText("000000000000000000000000");
-
-        javax.swing.GroupLayout PCLayout = new javax.swing.GroupLayout(PC);
-        PC.setLayout(PCLayout);
-        PCLayout.setHorizontalGroup(
-            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PCLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PCvalue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        PCLayout.setVerticalGroup(
-            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PCLayout.createSequentialGroup()
-                .addComponent(PCvalue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         printPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Printer"));
 
@@ -311,17 +347,17 @@ public class SimulatorConsole extends javax.swing.JFrame {
             printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(printPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addContainerGap())
         );
         printPanelLayout.setVerticalGroup(
             printPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(printPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("KeyBoard"));
+        keyPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("KeyBoard"));
 
         buttonA.setText("A");
         buttonA.setMargin(new java.awt.Insets(2, 4, 2, 4));
@@ -509,7 +545,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 
         buttonM.setText("M");
         buttonM.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        buttonP.addActionListener(new java.awt.event.ActionListener() {
+        buttonM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMActionPerformed(evt);
             }
@@ -634,14 +670,14 @@ public class SimulatorConsole extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout keyPanelLayout = new javax.swing.GroupLayout(keyPanel);
+        keyPanel.setLayout(keyPanelLayout);
+        keyPanelLayout.setHorizontalGroup(
+            keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(keyPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(keyPanelLayout.createSequentialGroup()
                         .addComponent(buttonQ, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonW, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -661,13 +697,13 @@ public class SimulatorConsole extends javax.swing.JFrame {
                         .addComponent(buttonO, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonP, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(keyPanelLayout.createSequentialGroup()
+                        .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buttonA, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonShift, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(keyPanelLayout.createSequentialGroup()
                                 .addComponent(buttonZ, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonX, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -682,8 +718,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonM, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSpace, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(buttonSpace, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addGroup(keyPanelLayout.createSequentialGroup()
                                 .addComponent(buttonS, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonD, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -700,8 +736,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonL, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonEnter, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(buttonEnter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(keyPanelLayout.createSequentialGroup()
                         .addComponent(buttonNum1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonNum2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -723,11 +759,11 @@ public class SimulatorConsole extends javax.swing.JFrame {
                         .addComponent(buttonNum0, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        keyPanelLayout.setVerticalGroup(
+            keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, keyPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonNum1)
                     .addComponent(buttonNum2)
                     .addComponent(buttonNum3)
@@ -739,7 +775,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
                     .addComponent(buttonNum0)
                     .addComponent(buttonNum6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonQ)
                     .addComponent(buttonW)
                     .addComponent(buttonE)
@@ -751,7 +787,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
                     .addComponent(buttonO)
                     .addComponent(buttonP))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonA)
                     .addComponent(buttonS)
                     .addComponent(buttonD)
@@ -763,7 +799,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
                     .addComponent(buttonL)
                     .addComponent(buttonEnter))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(keyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonZ)
                     .addComponent(buttonX)
                     .addComponent(buttonC)
@@ -773,7 +809,1071 @@ public class SimulatorConsole extends javax.swing.JFrame {
                     .addComponent(buttonN)
                     .addComponent(buttonSpace)
                     .addComponent(buttonShift))
+                .addContainerGap())
+        );
+
+        lightsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Lights"));
+
+        MAR.setBorder(javax.swing.BorderFactory.createTitledBorder("MAR"));
+
+        MAR0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MAR23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout MARLayout = new javax.swing.GroupLayout(MAR);
+        MAR.setLayout(MARLayout);
+        MARLayout.setHorizontalGroup(
+            MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MARLayout.createSequentialGroup()
+                .addComponent(MAR0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MAR23))
+        );
+        MARLayout.setVerticalGroup(
+            MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(MAR0)
+                .addComponent(MAR1)
+                .addComponent(MAR2)
+                .addComponent(MAR22)
+                .addComponent(MAR23)
+                .addComponent(MAR21)
+                .addComponent(MAR20)
+                .addComponent(MAR19)
+                .addComponent(MAR18)
+                .addComponent(MAR17)
+                .addComponent(MAR16)
+                .addComponent(MAR15)
+                .addComponent(MAR14)
+                .addComponent(MAR13)
+                .addComponent(MAR12)
+                .addComponent(MAR11)
+                .addComponent(MAR10)
+                .addComponent(MAR9)
+                .addComponent(MAR8)
+                .addComponent(MAR7)
+                .addComponent(MAR6)
+                .addComponent(MAR5)
+                .addComponent(MAR4)
+                .addComponent(MAR3))
+        );
+
+        MBR.setBorder(javax.swing.BorderFactory.createTitledBorder("MBR"));
+
+        MBR0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        MBR22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout MBRLayout = new javax.swing.GroupLayout(MBR);
+        MBR.setLayout(MBRLayout);
+        MBRLayout.setHorizontalGroup(
+            MBRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MBRLayout.createSequentialGroup()
+                .addComponent(MBR0, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR23))
+        );
+        MBRLayout.setVerticalGroup(
+            MBRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MBRLayout.createSequentialGroup()
+                .addGroup(MBRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MBR0)
+                    .addComponent(MBR1)
+                    .addComponent(MBR2)
+                    .addComponent(MBR3)
+                    .addComponent(MBR4)
+                    .addComponent(MBR7)
+                    .addComponent(MBR8)
+                    .addComponent(MBR9)
+                    .addComponent(MBR10)
+                    .addComponent(MBR11)
+                    .addComponent(MBR12)
+                    .addComponent(MBR13)
+                    .addComponent(MBR14)
+                    .addComponent(MBR15)
+                    .addComponent(MBR16)
+                    .addComponent(MBR17)
+                    .addComponent(MBR18)
+                    .addComponent(MBR23)
+                    .addComponent(MBR5)
+                    .addComponent(MBR6)
+                    .addComponent(MBR20)
+                    .addComponent(MBR19)
+                    .addComponent(MBR21)
+                    .addComponent(MBR22))
+                .addContainerGap())
+        );
+
+        PC.setBorder(javax.swing.BorderFactory.createTitledBorder("PC"));
+
+        PC0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        PC22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout PCLayout = new javax.swing.GroupLayout(PC);
+        PC.setLayout(PCLayout);
+        PCLayout.setHorizontalGroup(
+            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PCLayout.createSequentialGroup()
+                .addComponent(PC0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC23))
+        );
+        PCLayout.setVerticalGroup(
+            PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PCLayout.createSequentialGroup()
+                .addGroup(PCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PC20)
+                    .addComponent(PC12)
+                    .addComponent(PC3)
+                    .addComponent(PC2)
+                    .addComponent(PC1)
+                    .addComponent(PC0)
+                    .addComponent(PC23)
+                    .addComponent(PC4)
+                    .addComponent(PC5)
+                    .addComponent(PC7)
+                    .addComponent(PC6)
+                    .addComponent(PC8)
+                    .addComponent(PC9)
+                    .addComponent(PC10)
+                    .addComponent(PC11)
+                    .addComponent(PC13)
+                    .addComponent(PC14)
+                    .addComponent(PC15)
+                    .addComponent(PC17)
+                    .addComponent(PC16)
+                    .addComponent(PC18)
+                    .addComponent(PC19)
+                    .addComponent(PC21)
+                    .addComponent(PC22))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        GPR0.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 0"));
+
+        GPR0L0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR0L23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout GPR0Layout = new javax.swing.GroupLayout(GPR0);
+        GPR0.setLayout(GPR0Layout);
+        GPR0Layout.setHorizontalGroup(
+            GPR0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GPR0Layout.createSequentialGroup()
+                .addComponent(GPR0L0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0L23))
+        );
+        GPR0Layout.setVerticalGroup(
+            GPR0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(GPR0L23)
+            .addComponent(GPR0L22)
+            .addComponent(GPR0L21)
+            .addComponent(GPR0L20)
+            .addComponent(GPR0L19)
+            .addComponent(GPR0L18)
+            .addComponent(GPR0L17)
+            .addComponent(GPR0L16)
+            .addComponent(GPR0L15)
+            .addComponent(GPR0L14)
+            .addComponent(GPR0L13)
+            .addComponent(GPR0L12)
+            .addComponent(GPR0L11)
+            .addComponent(GPR0L10)
+            .addComponent(GPR0L9)
+            .addComponent(GPR0L8)
+            .addComponent(GPR0L7)
+            .addComponent(GPR0L6)
+            .addComponent(GPR0L5)
+            .addComponent(GPR0L4)
+            .addComponent(GPR0L3)
+            .addComponent(GPR0L2)
+            .addComponent(GPR0L1)
+            .addComponent(GPR0L0)
+        );
+
+        GPR1.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 1"));
+
+        GPR1L0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR1L21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout GPR1Layout = new javax.swing.GroupLayout(GPR1);
+        GPR1.setLayout(GPR1Layout);
+        GPR1Layout.setHorizontalGroup(
+            GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR1Layout.createSequentialGroup()
+                .addComponent(GPR1L0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(GPR1L1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1L22)
+                .addGap(15, 15, 15))
+        );
+        GPR1Layout.setVerticalGroup(
+            GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR1Layout.createSequentialGroup()
+                .addGroup(GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GPR1L0)
+                    .addComponent(GPR1L23)
+                    .addComponent(GPR1L19)
+                    .addComponent(GPR1L20)
+                    .addComponent(GPR1L21)
+                    .addComponent(GPR1L18)
+                    .addComponent(GPR1L17)
+                    .addComponent(GPR1L16)
+                    .addComponent(GPR1L15)
+                    .addComponent(GPR1L14)
+                    .addComponent(GPR1L13)
+                    .addComponent(GPR1L12)
+                    .addComponent(GPR1L11)
+                    .addComponent(GPR1L10)
+                    .addComponent(GPR1L9)
+                    .addComponent(GPR1L8)
+                    .addComponent(GPR1L7)
+                    .addComponent(GPR1L6)
+                    .addComponent(GPR1L5)
+                    .addComponent(GPR1L4)
+                    .addComponent(GPR1L3)
+                    .addComponent(GPR1L22)
+                    .addComponent(GPR1L2)
+                    .addComponent(GPR1L1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        GPR2.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 2"));
+
+        GPR2L0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR2L23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout GPR2Layout = new javax.swing.GroupLayout(GPR2);
+        GPR2.setLayout(GPR2Layout);
+        GPR2Layout.setHorizontalGroup(
+            GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR2Layout.createSequentialGroup()
+                .addComponent(GPR2L0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(GPR2L1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2L23)
+                .addContainerGap())
+        );
+        GPR2Layout.setVerticalGroup(
+            GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR2Layout.createSequentialGroup()
+                .addGroup(GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GPR2L0)
+                    .addComponent(GPR2L1)
+                    .addComponent(GPR2L2)
+                    .addComponent(GPR2L3)
+                    .addComponent(GPR2L4)
+                    .addComponent(GPR2L5)
+                    .addComponent(GPR2L6)
+                    .addComponent(GPR2L7)
+                    .addComponent(GPR2L8)
+                    .addComponent(GPR2L9)
+                    .addComponent(GPR2L10)
+                    .addComponent(GPR2L11)
+                    .addComponent(GPR2L12)
+                    .addComponent(GPR2L13)
+                    .addComponent(GPR2L14)
+                    .addComponent(GPR2L15)
+                    .addComponent(GPR2L16)
+                    .addComponent(GPR2L17)
+                    .addComponent(GPR2L18)
+                    .addComponent(GPR2L19)
+                    .addComponent(GPR2L20)
+                    .addComponent(GPR2L21)
+                    .addComponent(GPR2L22)
+                    .addComponent(GPR2L23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        GPR3.setBorder(javax.swing.BorderFactory.createTitledBorder("General Purpose Register 3"));
+
+        GPR3L0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        GPR3L23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/blue.png"))); // NOI18N
+
+        javax.swing.GroupLayout GPR3Layout = new javax.swing.GroupLayout(GPR3);
+        GPR3.setLayout(GPR3Layout);
+        GPR3Layout.setHorizontalGroup(
+            GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR3Layout.createSequentialGroup()
+                .addComponent(GPR3L0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(GPR3L2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3L23))
+        );
+        GPR3Layout.setVerticalGroup(
+            GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GPR3Layout.createSequentialGroup()
+                .addGroup(GPR3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GPR3L0)
+                    .addComponent(GPR3L23)
+                    .addComponent(GPR3L22)
+                    .addComponent(GPR3L21)
+                    .addComponent(GPR3L20)
+                    .addComponent(GPR3L19)
+                    .addComponent(GPR3L18)
+                    .addComponent(GPR3L17)
+                    .addComponent(GPR3L16)
+                    .addComponent(GPR3L15)
+                    .addComponent(GPR3L14)
+                    .addComponent(GPR3L13)
+                    .addComponent(GPR3L12)
+                    .addComponent(GPR3L11)
+                    .addComponent(GPR3L10)
+                    .addComponent(GPR3L9)
+                    .addComponent(GPR3L8)
+                    .addComponent(GPR3L7)
+                    .addComponent(GPR3L6)
+                    .addComponent(GPR3L5)
+                    .addComponent(GPR3L4)
+                    .addComponent(GPR3L3)
+                    .addComponent(GPR3L2)
+                    .addComponent(GPR3L1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout lightsPanelLayout = new javax.swing.GroupLayout(lightsPanel);
+        lightsPanel.setLayout(lightsPanelLayout);
+        lightsPanelLayout.setHorizontalGroup(
+            lightsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lightsPanelLayout.createSequentialGroup()
+                .addGroup(lightsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(MAR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MBR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GPR0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(GPR1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(GPR2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                    .addComponent(GPR3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        lightsPanelLayout.setVerticalGroup(
+            lightsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lightsPanelLayout.createSequentialGroup()
+                .addComponent(MAR, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MBR, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PC, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR0, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GPR3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        controlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Control Buttons"));
+
+        debugButton.setText("Debug Mode Off");
+        debugButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        debugButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        debugButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                debugButtonActionPerformed(evt);
+            }
+        });
+
+        powerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/off.png"))); // NOI18N
+        powerButton.setRolloverEnabled(false);
+        powerButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/simulator/console/on.png"))); // NOI18N
+        powerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                powerButtonActionPerformed(evt);
+            }
+        });
+
+        IPLButton.setText("IPL");
+        IPLButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        IPLButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        IPLButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IPLButtonActionPerformed(evt);
+            }
+        });
+
+        stepButton.setText("STEP");
+        stepButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        stepButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        stepButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stepButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout controlPanelLayout = new javax.swing.GroupLayout(controlPanel);
+        controlPanel.setLayout(controlPanelLayout);
+        controlPanelLayout.setHorizontalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(powerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IPLButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(stepButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(debugButton, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        controlPanelLayout.setVerticalGroup(
+            controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlPanelLayout.createSequentialGroup()
+                .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, controlPanelLayout.createSequentialGroup()
+                        .addComponent(debugButton, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(controlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(IPLButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(powerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        powerButton.getAccessibleContext().setAccessibleName("powerbutton");
+
+        programPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Programs"));
+
+        inputfiles.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "consoletest.txt", "input.txt", "instruction.txt", "jsr.txt", "sob.txt", "test.txt" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        inputfiles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputfilesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(inputfiles);
+
+        javax.swing.GroupLayout programPanelLayout = new javax.swing.GroupLayout(programPanel);
+        programPanel.setLayout(programPanelLayout);
+        programPanelLayout.setHorizontalGroup(
+            programPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        programPanelLayout.setVerticalGroup(
+            programPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -782,79 +1882,64 @@ public class SimulatorConsole extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(stepButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(powerButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(debugButton))
-                    .addComponent(GPR2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GPR1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MAR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MBR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GPR0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GPR3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(keyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139))
+                        .addComponent(lightsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(controlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(programPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(controlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(programPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(debugButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(powerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE))
+                        .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lightsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(stepButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MBR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(printPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(GPR0, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GPR1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GPR2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GPR3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(keyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
 
-        powerButton.getAccessibleContext().setAccessibleName("powerbutton");
-
         pack();
-    }
-    
+    }// </editor-fold> 
     private void powerButtonActionPerformed(java.awt.event.ActionEvent evt) {
         
         if(!powerButton.isSelected()) {
         	System.out.println("power off");
         	resetAll();
+        	lightsPanel.setVisible(false);
+        	printPanel.setVisible(false);
+        	keyPanel.setVisible(false);
+        	programPanel.setVisible(false);
+        	IPLButton.setEnabled(false);
+        	stepButton.setEnabled(false);
+        	debugButton.setEnabled(false);
+        	debugButton.setSelected(false);
+        	debugButton.setText("Debug Mode Off");
         }
         else {
         	System.out.println("power on");
+        	stepButton.setText("STEP");
+        	IPLButton.setEnabled(true);
+        	stepButton.setEnabled(false);
+        	debugButton.setEnabled(true);
+        	lightsPanel.setVisible(true);
+        	printPanel.setVisible(true);
+        	keyPanel.setVisible(true);
         	mainCtrl = new Thread(new MainController());
-        	mainControl = new Controller();
-        	
-	        mainControl.initial();
-	        mainCtrl.start();
         }
     }
 
@@ -872,12 +1957,27 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private void debugButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(debugButton.isSelected()) {
         	mainControl.isDebugModel = true;
+        	stepButton.setEnabled(true);
         	debugButton.setText("Debug Mode On");
         }
         else {
+        	stepButton.setEnabled(false);
         	mainControl.isDebugModel = false;
         	debugButton.setText("Debug Mode Off");
         }
+    }
+    
+    private void IPLButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        programPanel.setVisible(true);
+        mainControl.initial();
+        mainCtrl.start();
+    }                                         
+
+    private void inputfilesMouseClicked(java.awt.event.MouseEvent evt) {
+        System.out.println(inputfiles.getSelectedValue());
+        IPLButton.setEnabled(false);
+        stepButton.setEnabled(false);
+        
     }
     
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -1074,6 +2174,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
         DevicesINF.changeStatus(2);
     }
     
+    
+    
     /**
     * @param args the command line arguments
     */
@@ -1085,27 +2187,197 @@ public class SimulatorConsole extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify
+    //Variables declaration - do not modify
+    private String GPR0value = new String();    
+    private String GPR1value = new String();    
+    private String GPR2value = new String();    
+    private String GPR3value = new String();    
+    private String MARvalue = new String();    
+    private String MBRvalue = new String();
+    private String PCvalue = new String();
     private javax.swing.JPanel GPR0;
-    private javax.swing.JLabel GPR0value;
+    private javax.swing.JLabel GPR0L0;
+    private javax.swing.JLabel GPR0L1;
+    private javax.swing.JLabel GPR0L10;
+    private javax.swing.JLabel GPR0L11;
+    private javax.swing.JLabel GPR0L12;
+    private javax.swing.JLabel GPR0L13;
+    private javax.swing.JLabel GPR0L14;
+    private javax.swing.JLabel GPR0L15;
+    private javax.swing.JLabel GPR0L16;
+    private javax.swing.JLabel GPR0L17;
+    private javax.swing.JLabel GPR0L18;
+    private javax.swing.JLabel GPR0L19;
+    private javax.swing.JLabel GPR0L2;
+    private javax.swing.JLabel GPR0L20;
+    private javax.swing.JLabel GPR0L21;
+    private javax.swing.JLabel GPR0L22;
+    private javax.swing.JLabel GPR0L23;
+    private javax.swing.JLabel GPR0L3;
+    private javax.swing.JLabel GPR0L4;
+    private javax.swing.JLabel GPR0L5;
+    private javax.swing.JLabel GPR0L6;
+    private javax.swing.JLabel GPR0L7;
+    private javax.swing.JLabel GPR0L8;
+    private javax.swing.JLabel GPR0L9;
     private javax.swing.JPanel GPR1;
-    private javax.swing.JLabel GPR1value;
+    private javax.swing.JLabel GPR1L0;
+    private javax.swing.JLabel GPR1L1;
+    private javax.swing.JLabel GPR1L10;
+    private javax.swing.JLabel GPR1L11;
+    private javax.swing.JLabel GPR1L12;
+    private javax.swing.JLabel GPR1L13;
+    private javax.swing.JLabel GPR1L14;
+    private javax.swing.JLabel GPR1L15;
+    private javax.swing.JLabel GPR1L16;
+    private javax.swing.JLabel GPR1L17;
+    private javax.swing.JLabel GPR1L18;
+    private javax.swing.JLabel GPR1L19;
+    private javax.swing.JLabel GPR1L2;
+    private javax.swing.JLabel GPR1L20;
+    private javax.swing.JLabel GPR1L21;
+    private javax.swing.JLabel GPR1L22;
+    private javax.swing.JLabel GPR1L23;
+    private javax.swing.JLabel GPR1L3;
+    private javax.swing.JLabel GPR1L4;
+    private javax.swing.JLabel GPR1L5;
+    private javax.swing.JLabel GPR1L6;
+    private javax.swing.JLabel GPR1L7;
+    private javax.swing.JLabel GPR1L8;
+    private javax.swing.JLabel GPR1L9;
     private javax.swing.JPanel GPR2;
-    private javax.swing.JLabel GPR2value;
+    private javax.swing.JLabel GPR2L0;
+    private javax.swing.JLabel GPR2L1;
+    private javax.swing.JLabel GPR2L10;
+    private javax.swing.JLabel GPR2L11;
+    private javax.swing.JLabel GPR2L12;
+    private javax.swing.JLabel GPR2L13;
+    private javax.swing.JLabel GPR2L14;
+    private javax.swing.JLabel GPR2L15;
+    private javax.swing.JLabel GPR2L16;
+    private javax.swing.JLabel GPR2L17;
+    private javax.swing.JLabel GPR2L18;
+    private javax.swing.JLabel GPR2L19;
+    private javax.swing.JLabel GPR2L2;
+    private javax.swing.JLabel GPR2L20;
+    private javax.swing.JLabel GPR2L21;
+    private javax.swing.JLabel GPR2L22;
+    private javax.swing.JLabel GPR2L23;
+    private javax.swing.JLabel GPR2L3;
+    private javax.swing.JLabel GPR2L4;
+    private javax.swing.JLabel GPR2L5;
+    private javax.swing.JLabel GPR2L6;
+    private javax.swing.JLabel GPR2L7;
+    private javax.swing.JLabel GPR2L8;
+    private javax.swing.JLabel GPR2L9;
     private javax.swing.JPanel GPR3;
-    private javax.swing.JLabel GPR3value;
+    private javax.swing.JLabel GPR3L0;
+    private javax.swing.JLabel GPR3L1;
+    private javax.swing.JLabel GPR3L10;
+    private javax.swing.JLabel GPR3L11;
+    private javax.swing.JLabel GPR3L12;
+    private javax.swing.JLabel GPR3L13;
+    private javax.swing.JLabel GPR3L14;
+    private javax.swing.JLabel GPR3L15;
+    private javax.swing.JLabel GPR3L16;
+    private javax.swing.JLabel GPR3L17;
+    private javax.swing.JLabel GPR3L18;
+    private javax.swing.JLabel GPR3L19;
+    private javax.swing.JLabel GPR3L2;
+    private javax.swing.JLabel GPR3L20;
+    private javax.swing.JLabel GPR3L21;
+    private javax.swing.JLabel GPR3L22;
+    private javax.swing.JLabel GPR3L23;
+    private javax.swing.JLabel GPR3L3;
+    private javax.swing.JLabel GPR3L4;
+    private javax.swing.JLabel GPR3L5;
+    private javax.swing.JLabel GPR3L6;
+    private javax.swing.JLabel GPR3L7;
+    private javax.swing.JLabel GPR3L8;
+    private javax.swing.JLabel GPR3L9;
+    private javax.swing.JButton IPLButton;
     private javax.swing.JPanel MAR;
-    private javax.swing.JLabel MARvalue;
+    private javax.swing.JLabel MAR0;
+    private javax.swing.JLabel MAR1;
+    private javax.swing.JLabel MAR10;
+    private javax.swing.JLabel MAR11;
+    private javax.swing.JLabel MAR12;
+    private javax.swing.JLabel MAR13;
+    private javax.swing.JLabel MAR14;
+    private javax.swing.JLabel MAR15;
+    private javax.swing.JLabel MAR16;
+    private javax.swing.JLabel MAR17;
+    private javax.swing.JLabel MAR18;
+    private javax.swing.JLabel MAR19;
+    private javax.swing.JLabel MAR2;
+    private javax.swing.JLabel MAR20;
+    private javax.swing.JLabel MAR21;
+    private javax.swing.JLabel MAR22;
+    private javax.swing.JLabel MAR23;
+    private javax.swing.JLabel MAR3;
+    private javax.swing.JLabel MAR4;
+    private javax.swing.JLabel MAR5;
+    private javax.swing.JLabel MAR6;
+    private javax.swing.JLabel MAR7;
+    private javax.swing.JLabel MAR8;
+    private javax.swing.JLabel MAR9;
     private javax.swing.JPanel MBR;
-    private javax.swing.JLabel MBRvalue;
+    private javax.swing.JLabel MBR0;
+    private javax.swing.JLabel MBR1;
+    private javax.swing.JLabel MBR10;
+    private javax.swing.JLabel MBR11;
+    private javax.swing.JLabel MBR12;
+    private javax.swing.JLabel MBR13;
+    private javax.swing.JLabel MBR14;
+    private javax.swing.JLabel MBR15;
+    private javax.swing.JLabel MBR16;
+    private javax.swing.JLabel MBR17;
+    private javax.swing.JLabel MBR18;
+    private javax.swing.JLabel MBR19;
+    private javax.swing.JLabel MBR2;
+    private javax.swing.JLabel MBR20;
+    private javax.swing.JLabel MBR21;
+    private javax.swing.JLabel MBR22;
+    private javax.swing.JLabel MBR23;
+    private javax.swing.JLabel MBR3;
+    private javax.swing.JLabel MBR4;
+    private javax.swing.JLabel MBR5;
+    private javax.swing.JLabel MBR6;
+    private javax.swing.JLabel MBR7;
+    private javax.swing.JLabel MBR8;
+    private javax.swing.JLabel MBR9;
     private javax.swing.JPanel PC;
-    private javax.swing.JLabel PCvalue;
+    private javax.swing.JLabel PC0;
+    private javax.swing.JLabel PC1;
+    private javax.swing.JLabel PC10;
+    private javax.swing.JLabel PC11;
+    private javax.swing.JLabel PC12;
+    private javax.swing.JLabel PC13;
+    private javax.swing.JLabel PC14;
+    private javax.swing.JLabel PC15;
+    private javax.swing.JLabel PC16;
+    private javax.swing.JLabel PC17;
+    private javax.swing.JLabel PC18;
+    private javax.swing.JLabel PC19;
+    private javax.swing.JLabel PC2;
+    private javax.swing.JLabel PC20;
+    private javax.swing.JLabel PC21;
+    private javax.swing.JLabel PC22;
+    private javax.swing.JLabel PC23;
+    private javax.swing.JLabel PC3;
+    private javax.swing.JLabel PC4;
+    private javax.swing.JLabel PC5;
+    private javax.swing.JLabel PC6;
+    private javax.swing.JLabel PC7;
+    private javax.swing.JLabel PC8;
+    private javax.swing.JLabel PC9;
     private javax.swing.JTextArea Printervalue;
     private javax.swing.JButton buttonA;
     private javax.swing.JButton buttonB;
     private javax.swing.JButton buttonC;
     private javax.swing.JButton buttonD;
     private javax.swing.JButton buttonE;
+    private javax.swing.JButton buttonEnter;
     private javax.swing.JButton buttonF;
     private javax.swing.JButton buttonG;
     private javax.swing.JButton buttonH;
@@ -1132,7 +2404,6 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JButton buttonS;
     private javax.swing.JToggleButton buttonShift;
     private javax.swing.JButton buttonSpace;
-    private javax.swing.JButton buttonEnter;
     private javax.swing.JButton buttonT;
     private javax.swing.JButton buttonU;
     private javax.swing.JButton buttonV;
@@ -1140,11 +2411,16 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JButton buttonX;
     private javax.swing.JButton buttonY;
     private javax.swing.JButton buttonZ;
+    private javax.swing.JPanel controlPanel;
     private javax.swing.JToggleButton debugButton;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JList inputfiles;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel keyPanel;
+    private javax.swing.JPanel lightsPanel;
     private javax.swing.JToggleButton powerButton;
     private javax.swing.JPanel printPanel;
+    private javax.swing.JPanel programPanel;
     private javax.swing.JButton stepButton;
     // End of variables declaration
     private Controller mainControl;
