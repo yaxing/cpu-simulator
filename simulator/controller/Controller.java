@@ -68,6 +68,16 @@ public class Controller {
 	}
 	
 	/**
+	 *set instruction file name
+	 * 
+	 * @param String file name
+	 * @exception
+	 */
+	public void setInstrFile(String instr){
+		insFile = instr;
+	}
+	
+	/**
 	 * Get instruction from memory and update PC to the address of next instruction
 	 * 
 	 * @param
