@@ -9,7 +9,7 @@ package simulator.cache;
 import simulator.formatstr.Formatstr;
 
 public class Cache {
-	private static Formatstr cacheline;
+	private static Formatstr[][] cacheline;
 	/**
 	 * Controller give an address when cache miss occured.
 	 * Use the address to locate the memory and fetch the
