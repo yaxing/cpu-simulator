@@ -29,7 +29,7 @@ import simulator.interfaces.*;
  * @since JDK 1.6
  */
 public class SimulatorConsole extends javax.swing.JFrame {
-	
+	private boolean shiftstatus = false;
 	private String setLight(int flag) {
 		if(flag == 1)
 			return "/simulator/console/red.png";
@@ -1401,7 +1401,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             GPR1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GPR1Layout.createSequentialGroup()
                 .addComponent(GPR1L0)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR1L1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR1L2)
@@ -1536,7 +1536,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
             GPR2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GPR2Layout.createSequentialGroup()
                 .addComponent(GPR2L0)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR2L1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR2L2)
@@ -1673,7 +1673,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
                 .addComponent(GPR3L0)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR3L1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR3L2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(GPR3L3)
@@ -1981,192 +1981,297 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }
     
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        DevicesINF.characterEnc('f');
-        DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('f');
+    	else
+    		DevicesINF.characterEnc('F');
+    	shiftstatus = false;
+        DevicesINF.changeStatus(2);
     }                                       
 
     private void buttonRActionPerformed(java.awt.event.ActionEvent evt) {                                        
-    	DevicesINF.characterEnc('r');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('r');
+    	else
+    		DevicesINF.characterEnc('R');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }                                       
 
     private void buttonVActionPerformed(java.awt.event.ActionEvent evt) {                                        
-    	DevicesINF.characterEnc('v');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('v');
+    	else
+    		DevicesINF.characterEnc('V');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }                                       
 
     private void buttonNum4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     	DevicesINF.characterEnc('4');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }                                          
 
     private void buttonNum2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     	DevicesINF.characterEnc('2');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }                                          
 
     private void buttonShiftActionPerformed(java.awt.event.ActionEvent evt) {
-    	//DevicesINF.characterEnc('f');
+    	shiftstatus = true;
     }
 
     private void buttonSpaceActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc(' ');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum1ActionPerformed(java.awt.event.ActionEvent evt) {
         DevicesINF.characterEnc('1');
-        DevicesINF.changeStatus(1);
+        DevicesINF.changeStatus(2);
     }
 
     private void buttonNum3ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('3');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum5ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('5');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum6ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('6');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum7ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('7');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum8ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('8');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum9ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('9');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNum0ActionPerformed(java.awt.event.ActionEvent evt) {
     	DevicesINF.characterEnc('0');
-    	DevicesINF.changeStatus(1);
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonQActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('q');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('q');
+    	else
+    		DevicesINF.characterEnc('Q');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonWActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('w');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('w');
+    	else
+    		DevicesINF.characterEnc('W');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonEActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('e');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('e');
+    	else
+    		DevicesINF.characterEnc('E');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonTActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('t');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('t');
+    	else
+    		DevicesINF.characterEnc('T');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonYActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('y');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('y');
+    	else
+    		DevicesINF.characterEnc('Y');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonUActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('u');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('u');
+    	else
+    		DevicesINF.characterEnc('U');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonIActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('i');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('i');
+    	else
+    		DevicesINF.characterEnc('I');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonOActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('o');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('o');
+    	else
+    		DevicesINF.characterEnc('O');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonPActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('p');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('p');
+    	else
+    		DevicesINF.characterEnc('P');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonAActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('a');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('a');
+    	else 
+    		DevicesINF.characterEnc('A');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonSActionPerformed(java.awt.event.ActionEvent evt) {
-        DevicesINF.characterEnc('s');
-        DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('s');
+    	else
+    		DevicesINF.characterEnc('S');
+    	shiftstatus = false;
+        DevicesINF.changeStatus(2);
     }
 
     private void buttonDActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('d');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('d');
+    	else
+    		DevicesINF.characterEnc('D');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonGActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('g');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('g');
+    	else
+    		DevicesINF.characterEnc('G');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonHActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('h');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('h');
+    	else
+    		DevicesINF.characterEnc('H');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonJActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('j');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('j');
+    	else
+    		DevicesINF.characterEnc('J');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonKActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('k');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('k');
+    	else
+    		DevicesINF.characterEnc('K');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonLActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('l');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('l');
+    	else
+    		DevicesINF.characterEnc('L');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonZActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('z');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('z');
+    	else
+    		DevicesINF.characterEnc('Z');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonXActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('x');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('x');
+    	else
+    		DevicesINF.characterEnc('X');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonCActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('c');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('c');
+    	else
+    		DevicesINF.characterEnc('C');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonBActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('b');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('b');
+    	else
+    		
+    		DevicesINF.characterEnc('B');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonNActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('n');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('n');
+    	else
+    		DevicesINF.characterEnc('N');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
 
     private void buttonMActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('m');
-    	DevicesINF.changeStatus(1);
+    	if(shiftstatus == false)
+    		DevicesINF.characterEnc('m');
+    	else
+    		DevicesINF.characterEnc('M');
+    	shiftstatus = false;
+    	DevicesINF.changeStatus(2);
     }
     
     private void buttonEnterActionPerformed(java.awt.event.ActionEvent evt) {
