@@ -188,7 +188,7 @@ public class KeyBoard {
 		default: System.out.println("Invalid charactor.");
 			break;
 		}
-		System.out.println(code+" "+statusPort);
+		System.out.println("keyboard "+code+" "+statusPort);
 		keyBuffer = code;
 		//numInput++;
 	}
