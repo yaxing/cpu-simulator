@@ -5,6 +5,7 @@
  */
 package simulator.genregs;
 import simulator.formatstr.*;
+import simulator.interfaces.TraceINF;
 
 /** 
  * Class Genregs
@@ -45,54 +46,66 @@ public class GenRegs {
 	}
 	
 	public void setR0(Formatstr R0){
+		TraceINF.write("Set R0.");
 		formatStr(R0);
 		this.R0.setStr(R0.getStr());
 	}
 	
 	public void setR1(Formatstr R1){
+		TraceINF.write("Set R1");
 		formatStr(R1);
 		this.R1.setStr(R1.getStr());
 	}
 	
 	public void setR2(Formatstr R2){
+		TraceINF.write("Set R2");
 		formatStr(R2);
 		this.R2.setStr(R2.getStr());
 	}
 	
 	public void setR3(Formatstr R3){
+		TraceINF.write("Set R3");
 		formatStr(R3);
 		this.R3.setStr(R3.getStr());
 	}
 	
 	public void setR7(Formatstr R7){
+		TraceINF.write("Set R7");
 		formatStr(R7);
 		this.R7.setStr(R7.getStr());
 	}
 	
 	public Formatstr getR0(){
+		TraceINF.write("Get R0");
 		return R0;
 	}
 	
 	public Formatstr getR1(){
+		TraceINF.write("Get R1");
 		return R1;
 	}
 	
 	public Formatstr getR2(){
+		TraceINF.write("Get R2");
 		return R2;
 	}
 	
 	public Formatstr getR3(){
+		TraceINF.write("Get R3");
 		return R3;
 	}
 	
 	public Formatstr getR7(){
+		TraceINF.write("Get R7");
 		return R7;
 	}
 	
 	public void clear(){
+		TraceINF.write("Cleaning general registers...");
 		R0.setStr(format);
 		R1.setStr(format);
 		R2.setStr(format);
 		R3.setStr(format);	
+		TraceINF.write("Cleaning finished.");
 	}
 }

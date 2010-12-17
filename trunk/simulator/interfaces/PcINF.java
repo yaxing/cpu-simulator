@@ -5,6 +5,7 @@
  */
 package simulator.interfaces;
 import simulator.pc.*;
+import simulator.bht.Bht;
 import simulator.formatstr.*;
 
 /** 
@@ -44,6 +45,18 @@ public class PcINF {
 	 */
 	public static Formatstr getPc(){
 		return Pc.getPc();
+	}
+	
+	/**
+	 * Get executing PC address
+	 * Get the address of the executing instruction
+	 * 
+	 * @param 
+	 * @return 
+	 * @exception
+	 */
+	public static Formatstr getFormerPc(){
+		return Pc.getFormerPc();
 	}
 	
 	/**

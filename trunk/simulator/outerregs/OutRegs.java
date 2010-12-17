@@ -6,6 +6,7 @@
 package simulator.outerregs;
 
 import simulator.formatstr.*;
+import simulator.interfaces.TraceINF;
 /** 
  * Class Outregs
  * control all out registers
@@ -109,174 +110,210 @@ public class OutRegs {
 	
 	
 	/*set methods*/
-	public void setOPCODE(Formatstr opcode) {
-		formatStr(opcode, "opcode");
-		this.opcode.setStr(opcode.getStr());
+	public void setOPCODE(Formatstr opcodeNew) {
+		TraceINF.write("Set opcode.");
+		formatStr(opcodeNew, "opcode");
+		opcode.setStr(opcodeNew.getStr());
 	}
 	
-	public void setIBIT(Formatstr iBit) {
-		formatStr(iBit, "iBit");
-		this.iBit.setStr(iBit.getStr());
+	public void setIBIT(Formatstr iBitNew) {
+		TraceINF.write("Set iBit.");
+		formatStr(iBitNew, "iBit");
+		iBit.setStr(iBitNew.getStr());
 	}
 
-	public void setROP1(Formatstr rop1) {
-		formatStr(rop1, "rop1");
-		this.rop1.setStr(rop1.getStr());
+	public void setROP1(Formatstr rop1New) {
+		TraceINF.write("Set ROP1");
+		formatStr(rop1New, "rop1");
+		rop1.setStr(rop1New.getStr());
 	}
 	
-	public void setROP2(Formatstr rop2) {
-		formatStr(rop2, "rop2");
-		this.rop2.setStr(rop2.getStr());
+	public void setROP2(Formatstr rop2New) {
+		TraceINF.write("Set ROP2");
+		formatStr(rop2New, "rop2");
+		rop2.setStr(rop2New.getStr());
 	}
 	
-	public void setIN1(Formatstr in1) {
-		formatStr(in1, "in1");
-		this.in1.setStr(in1.getStr());
+	public void setIN1(Formatstr in1New) {
+		TraceINF.write("Set IN1");
+		formatStr(in1New, "in1");
+		in1.setStr(in1New.getStr());
 	}
 	
-	public void setIN2(Formatstr in2) {
-		formatStr(in2, "in2");
-		this.in2.setStr(in2.getStr());
+	public void setIN2(Formatstr in2New) {
+		TraceINF.write("Set IN2");
+		formatStr(in2New, "in2");
+		in2.setStr(in2New.getStr());
 	}
 
-	public void setOUT(Formatstr out) {
-		formatStr(out, "out");
-		this.out.setStr(out.getStr());
+	public void setOUT(Formatstr outNew) {
+		TraceINF.write("Set OUT.");
+		formatStr(outNew, "out");
+		out.setStr(outNew.getStr());
 	}
 
-	public void setLR(Formatstr lr) {
-		formatStr(lr, "lr");
-		this.lr.setStr(lr.getStr());
+	public void setLR(Formatstr lrNew) {
+		TraceINF.write("Set LR.");
+		formatStr(lrNew, "lr");
+		lr.setStr(lrNew.getStr());
 	}
 
-	public void setDEVID(Formatstr devid) {
-		formatStr(devid, "devid");
-		this.devid.setStr(devid.getStr());
+	public void setDEVID(Formatstr devidNew) {
+		TraceINF.write("Set DEVID.");
+		formatStr(devidNew, "devid");
+		devid.setStr(devidNew.getStr());
 	}
 
-	public void setAR(Formatstr ar) {
-		formatStr(ar, "ar");
-		this.ar.setStr(ar.getStr());
+	public void setAR(Formatstr arNew) {
+		TraceINF.write("Set AR.");
+		formatStr(arNew, "ar");
+		ar.setStr(arNew.getStr());
 	}
 
-	public void setOPD(Formatstr opd){
-		formatStr(opd, "opd");
-		this.opd.setStr(opd.getStr());
+	public void setOPD(Formatstr opdNew){
+		TraceINF.write("Set OPD.");
+		formatStr(opdNew, "opd");
+		opd.setStr(opdNew.getStr());
 	}
 	
-	public void setMAR(Formatstr mar){
-		formatStr(mar, "mar");
-		this.mar.setStr(mar.getStr());
+	public void setMAR(Formatstr marNew){
+		TraceINF.write("Set MAR.");
+		formatStr(marNew, "mar");
+		mar.setStr(marNew.getStr());
 	}
 	
-	public void setMBR(Formatstr mbr){
-		formatStr(mbr, "mbr");
-		this.mbr.setStr(mbr.getStr());
+	public void setMBR(Formatstr mbrNew){
+		TraceINF.write("Set MBR.");
+		formatStr(mbrNew, "mbr");
+		mbr.setStr(mbrNew.getStr());
 	}
 	
-	public void setMCR(Formatstr mcr){
-		formatStr(mcr, "mcr");
-		this.mcr.setStr(mcr.getStr());
+	public void setMCR(Formatstr mcrNew){
+		TraceINF.write("Set MCR.");
+		formatStr(mcrNew, "mcr");
+		mcr.setStr(mcrNew.getStr());
 	}
 	
-	public void setMFR(Formatstr mfr){
-		formatStr(mfr, "mfr");
-		this.mfr.setStr(mfr.getStr());
+	public void setMFR(Formatstr mfrNew){
+		TraceINF.write("Set MFR.");
+		formatStr(mfrNew, "mfr");
+		mfr.setStr(mfrNew.getStr());
 	}
 	
-	public void setIR(Formatstr ir){
-		formatStr(ir, "ir");
-		this.ir.setStr(ir.getStr());
+	public void setIR(Formatstr irNew){
+		TraceINF.write("Set IR.");
+		formatStr(irNew, "ir");
+		ir.setStr(irNew.getStr());
 	}
 	
-	public void setMSR(Formatstr msr){
-		formatStr(msr, "msr");
-		this.msr.setStr(msr.getStr());
+	public void setMSR(Formatstr msrNew){
+		TraceINF.write("Set MSR.");
+		formatStr(msrNew, "msr");
+		msr.setStr(msrNew.getStr());
 	}
 	
 	public void setCC(int pos, int i){
+		TraceINF.write("Set CC bits " + i + ".");
 		int[] temp = new int[4];
 		String buffer = "";
 		for(int j = 0; j < 4; j++){
-			temp[j] = (int)this.cc.getStr().charAt(j) - 0x30;
+			temp[j] = (int)cc.getStr().charAt(j) - 0x30;
 		}
 		temp[pos - 1] = i;
 		for(int j = 0; j < 4; j++){
 			buffer += String.valueOf(temp[j]);
 		}
-		this.cc.setStr(buffer);
+		cc.setStr(buffer);
 	} 
 
 	/*get methods*/
 	public Formatstr getOPCODE() {
+		TraceINF.write("Get OPCODE.");
 		return opcode;
 	}
 	
 	public Formatstr getIBIT() {
+		TraceINF.write("Get IBit.");
 		return iBit;
 	}
 
 	public Formatstr getROP1() {
+		TraceINF.write("Get ROP1.");
 		return rop1;
 	}
 
 	public Formatstr getROP2() {
+		TraceINF.write("Get ROP2.");
 		return rop2;
 	}
 
 	public Formatstr getIN1() {
+		TraceINF.write("Get IN1.");
 		return in1;
 	}
 
 	public Formatstr getIN2() {
+		TraceINF.write("Get IN2.");
 		return in2;
 	}
 	
 	public Formatstr getOUT() {
+		TraceINF.write("Get OUT.");
 		return out;
 	}
 
 	public Formatstr getLR() {
+		TraceINF.write("Get LR.");
 		return lr;
 	}
 
 	public Formatstr getAR() {
+		TraceINF.write("Get AR.");
 		return ar;
 	}
 	
 	public Formatstr getDEVID() {
+		TraceINF.write("Get DEVID.");
 		return devid;
 	}
 	
 	public Formatstr getOPD(){
-		return this.opd;
+		TraceINF.write("Get OPD.");
+		return opd;
 	}
 	
 	public Formatstr getMAR(){
-		return this.mar;
+		TraceINF.write("Get MAR.");
+		return mar;
 	}
 	
 	public Formatstr getMBR(){
-		return this.mbr;
+		TraceINF.write("Get MBR.");
+		return mbr;
 	}
 	
 	public Formatstr getMCR(){
-		return this.mcr;
+		TraceINF.write("Get MCR.");
+		return mcr;
 	}
 	
 	public Formatstr getIR(){
-		return this.ir;
+		TraceINF.write("Get IR.");
+		return ir;
 	}
 	
 	public Formatstr getMSR(){
-		return this.msr;
+		TraceINF.write("Get MSR.");
+		return msr;
 	}
 	
 	public Formatstr getMFR(){
-		return this.mfr;
+		TraceINF.write("Get MFR.");
+		return mfr;
 	}
 	
 	public Formatstr getCC(){
-		return this.cc;
+		TraceINF.write("Get CC.");
+		return cc;
 	}
 }

@@ -20,11 +20,13 @@ public class IsaControl {
 	/**buffer is used to temporarily store data got from registers*/
 	private static Formatstr buffer;
 	
+	private static Formatstr curInstrAdd  = new Formatstr();
 	
 	/**
 	 * return the number of register designated by AC bits
 	 */
 	private static int getAc(){
+		TraceINF.write("Getting the  register name designated by AC bits...");
 		String grNo = OutregsINF.getROP1().getStr();
 		int gN = Integer.parseInt(grNo,2);
 		return gN;
@@ -34,6 +36,7 @@ public class IsaControl {
 	 * return the number of register designated by IX bits
 	 */
 	private static int getIx(){
+		TraceINF.write("Getting the  register name designated by IX bits...");
 		String grNo = OutregsINF.getROP2().getStr();
 		int gN = Integer.parseInt(grNo,2);
 		return gN;
@@ -51,8 +54,9 @@ public class IsaControl {
 	private static void pendIxGr(){
 		
 		/*get IX from ROP2*/
-		String ix = OutregsINF.getROP2().getStr();
-		int gr = Integer.parseInt(ix);
+		//String ix = OutregsINF.getROP2().getStr();
+		//int gr = Integer.parseInt(ix);
+		int gr = getIx();
 		String index = new String("000000000000000000000000");
 		/*if IX != 0 then index the address
 		 *else no index 
@@ -73,13 +77,13 @@ public class IsaControl {
 				
 			}
 		}
-		
 		/*get Address from OPD*/
 		String address = OutregsINF.getOPD().getStr();
 		
 		/*add them together and store in buffer as needed address*/
 		//Integer ea = Integer.parseInt(ix,2) + Integer.parseInt(address,2);
 		
+		TraceINF.write("Pending IX contents and OPD address...");
 		index = index.substring(23,24);
 		address = index + address.substring(11,24);
 		
@@ -99,6 +103,7 @@ public class IsaControl {
 	 * @exception
 	 */
 	private static void dirGetEa(){
+		TraceINF.write("Directly addressing...");
 		/*get EA depending on IX and designated general register content*/
 		pendIxGr();
 	}
@@ -112,12 +117,14 @@ public class IsaControl {
 	 * @exception
 	 */
 	private static void inDirGetEa(){
+		TraceINF.write("Indirectly addressing...");
 		/*get indirect address depending on IX and designated general register content*/
 		pendIxGr();
-		
+
 		OutregsINF.setMAR(buffer);
 		
 		OutregsINF.setMCR(new Formatstr("0"));
+		
 		MemoryINF.operateMemory();
 		
 		/*get EA from MBR*/
@@ -137,12 +144,103 @@ public class IsaControl {
 		 * and then execute corresponding process 
 		 * EA will be stored into buffer
 		 */
+		TraceINF.write("Generating EA...");
 		if(OutregsINF.getIBIT().getStr().equals("0")){
 			dirGetEa();
 		}
 		else{
 			inDirGetEa();
 		}
+	}
+	
+	/**
+	 * Perform branch prediction (manipulate BHT)
+	 * BHT is a FIFO
+	 * When the branch doesn't exist in BHT, flush one the head item in BHT and insert the branch£¬
+	 * if the jump is backward, then predict taken
+	 * else predict non-taken
+	 *  
+	 *  When the branch exits in BHT
+	 *  Check the taken bit (means how many times wrong predicted).
+	 *  if the bit equals 2, meaning that there are already 2 wrong predicts on this predict PC,
+	 *  then modify the predict (if it the destination address was taken address, then change it to non-taken address, vise-versa) 
+	 * and clear the taken bit to 0
+	 * 
+	 * if the bit is less than 2, then no change has to be made, prediction of the branch will follow the current BHT.
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	private static void branchPrediction(){
+		TraceINF.write("Running branch prediction...");
+		Formatstr branchPc = new Formatstr();
+		Formatstr predictPc = new Formatstr();
+		
+		curInstrAdd = PcINF.getFormerPc();
+		/*get the branch address and destination EA*/
+		branchPc = curInstrAdd;
+		predictPc = buffer;
+		
+		/*check if branch has already existed*/
+		int pos = BhtINF.chkBht(branchPc);
+		
+		/*if not, insert*/
+		if(pos < 0){
+			int posInsert = BhtINF.insert(branchPc, predictPc);
+			
+			/*if jumping back then predict as taken
+			 * else not taken
+			 * */
+			if(Integer.parseInt(branchPc.getStr(), 2) > Integer.parseInt(predictPc.getStr(), 2)){
+				BhtINF.modiPredictedPc(posInsert, predictPc);
+			}
+			else{
+				BhtINF.modiPredictedPc(posInsert, PcINF.getPc());
+			}
+			BhtINF.setTakeBit(posInsert, 0);
+		}
+		
+		/*if already existed, */
+		else{
+			
+			int takenBit = BhtINF.getTakeBit(pos);
+			/*if non-taken 2 times, change predict address*/
+			if(takenBit  == 2){
+				Formatstr oldPredict = BhtINF.getPredictedPc(pos);
+				if(oldPredict.getStr().equals(predictPc)){
+					BhtINF.modiPredictedPc(pos, PcINF.getPc());
+				}
+				else{
+					BhtINF.modiPredictedPc(pos, predictPc);
+				}
+			}
+			
+		}
+		TraceINF.write("Branch prediction finished.");
+	}
+	
+	/**
+	 *Check whether the prediction was right or wrong
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void checkPrediction(Formatstr takenPc){
+		
+		TraceINF.write("Checking prediction...");
+		/*check if the prediction right*/
+		int pos = BhtINF.chkBht(curInstrAdd);
+		Formatstr oldAdd = BhtINF.getPredictedPc(pos);
+		/*if predicted right, taken bit -1*/
+		if(takenPc.getStr().equals(oldAdd.getStr())){
+			BhtINF.setTakeBit(pos, -1);
+		}
+		/*else taken bit +1*/
+		else{
+			BhtINF.setTakeBit(pos, 1);
+		}
+		TraceINF.write("Check prediction finished.");
 	}
 	
 	/**
@@ -284,6 +382,8 @@ public class IsaControl {
 		/*generate EA and store in buffer*/
 		genEa();
 		
+		branchPrediction();
+		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
 		
@@ -308,6 +408,10 @@ public class IsaControl {
 		if(Integer.parseInt(condition) == 0){
 			//PcINF.pcAdder(new Formatstr("00000000000001"));
 			PcINF.setPc(buffer);
+			checkPrediction(buffer);
+		}
+		else{
+			checkPrediction(PcINF.getPc());
 		}
 	}
 	
@@ -324,6 +428,8 @@ public class IsaControl {
 		
 		/*generate EA and store in buffer*/
 		genEa();
+		
+		branchPrediction();
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
@@ -348,6 +454,10 @@ public class IsaControl {
 		}
 		if(Integer.parseInt(condition) != 0){
 			PcINF.setPc(buffer);
+			checkPrediction(buffer);
+		}
+		else{
+			checkPrediction(PcINF.getPc());
 		}
 	}
 	
@@ -383,6 +493,8 @@ public class IsaControl {
 		/*generate EA and store in buffer*/
 		genEa();
 		
+		branchPrediction();
+		
 		/*get pc content*/
 		Formatstr tmp = PcINF.getPc();
 		
@@ -390,6 +502,8 @@ public class IsaControl {
 		GrINF.setR7(tmp);
 		/*return destination address to PC*/
 		PcINF.setPc(buffer);
+		
+		checkPrediction(buffer);
 	}
 	
 	/**
