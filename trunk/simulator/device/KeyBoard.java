@@ -19,28 +19,23 @@ package simulator.device;
  * @since JDK 1.6
  */
 public class KeyBoard {
-	private static String keyBuffer = new String("");
-	//private static int numInput = 0;
-	private static int statusPort;
+	private static String stringBuffer = new String("");
+	private static int statusPort = 1;
+	private static String number;
 	/**
 	 * get the 24bits of keyBuffer 
 	 * 
 	 * @param c		the letter or number the user pressed.
 	 * @return String	the input the register want.
 	 */
-	public static String in() {
-		String result = new String();
-//		int pos = (numInput % 4)*EOI.length();
-//		if(!keyBuffer.substring(pos, pos+6).equals(EOI)) {
-//			result = keyBuffer.substring(0, 24);
-//		}
-//		else {
-			result = keyBuffer;
-			setStatus(2);
-//		}
-//		keyBuffer = keyBuffer.substring(24);
-				
-		return result;
+	public static String instring() {
+		setStatus(1);
+		return stringBuffer;
+	}
+	
+	public static String innumber() {
+		
+		return stringBuffer;
 	}
 	/**
 	 * Default constructor
@@ -78,7 +73,7 @@ public class KeyBoard {
 			break;
 		case '9': code = "0111001";
 			break;
-		case ' ': code = "0100000";
+		case ' ': code = "0001010";
 			break;
 		case 'a': code = "1100001";
 			break;
@@ -189,7 +184,7 @@ public class KeyBoard {
 			break;
 		}
 		System.out.println("keyboard "+code+" "+statusPort);
-		keyBuffer = code;
+		stringBuffer = code;
 		//numInput++;
 	}
 	
