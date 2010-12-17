@@ -5,6 +5,7 @@
  */
 package simulator.pc;
 import simulator.formatstr.*;
+import simulator.interfaces.TraceINF;
 
 /** 
  * Class Pc
@@ -27,7 +28,7 @@ public class Pc {
 	 * @exception
 	 */
 	private static void formatPc(Formatstr pc){
-		String format = "000000000000000000000000";
+		String format = "00000000000000000000000";
 		String temp = pc.getStr();
 		if(temp == null){
 			return;
@@ -49,6 +50,7 @@ public class Pc {
 	 * @exception
 	 */
 	public static void setPc(Formatstr add){
+		TraceINF.write("Fetch PC.");
 		formatPc(add);
 		instrAdd.setStr(add.getStr());
 	}
@@ -61,6 +63,7 @@ public class Pc {
 	 * @exception
 	 */
 	public static Formatstr getPc(){
+		TraceINF.write("Get PC.");
 		return instrAdd;
 	}
 	
@@ -73,11 +76,30 @@ public class Pc {
 	 * @exception
 	 */
 	public static void pcAdder(Formatstr offset){
+		TraceINF.write("PC adder working...");
 		Integer PcAdd = Integer.parseInt(instrAdd.getStr(),2);
 		Integer off = Integer.parseInt(offset.getStr(),2);
 		PcAdd = PcAdd + off;
 		Formatstr temp = new Formatstr();
 		temp.setStr(Integer.toBinaryString(PcAdd));
 		setPc(temp);
+		TraceINF.write("PC adder finished.");
+	}
+	
+	/**
+	 * Get executing PC address
+	 * Get the address of the executing instruction
+	 * 
+	 * @param 
+	 * @return 
+	 * @exception
+	 */
+	public static Formatstr getFormerPc(){
+		Integer curPc = Integer.parseInt(getPc().getStr(),2);
+		curPc --;
+		Formatstr tmp = new Formatstr();
+		tmp.setStr(Integer.toBinaryString(curPc));
+		formatPc(tmp);
+		return tmp;
 	}
 }

@@ -6,6 +6,7 @@
 
 package simulator.controller;
 import simulator.interfaces.*;
+import simulator.trace.Trace;
 import simulator.formatstr.*;
 
 /** 
@@ -23,7 +24,7 @@ public class Controller {
 	private static Formatstr busBuffer = new Formatstr();
 		
 	/**Define the end instruction*/
-	private static String insFile = "test.txt";
+	private static String insFile = "";
 	
 	/**Define PC offset*/
 	private static Formatstr offset = new Formatstr("000000000000000000000001");
@@ -58,13 +59,23 @@ public class Controller {
 	 * @exception
 	 */
 	public void initial(){
+
+		TraceINF.initialTrace("Running log for " + insFile.split("/")[1]);
+		TraceINF.write("Initialing...");
+		
+		
 		/*clear register files*/
 		GrINF.clear();
+		
+		/*initialize BHT*/
+		BhtINF.initial();
+		
 		/*fetch instructions to rom and get the entry address of instructions*/
 		busBuffer.setStr(MemoryINF.ROMload(insFile));
-		
 		/*initiate PC*/
 		PcINF.setPc(busBuffer);
+		
+		TraceINF.write("Initialization finished.");
 	}
 	
 	/**
@@ -73,8 +84,9 @@ public class Controller {
 	 * @param String file name
 	 * @exception
 	 */
-	public void setInstrFile(String instr){
-		insFile = instr;
+	public void setInstrFile(String instrFile){
+		TraceINF.write("User chosed instruction file.");
+		insFile = "files/" + instrFile + ".txt";
 	}
 	
 	/**
@@ -85,7 +97,11 @@ public class Controller {
 	 * @exception
 	 */
 	public void getInstr(){
+		
+		TraceINF.write("Fetching instruction to IR...");
+		
 		/*get address from PC and fetch MAR*/
+		TraceINF.write("Fetch MAR with PC.");
 		OutregsINF.setMAR(PcINF.getPc());
 		
 		/*get content from memory based on the address in MAR
@@ -98,6 +114,8 @@ public class Controller {
 		
 		/*fetch instruction from MBR to IR*/
 		OutregsINF.setIR(OutregsINF.getMBR());
+		
+		TraceINF.write("Instruction fetched.");
 		
 		/*decode IR instruction*/
 		DecodeINF.decode();
@@ -115,58 +133,86 @@ public class Controller {
 	public boolean execOpcode(String opcode){
 		/*LDR*/
 		if(opcode.equals("000001")){
+			TraceINF.write("Executing LDR...");
 			IsaControl.execLdr();
+			TraceINF.flushTraceBuffer();
 		}
 		/*STR*/
 		else if(opcode.equals("000010")){
+			TraceINF.write("Executing STR...");
 			IsaControl.execStr();
+			TraceINF.flushTraceBuffer();
 		}
 		/*LDA*/
 		else if(opcode.equals("000011")){
+			TraceINF.write("Executing LDA...");
 			IsaControl.execLda();
+			TraceINF.flushTraceBuffer();
 		}
 		/*JZ*/
 		else if(opcode.equals("001000")){
+			TraceINF.write("Executing JZ...");
 			IsaControl.execJz();
+			TraceINF.flushTraceBuffer();
 		}
 		/*JNE*/
 		else if(opcode.equals("001001")){
+			TraceINF.write("Executing JNE...");
 			IsaControl.execJne();
+			TraceINF.flushTraceBuffer();
 		}
 		/*JMP*/
 		else if(opcode.equals("001011")){
+			TraceINF.write("Executing JMP...");
 			IsaControl.execJmp();
+			TraceINF.flushTraceBuffer();
 		}
 		/*JSR*/
 		else if(opcode.equals("001100")){
+			TraceINF.write("Executing JSR...");
 			IsaControl.execJsr();
+			TraceINF.flushTraceBuffer();
 		}
 		/*RFS*/
 		else if(opcode.equals("001101")){
+			TraceINF.write("Executing RFS...");
 			IsaControl.execRfs();
+			TraceINF.flushTraceBuffer();
 		}
 		/*SOB*/
 		else if(opcode.equals("001110")){
+			TraceINF.write("Executing SOB...");
 			IsaControl.execSob();
+			TraceINF.flushTraceBuffer();
 		}
 		/*ADD or SUB*/
 		else if(opcode.equals("000100") || opcode.equals("000101")){
+			TraceINF.write("Executing ADD or SUB...");
 			IsaControl.execAddSub();
+			TraceINF.flushTraceBuffer();
 		}
 		/*AIR or SIR*/
 		else if(opcode.equals("000110") || opcode.equals("000111")){
+			TraceINF.write("Executing AIR or SIR...");
 			IsaControl.execAirSir();
+			TraceINF.flushTraceBuffer();
 		}
 		/*IN*/
 		else if(opcode.equals("111101")){
+			TraceINF.write("Executing IN...");
 			IsaControl.execIn();
+			TraceINF.flushTraceBuffer();
 		}
 		/*OUT*/
 		else if(opcode.equals("111110")){
+			TraceINF.write("Executing OUT...");
 			IsaControl.execOut();
+			TraceINF.flushTraceBuffer();
 		}
 		/*HLT*/
 		else if(opcode.equals("000000")){
+			TraceINF.write("HLT");
+			TraceINF.flushTraceBuffer();
 			return false;
 		}
 		return true;
@@ -205,5 +251,13 @@ public class Controller {
 				break;
 			}
 		}
+	}
+	
+	public static void main(String[] args){
+		Controller test = new Controller();
+		test.setInstrFile("jsr");
+		test.initial();
+		
+		test.run();
 	}
 }
