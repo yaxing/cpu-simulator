@@ -24,7 +24,7 @@ public class Devices {
 	/**
 	 * IN instruction
 	 * 
-	 * @param devid 	device id
+	 * @param devid 	device id = 0 is keyboard
 	 */
 	public static String in(Formatstr devid) {
 		String id = new String(devid.getStr().substring(20, 24));
