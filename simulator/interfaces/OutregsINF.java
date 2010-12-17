@@ -105,6 +105,10 @@ public class OutregsINF {
 		return or.getMCR();
 	}
 	
+	public static Formatstr getMFR(){
+		return or.getMFR();
+	}
+	
 	public static Formatstr getIR(){
 		return or.getIR();
 	}
