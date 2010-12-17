@@ -35,7 +35,7 @@ public class Memory {
 	
 	private static String memAddr = "00000000000010";		//load data and instruction from 2
 															//because the first two addresses are invalid 
-	private static String enterAddr;
+
 	/**
 	 * Default constructor
 	*/
@@ -61,7 +61,7 @@ public class Memory {
 	 * @param enteraddr	the first instruction's address
 	 */
 	public static void setEnterAddr(String enteraddr) {
-		enterAddr = enteraddr;
+		memAddr = enteraddr;
 	}
 	
 	/**
@@ -146,6 +146,7 @@ public class Memory {
 	 * Also MBR must ready.
 	 */
 	public static void setContentOfMBR() {
+		System.out.println("mar"+readMAR().getStr());
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		
