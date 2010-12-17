@@ -1854,7 +1854,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         programPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Programs"));
 
         inputfiles.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "consoletest.txt", "input.txt", "instruction.txt", "jsr.txt", "sob.txt", "test.txt" };
+            String[] strings = { "IOin.txt", "input.txt", "instruction.txt", "jsr.txt", "sob.txt", "test.txt" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1969,14 +1969,18 @@ public class SimulatorConsole extends javax.swing.JFrame {
     
     private void IPLButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         programPanel.setVisible(true);
-        mainControl.initial();
-        mainCtrl.start();
     }                                         
 
     private void inputfilesMouseClicked(java.awt.event.MouseEvent evt) {
         System.out.println(inputfiles.getSelectedValue());
+        String name = new String();
+        name = ((String)inputfiles.getSelectedValue());
+        name = name.substring(0, name.length()-4);
+        mainControl.setInstrFile(name);
         IPLButton.setEnabled(false);
-        stepButton.setEnabled(false);
+        mainControl.initial();
+        mainCtrl.start();
+        programPanel.setVisible(false);
         
     }
     
