@@ -32,8 +32,10 @@ public class Devices {
 		
 		switch(Integer.parseInt(id,2)){
 		case 0:
-			result = KeyBoard.in();
+			result = KeyBoard.instring();
 			break;
+		case 1:
+			result = KeyBoard.innumber();
 		}
 		return result;
 	}

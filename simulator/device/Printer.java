@@ -28,8 +28,14 @@ public class Printer {
 	 * @param content	content to be set.	
 	 */
 	public static boolean out(Formatstr content) {
-		printBuffer = printBuffer.concat(content.getStr() + System.getProperty("line.separator"));
-		System.out.println("printer buffered content!");
+		char c = (char)Integer.parseInt(content.getStr(),2);
+		
+		if(printBuffer.length()<20)
+			printBuffer = printBuffer.concat(String.valueOf(c));
+		else {
+			
+		}
+		//System.out.println("printer buffered content!"+printBuffer);
 		return true;
 	}
 	
@@ -39,6 +45,10 @@ public class Printer {
 	 * @return String	the printer buffer
 	 */
 	public static String showOnConsole() { return printBuffer; }
+	
+	public static void flushBuffer() {
+		printBuffer = "";
+	}
 	/**
 	 * Default constructor
 	*/
