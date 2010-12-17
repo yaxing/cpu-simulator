@@ -30,6 +30,7 @@ import simulator.interfaces.*;
  */
 public class SimulatorConsole extends javax.swing.JFrame {
 	private boolean shiftstatus = false;
+	
 	private String setLight(int flag) {
 		if(flag == 1)
 			return "/simulator/console/red.png";
@@ -83,8 +84,6 @@ public class SimulatorConsole extends javax.swing.JFrame {
         	((javax.swing.JLabel)PC.getComponent(i)).setIcon(new javax.swing.ImageIcon(getClass().getResource(setLight(Integer.parseInt(PCvalue.substring(i,i+1))))));
         }
         Printervalue.setText(DevicesINF.showPrinter());
-        //reset all device buffer
-        
 	}
 	
     /** Creates new form SimulatorConsole */
@@ -2538,6 +2537,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
     class MainController implements Runnable {
     	public void run() {
 	        mainControl.run();
+	        //end of program
+	        Printervalue.setText(DevicesINF.showPrinter());
     	}
     }
     
