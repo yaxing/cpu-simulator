@@ -5,6 +5,7 @@
 
 package simulator.console;
 import simulator.controller.*;
+import simulator.device.Printer;
 import simulator.interfaces.*;
 
 /** 
@@ -2011,13 +2012,13 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }                                       
 
     private void buttonNum4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-    	DevicesINF.characterEnc('4');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('4');
     }                                          
 
     private void buttonNum2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-    	DevicesINF.characterEnc('2');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('2');
     }                                          
 
     private void buttonShiftActionPerformed(java.awt.event.ActionEvent evt) {
@@ -2030,43 +2031,43 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }
 
     private void buttonNum1ActionPerformed(java.awt.event.ActionEvent evt) {
-        DevicesINF.characterEnc('1');
         DevicesINF.changeStatus(2);
+        DevicesINF.characterEnc('1');
     }
 
     private void buttonNum3ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('3');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('3');    	
     }
 
     private void buttonNum5ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('5');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('5');    	
     }
 
     private void buttonNum6ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('6');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('6');
     }
 
     private void buttonNum7ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('7');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('7');
     }
 
     private void buttonNum8ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('8');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('8');
     }
 
     private void buttonNum9ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('9');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('9');
     }
 
     private void buttonNum0ActionPerformed(java.awt.event.ActionEvent evt) {
-    	DevicesINF.characterEnc('0');
     	DevicesINF.changeStatus(2);
+    	DevicesINF.characterEnc('0');
     }
 
     private void buttonQActionPerformed(java.awt.event.ActionEvent evt) {
@@ -2278,8 +2279,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
     }
     
     private void buttonEnterActionPerformed(java.awt.event.ActionEvent evt) {
-        DevicesINF.addEndLine();
-        DevicesINF.changeStatus(2);
+        DevicesINF.changeStatus(1);
     }
     
     
@@ -2538,9 +2538,12 @@ public class SimulatorConsole extends javax.swing.JFrame {
     	public void run() {
 	        mainControl.run();
 	        //end of program
+	        System.out.println("end of program");
 	        Printervalue.setText(DevicesINF.showPrinter());
+	        Printer.flushBuffer();
     	}
     }
+    public Thread getmaincontroller(){return mainCtrl;}
     
         
 }

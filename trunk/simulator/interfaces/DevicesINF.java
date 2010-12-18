@@ -60,13 +60,6 @@ public class DevicesINF {
 	}
 	
 	/**
-	 * when finished input, add EOI to the end of keyBuffer.
-	 */
-	public static void addEndLine() {
-		KeyBoard.addEndLine();
-	}
-	
-	/**
 	 * check the device status.
 	 */
 	public static int checkStatus() {
@@ -76,7 +69,7 @@ public class DevicesINF {
 	/**
 	 * change the device status.
 	 * 
-	 * @param s		0: idle; 1: working; 2:done;
+	 * @param s		1: idle; 2: done; 3:check input whether is a number or a char;
 	 * 				
 	 */
 	public static void changeStatus(int s) {

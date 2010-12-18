@@ -27,18 +27,18 @@ public class Printer {
 	 * 
 	 * @param content	content to be set.	
 	 */
-	public static boolean out(Formatstr content) {
+	public static boolean outstring(Formatstr content) {
 		char c = (char)Integer.parseInt(content.getStr(),2);
 		
-		if(printBuffer.length()<20)
-			printBuffer = printBuffer.concat(String.valueOf(c));
-		else {
-			
-		}
+		printBuffer = printBuffer.concat(String.valueOf(c));
 		//System.out.println("printer buffered content!"+printBuffer);
 		return true;
 	}
 	
+	public static boolean outnumber(Formatstr content) {
+		printBuffer = Integer.parseInt(content.getStr(), 2)+"";
+		return true;
+	}
 	/**
 	 * Called by Controller if it's ready to "print" things on screen.
 	 * 
