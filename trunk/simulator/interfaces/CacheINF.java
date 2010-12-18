@@ -17,4 +17,7 @@ public class CacheINF {
 	public static void writeCacheINF(Formatstr add) {
 		Cache.writeCache(add);
 	}
+	public static void init() {
+		Cache.init();
+	}
 }
