@@ -204,6 +204,7 @@ public class alu {
 		
 		for(int i=0; i<23; i++)
 		{
+			//right shift multiplication, add IN1 to the top 23 bits of the product 
 			if (product.charAt(45) == 0x31)
 			{
 				OutregsINF.setIN1(new Formatstr(mulIn1));
@@ -216,7 +217,11 @@ public class alu {
 			//right shift
 			product = "0" + product.substring(0, 45);
 		}
-		System.out.println(Integer.toString(finalSig) + product);
+		
+		OutregsINF.setOUT1("0" + Integer.toString(finalSig) + product.substring(0, 22));
+		OutregsINF.setOUT2(product.substring(22));
+		
+		//System.out.println(Integer.toString(finalSig) + product);
 	}
 	
 	/**
@@ -357,6 +362,7 @@ public class alu {
 		}
 	}
 	
+	/*
    public static void main(String args[])
    {
 	   Formatstr in1 = new Formatstr("100000000000000000000011");
@@ -385,6 +391,6 @@ public class alu {
 	   //Formatstr c = OutregsINF.getCC();
 	   //System.out.println(c.getStr());
    }
-
+*/
 	
 }
