@@ -5,6 +5,7 @@
  */
 package simulator.controller;
 import simulator.interfaces.*;
+import simulator.fault.Fault;
 import simulator.formatstr.*;
 
 /** 
@@ -799,6 +800,178 @@ public class IsaControl {
 		}
 		
 		OutregsINF.setIN1(buffer);
+		
+		/*store the output into r1*/
+		
+		AluINF.calc();
+		buffer = OutregsINF.getOUT();
+		switch(r1){
+		case 0:
+			GrINF.setR0(buffer);
+			break;
+		case 1:
+			GrINF.setR1(buffer);
+			break;
+		case 2:
+			GrINF.setR2(buffer);
+			break;
+		case 3:
+			GrINF.setR3(buffer);
+			break;
+		default:
+			break;
+		}
+		
+		return;
+	}
+	
+	/**
+	 * Execute instruction MUL
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execMulDiv(){
+		/*flush buffer*/
+		buffer = new Formatstr();
+		
+		/*get c(ROP1) and c(ROP2) 
+		*/
+		int r1 = getAc();		
+		int r2 = getIx();
+		
+		switch(r1){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 2:
+			buffer = GrINF.getR2();
+			break;
+		default:
+			OutregsINF.setMFR(new Formatstr("0010"));
+			FaultINF.evoke();
+			return;
+		}
+		
+		OutregsINF.setIN1(buffer);
+		
+		if(r2 == r1 + 1 || r2 == 2){
+			switch(r2){
+			case 0:
+				buffer = GrINF.getR0();
+				break;
+			case 1:
+				buffer = GrINF.getR1();
+				break;
+			case 2:
+				buffer = GrINF.getR2();
+				break;
+			case 3:
+				buffer = GrINF.getR3();
+				break;
+			default:
+				break;
+			}
+		}
+		
+		else{
+			OutregsINF.setMFR(new Formatstr("0010"));
+			FaultINF.evoke();
+			return;
+		}
+		
+		OutregsINF.setIN2(buffer);
+		
+		AluINF.calc();
+		
+		Formatstr cc = OutregsINF.getCC();
+		//over flow
+		if(cc.getStr().charAt(0) == '1'){
+			OutregsINF.setMFR(new Formatstr("0011"));
+			FaultINF.evoke();
+		}
+		//under flow
+		else if(cc.getStr().charAt(1) == '1'){
+			OutregsINF.setMFR(new Formatstr("0100"));
+			FaultINF.evoke();
+		}
+		//divide 0
+		else if(cc.getStr().charAt(2) == '1'){
+			OutregsINF.setMFR(new Formatstr("0101"));
+			FaultINF.evoke();
+		}
+		
+		switch(r1){
+		case 0:
+			GrINF.setR0(OutregsINF.getOUT1());
+			GrINF.setR1(OutregsINF.getOUT2());
+			break;
+		case 2:
+			GrINF.setR2(OutregsINF.getOUT1());
+			GrINF.setR3(OutregsINF.getOUT2());
+			break;
+		default:
+			OutregsINF.setMFR(new Formatstr("0010"));
+			FaultINF.evoke();
+			return;
+		}		
+	}
+
+	/**
+	 * Execute instruction Logic instructions (And, or, not)
+	 * 
+	 * @param
+	 * @return 
+	 * @exception
+	 */
+	public static void execLogic(){
+		/*flush buffer*/
+		buffer = new Formatstr();
+		
+		/*get c(ROP1) and c(ROP2) 
+		 * store them in bus buffer to pass into IN1 and IN2
+		*/
+		int r1 = getAc();		
+		int r2 = getIx();
+		
+		switch(r1){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR1();
+			break;
+		case 2:
+			buffer = GrINF.getR2();
+			break;
+		case 3:
+			buffer = GrINF.getR3();
+			break;
+		default:
+			break;
+		}
+		
+		OutregsINF.setIN1(buffer);
+		
+		switch(r2){
+		case 0:
+			buffer = GrINF.getR0();
+			break;
+		case 1:
+			buffer = GrINF.getR1();
+			break;
+		case 2:
+			buffer = GrINF.getR2();
+			break;
+		case 3:
+			buffer = GrINF.getR3();
+			break;
+		default:
+			break;
+		}
+		
+		OutregsINF.setIN2(buffer);
 		
 		/*store the output into r1*/
 		

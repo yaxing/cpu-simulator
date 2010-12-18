@@ -64,6 +64,11 @@ public class OutRegs {
 	/**Register that is used for cache read*/
 	private static Formatstr cap = new Formatstr(format);
 	
+	private static Formatstr out1 = new Formatstr(format);	
+	private static Formatstr out2 = new Formatstr(format);
+
+	private static Formatstr al = new Formatstr(format);	
+	
 	/**
 	 * Guarantee that general register is 24 bits
 	 * 
@@ -330,4 +335,23 @@ public class OutRegs {
 		TraceINF.write("Get CAP.");
 		return cap;
 	}
+	
+	public void setOUT1(Formatstr out1) 
+	{
+	formatStr(out1, "out1");	
+	this.out1.setStr(out1.getStr());
+	}	
+	
+	public void setOUT2(Formatstr out2) 
+	{	
+	formatStr(out2, "out2");	
+	this.out2.setStr(out2.getStr());	
+	}
+	
+	public void setAL(Formatstr al) {		formatStr(al, "al");		this.al.setStr(al.getStr());	} 
+
+	public Formatstr getOUT1() {		return out1;	}		
+	public Formatstr getOUT2() {		return out2;	}
+	public Formatstr getAL() {		return al;	} 
+
 }

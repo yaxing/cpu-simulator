@@ -8,6 +8,7 @@ package simulator.interfaces;
 import simulator.outerregs.*;
 import simulator.formatstr.*;
 
+
 /** 
  * Class Outregs
  * interface layer of Outregs class
@@ -73,22 +74,9 @@ public class OutregsINF {
 		or.setOUT(out);
 	}
 	
-	public static void setOUT1(Formatstr out1){
-		or.setOUT1(out1);
-	}
-	
-	public static void setOUT2(Formatstr out2){
-		or.setOUT2(out2);
-	}
-	
 	public static void setLR(Formatstr lr) {
 		or.setLR(lr);
 	}
-	
-	public static void setAL(Formatstr al) {
-		or.setAL(al);
-	}
-	
 	
 	public static void setAR(Formatstr ar) {
 		or.setLR(ar);
@@ -104,6 +92,10 @@ public class OutregsINF {
 	
 	public static void setCAP(Formatstr cap){
 		or.setCAP(cap);
+	}
+	
+	public static void setMFR(Formatstr mfr){
+		or.setMFR(mfr);
 	}
 	
 	public static Formatstr getOPD(){
@@ -171,10 +163,6 @@ public class OutregsINF {
 		return or.getAR();
 	}
 	
-	public static Formatstr getAL() {
-		return or.getAL();
-	}
-	
 	public static Formatstr getDEVID() {
 		return or.getDEVID();
 	}
@@ -186,4 +174,29 @@ public class OutregsINF {
 	public static Formatstr getCAP() {
 		return or.getCAP();
 	}
+	
+	public static void setOUT1(Formatstr out1){
+		or.setOUT1(out1);
+	}
+	
+	public static void setOUT2(Formatstr out2){
+		or.setOUT2(out2);
+	}
+	
+	public static void setAL(Formatstr al){
+		or.setAL(al);
+	}
+	
+	public static Formatstr getOUT1(){
+		return or.getOUT1();
+	}
+	
+	public static Formatstr getOUT2(){
+		return or.getOUT2();
+	}
+	
+	public static Formatstr getAL(){
+		return or.getAL();
+	}
+	
 }
