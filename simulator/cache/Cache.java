@@ -6,16 +6,24 @@
 
 package simulator.cache;
 
+import simulator.controller.Controller;
 import simulator.formatstr.Formatstr;
+import simulator.interfaces.GrINF;
+import simulator.interfaces.MemoryINF;
+import simulator.interfaces.OutregsINF;
+import simulator.interfaces.TraceINF;
 
 public class Cache {
 	public static final int numline = 8;
 	public static final int numword = 8;
 	private static Formatstr[][] cacheline = new Formatstr[numline][numword];
+	private static String[] tags = new String[numline];		//least significant bit
+									// is the validity bit.
 	
 	public Cache() {
 		System.out.println("Cache is ok");
 		for(int i=0;i<numline;i++) {
+			tags[i] = new String("000000");
 			for(int j=0;j<numword;j++) {
 				cacheline[i][j] = new Formatstr("000000000000000000000000");
 			}
@@ -26,19 +34,76 @@ public class Cache {
 	 * Use the address to locate the memory and fetch the
 	 * memory for that whole line. 
 	 * 
-	 * @param add	the address ;
-	 * @return boolean	whether fetch success.				
+	 * @param 
+	 * @return 			
 	 */
-	public static boolean fetchMemory(Formatstr add) {
-		return true;
+	public static void fetchMemory(int p, String t, Formatstr add) {
+		Formatstr a = new Formatstr(add.getStr().substring(0,11));
+		a.getStr().concat("000");
+		for(int i=0;i<numword;i++) {
+			OutregsINF.setMAR(a);
+			/*set MBR with memory data from address in MAR*/
+			OutregsINF.setMCR(new Formatstr("0"));
+			MemoryINF.operateMemory();
+			cacheline[p][i].setStr(OutregsINF.getMBR().getStr());
+			a.setStr(a.getStr()+1);
+		}
 	}
 	
-	public static boolean readCache(Formatstr add) {
-		return true;
+	public static void readCache(Formatstr add) {
+		String t = new String(add.getStr().substring(0, 5));
+		int p = Integer.parseInt(add.getStr().substring(5, 11), 2);
+		System.out.println(p);
+		int offset = Integer.parseInt(add.getStr().substring(11, 14), 2);
+		if(!checkmiss(p, t)) {
+			TraceINF.write("Reading cache missed. Fetch from memory.");
+			fetchMemory(p, t, add);
+			tags[p] += 1;
+			TraceINF.write("Fetching finished.");
+		}
+		TraceINF.write("Read cache.");
+		OutregsINF.setCAP(cacheline[p][offset]);
 	}
 	
+	public static void writethrough(int p, String t, int o, Formatstr add) {
+		//write cache
+		cacheline[p][o].setStr(OutregsINF.getCAP().getStr());
+		//write memory
+		OutregsINF.setMAR(add);
+		OutregsINF.setMBR(OutregsINF.getCAP());
+		OutregsINF.setMCR(new Formatstr("1"));
+		MemoryINF.operateMemory();
+	}
 	
+	public static void writeCache(Formatstr add) {
+		String t = new String(add.getStr().substring(0, 5));
+		int p = Integer.parseInt(add.getStr().substring(5, 11), 2);
+		System.out.println(p);
+		int offset = Integer.parseInt(add.getStr().substring(11, 14), 2);
+		if(!checkmiss(p, t)) {
+			TraceINF.write("Writing cache missed. Fetch from memory.");
+			fetchMemory(p, t, add);
+			tags[p] += 1;
+			TraceINF.write("Fetching finished.");
+		}
+		TraceINF.write("Write-through cache");
+		writethrough(p, t, offset, add);
+		TraceINF.write("Write-through cache finished");
+	}
 	
+	public static boolean checkmiss(int p, String t) {
+		if(tags[p].substring(5, 6) == "0")
+			return false;
+		if(tags[p].substring(0, 5) != t.substring(0, 5))
+			return false;
+		else return true;
+	}
 	
-	
+	public static void main(String[] args){
+		Formatstr s = new Formatstr("010101010101010101010101");
+		Formatstr a = new Formatstr("00000000000001");
+		OutregsINF.setCAP(s);
+		Cache.writeCache(a);
+		
+	}
 }

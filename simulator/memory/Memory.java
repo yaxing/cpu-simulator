@@ -133,11 +133,13 @@ public class Memory {
 	 * Address(14 bits) must be ready in MAR.
 	 */
 	public static void getContentOfMBR() {
+		TraceINF.write("Writing memory.");
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		content.setStr(getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)]);
 		
 		writeMBR(content);
+		TraceINF.write("writing finished.");
 	}
 	
 	/**
@@ -146,12 +148,14 @@ public class Memory {
 	 * Also MBR must ready.
 	 */
 	public static void setContentOfMBR() {
+		TraceINF.write("Reading memory.");
 		System.out.println("mar"+readMAR().getStr());
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		
 		content = readMBR();
 		getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)] = content.getStr();
+		TraceINF.write("Reading finished.");
 	}
 	
 }

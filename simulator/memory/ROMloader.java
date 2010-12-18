@@ -7,6 +7,8 @@ package simulator.memory;
 
 import java.io.*;
 
+import simulator.interfaces.TraceINF;
+
 /** 
  * Class ROMloader
  * ROM loader operation. Load content of ROM(file) into Memory.
@@ -41,6 +43,7 @@ public class ROMloader {
 	 * 						it will cast an IOException
 	 */
 	public static String LoadToMemory(String filename) throws IOException {
+		TraceINF.write("ROM loader loading program into memory...");
 		File filein = new File(filename);
 		FileReader fr = new FileReader(filein);			
 		BufferedReader in = new BufferedReader(fr);		
@@ -54,7 +57,7 @@ public class ROMloader {
 		while((line = in.readLine()) != null) {
 			Memory.initLine(line);			
 		}
-		
+		TraceINF.write("loading finished.");
 		return enteraddr;
 	}
 }
