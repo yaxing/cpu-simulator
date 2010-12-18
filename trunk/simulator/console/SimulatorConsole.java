@@ -1918,7 +1918,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private void powerButtonActionPerformed(java.awt.event.ActionEvent evt) {
         
         if(!powerButton.isSelected()) {
-        	System.out.println("power off");
+        	TraceINF.write("Power off");
         	resetAll();
         	lightsPanel.setVisible(false);
         	printPanel.setVisible(false);
@@ -1931,7 +1931,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         	debugButton.setText("Debug Mode Off");
         }
         else {
-        	System.out.println("power on");
+        	TraceINF.write("Power on");
         	stepButton.setText("STEP");
         	IPLButton.setEnabled(true);
         	stepButton.setEnabled(false);
@@ -1959,11 +1959,13 @@ public class SimulatorConsole extends javax.swing.JFrame {
         	mainControl.isDebugModel = true;
         	stepButton.setEnabled(true);
         	debugButton.setText("Debug Mode On");
+        	TraceINF.write("Debug Mode On");
         }
         else {
         	stepButton.setEnabled(false);
         	mainControl.isDebugModel = false;
         	debugButton.setText("Debug Mode Off");
+        	TraceINF.write("Debug Mode Off");
         }
     }
     
@@ -1981,7 +1983,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         mainControl.initial();
         mainCtrl.start();
         programPanel.setVisible(false);
-        
+        TraceINF.write("Input program selected");
     }
     
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {                                        

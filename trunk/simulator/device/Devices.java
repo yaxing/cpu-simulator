@@ -7,6 +7,7 @@
 package simulator.device;
 
 import simulator.formatstr.*;
+import simulator.interfaces.TraceINF;
 
 /** 
  * Class Devices
@@ -31,10 +32,12 @@ public class Devices {
 		String result = new String();
 		
 		switch(Integer.parseInt(id,2)){
-		case 0:
+		case 1:
+			TraceINF.write("Input a letter from keyboard.");
 			result = KeyBoard.instring();
 			break;
-		case 1:
+		case 0:
+			TraceINF.write("Input number from keyboard.");
 			result = KeyBoard.innumber();
 		}
 		return result;
@@ -50,10 +53,12 @@ public class Devices {
 		String id = new String(devid.getStr().substring(20, 24));
 		
 		switch(Integer.parseInt(id,2)){
-		case 2:
+		case 3:
+			TraceINF.write("Output a letter to printer.");
 			Printer.outstring(content);
 			break;
-		case 3:
+		case 2:
+			TraceINF.write("Output number to printer.");
 			Printer.outnumber(content);
 			break;
 		}
