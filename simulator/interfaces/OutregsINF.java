@@ -73,9 +73,22 @@ public class OutregsINF {
 		or.setOUT(out);
 	}
 	
+	public static void setOUT1(Formatstr out1){
+		or.setOUT1(out1);
+	}
+	
+	public static void setOUT2(Formatstr out2){
+		or.setOUT2(out2);
+	}
+	
 	public static void setLR(Formatstr lr) {
 		or.setLR(lr);
 	}
+	
+	public static void setAL(Formatstr al) {
+		or.setAL(al);
+	}
+	
 	
 	public static void setAR(Formatstr ar) {
 		or.setLR(ar);
@@ -156,6 +169,10 @@ public class OutregsINF {
 
 	public static Formatstr getAR() {
 		return or.getAR();
+	}
+	
+	public static Formatstr getAL() {
+		return or.getAL();
 	}
 	
 	public static Formatstr getDEVID() {
