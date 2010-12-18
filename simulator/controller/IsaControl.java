@@ -317,19 +317,19 @@ public class IsaControl {
 		switch(gN){
 		case 0:
 			//OutregsINF.setMBR(GrINF.getR0());
-			OutregsINF.setMCR(GrINF.getR0());
+			OutregsINF.setCAP(GrINF.getR0());
 			break;
 		case 1:
 			//OutregsINF.setMBR(GrINF.getR1());
-			OutregsINF.setMCR(GrINF.getR1());
+			OutregsINF.setCAP(GrINF.getR1());
 			break;
 		case 2:
 			//OutregsINF.setMBR(GrINF.getR2());
-			OutregsINF.setMCR(GrINF.getR2());
+			OutregsINF.setCAP(GrINF.getR2());
 			break;
 		case 3:
 			//OutregsINF.setMBR(GrINF.getR3());
-			OutregsINF.setMCR(GrINF.getR3());
+			OutregsINF.setCAP(GrINF.getR3());
 			break;
 		default:
 			break;
