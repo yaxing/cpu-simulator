@@ -190,11 +190,23 @@ public class Controller {
 			TraceINF.write("Executing ADD or SUB...");
 			IsaControl.execAddSub();
 			TraceINF.flushTraceBuffer();
-		}
+		}		
 		/*AIR or SIR*/
 		else if(opcode.equals("000110") || opcode.equals("000111")){
 			TraceINF.write("Executing AIR or SIR...");
 			IsaControl.execAirSir();
+			TraceINF.flushTraceBuffer();
+		}
+		/*MUL or Div*/
+		else if(opcode.equals("001111") || opcode.equals("010000")){
+			TraceINF.write("Executing MUL or DIV...");
+			IsaControl.execMulDiv();
+			TraceINF.flushTraceBuffer();
+		}
+		/*Logical instructions: And, Or, Not*/
+		else if(18 <=  Integer.parseInt(opcode, 2) &&  Integer.parseInt(opcode, 2)  <= 20){
+			TraceINF.write("Executing Logical instructions: And, Or, Not...");
+			IsaControl.execLogic();
 			TraceINF.flushTraceBuffer();
 		}
 		/*IN*/
