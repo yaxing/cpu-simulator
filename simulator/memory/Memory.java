@@ -136,6 +136,7 @@ public class Memory {
 		TraceINF.write("Writing memory.");
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
+//		System.out.println("index"+Integer.parseInt(mar.substring(0, mar.length() - 2), 2));
 		content.setStr(getBank(mar)[Integer.parseInt(mar.substring(0, mar.length() - 2), 2)]);
 		
 		writeMBR(content);
