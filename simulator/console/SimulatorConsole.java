@@ -2532,7 +2532,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
     private javax.swing.JButton stepButton;
     // End of variables declaration
     private Controller mainControl;
-    private Thread mainCtrl;
+    private static Thread mainCtrl;
 
     class MainController implements Runnable {
     	public void run() {
@@ -2543,7 +2543,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 	        Printer.flushBuffer();
     	}
     }
-    public Thread getmaincontroller(){return mainCtrl;}
+    public static Thread getmaincontroller(){return mainCtrl;}
     
         
 }
