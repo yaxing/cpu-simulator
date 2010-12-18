@@ -89,6 +89,8 @@ public class SimulatorConsole extends javax.swing.JFrame {
 	
     /** Creates new form SimulatorConsole */
     public SimulatorConsole() {
+    	CacheINF.init();
+    	MemoryINF.initMem();
         initComponents();
         resetAll();
         mainControl = new Controller();
@@ -101,7 +103,6 @@ public class SimulatorConsole extends javax.swing.JFrame {
     	debugButton.setEnabled(false);
     }
     
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         printPanel = new javax.swing.JPanel();
@@ -1919,16 +1920,17 @@ public class SimulatorConsole extends javax.swing.JFrame {
         
         if(!powerButton.isSelected()) {
         	TraceINF.write("Power off");
-        	resetAll();
-        	lightsPanel.setVisible(false);
-        	printPanel.setVisible(false);
-        	keyPanel.setVisible(false);
-        	programPanel.setVisible(false);
-        	IPLButton.setEnabled(false);
-        	stepButton.setEnabled(false);
-        	debugButton.setEnabled(false);
-        	debugButton.setSelected(false);
-        	debugButton.setText("Debug Mode Off");
+        	System.exit(1);
+//        	resetAll();
+//        	lightsPanel.setVisible(false);
+//        	printPanel.setVisible(false);
+//        	keyPanel.setVisible(false);
+//        	programPanel.setVisible(false);
+//        	IPLButton.setEnabled(false);
+//        	stepButton.setEnabled(false);
+//        	debugButton.setEnabled(false);
+//        	debugButton.setSelected(false);
+//        	debugButton.setText("Debug Mode Off");
         }
         else {
         	TraceINF.write("Power on");
