@@ -20,7 +20,8 @@ public class Cache {
 	private static String[] tags = new String[numline];		//least significant bit
 									// is the validity bit.
 	
-	public Cache() {
+	public Cache() { }
+	public static void init() {
 		System.out.println("Cache is ok");
 		for(int i=0;i<numline;i++) {
 			tags[i] = new String("000000");
@@ -46,27 +47,32 @@ public class Cache {
 			OutregsINF.setMCR(new Formatstr("0"));
 			MemoryINF.operateMemory();
 			cacheline[p][i].setStr(OutregsINF.getMBR().getStr());
-			a.setStr(a.getStr()+1);
+			a.setStr((Integer.toBinaryString((Integer.parseInt(a.getStr(),2)+1))));
+			while (a.getStr().length() < 14)
+				a.setStr("0" + a.getStr());
+			return;
+			
 		}
 	}
 	
 	public static void readCache(Formatstr add) {
 		String t = new String(add.getStr().substring(0, 5));
 		int p = Integer.parseInt(add.getStr().substring(5, 11), 2);
-		System.out.println(p);
 		int offset = Integer.parseInt(add.getStr().substring(11, 14), 2);
 		if(!checkmiss(p, t)) {
-			TraceINF.write("Reading cache missed. Fetch from memory.");
+//			System.out.println("Cache missed tags "+tags[p]);
+			TraceINF.write("Reading cache missed. Fetch from memory:"+add.getStr());
 			fetchMemory(p, t, add);
-			tags[p] += 1;
+			tags[p]=tags[p].substring(0,5).concat("1");
 			TraceINF.write("Fetching finished.");
 		}
-		TraceINF.write("Read cache.");
+		TraceINF.write("Read cache line: #"+p);
 		OutregsINF.setCAP(cacheline[p][offset]);
 	}
 	
 	public static void writethrough(int p, String t, int o, Formatstr add) {
 		//write cache
+		System.out.println("cap "+OutregsINF.getCAP().getStr());
 		cacheline[p][o].setStr(OutregsINF.getCAP().getStr());
 		//write memory
 		OutregsINF.setMAR(add);
@@ -78,32 +84,33 @@ public class Cache {
 	public static void writeCache(Formatstr add) {
 		String t = new String(add.getStr().substring(0, 5));
 		int p = Integer.parseInt(add.getStr().substring(5, 11), 2);
-		System.out.println(p);
 		int offset = Integer.parseInt(add.getStr().substring(11, 14), 2);
 		if(!checkmiss(p, t)) {
-			TraceINF.write("Writing cache missed. Fetch from memory.");
+//			System.out.println("Cache missed tags "+tags[p]);
+			TraceINF.write("Writing cache missed. Fetch from memory:"+add.getStr());
 			fetchMemory(p, t, add);
-			tags[p] += 1;
+			tags[p]=tags[p].substring(0,5).concat("1");
 			TraceINF.write("Fetching finished.");
 		}
-		TraceINF.write("Write-through cache");
+		TraceINF.write("Write-through cache line: #"+p);
 		writethrough(p, t, offset, add);
 		TraceINF.write("Write-through cache finished");
 	}
 	
 	public static boolean checkmiss(int p, String t) {
-		if(tags[p].substring(5, 6) == "0")
+		if(tags[p].substring(5, 6).equals("0"))
 			return false;
-		if(tags[p].substring(0, 5) != t.substring(0, 5))
+		
+		if(!tags[p].substring(0, 5).equals(t.substring(0, 5)))
 			return false;
 		else return true;
 	}
 	
-	public static void main(String[] args){
-		Formatstr s = new Formatstr("010101010101010101010101");
-		Formatstr a = new Formatstr("00000000000001");
-		OutregsINF.setCAP(s);
-		Cache.writeCache(a);
-		
-	}
+//	public static void main(String[] args){
+//		Formatstr s = new Formatstr("010101010101010101010101");
+//		Formatstr a = new Formatstr("00000000000001");
+//		OutregsINF.setCAP(s);
+//		Cache.writeCache(a);
+//		
+//	}
 }
