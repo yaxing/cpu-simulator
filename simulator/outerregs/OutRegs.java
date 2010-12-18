@@ -237,7 +237,7 @@ public class OutRegs {
 	public void setCAP(Formatstr capNew){
 		TraceINF.write("Set CAP.");
 		formatStr(capNew, "cap");
-		opd.setStr(capNew.getStr());
+		cap.setStr(capNew.getStr());
 	}
 
 	/*get methods*/
