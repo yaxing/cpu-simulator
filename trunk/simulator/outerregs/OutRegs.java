@@ -63,7 +63,7 @@ public class OutRegs {
 	
 	/**Register that is used for cache read*/
 	private static Formatstr cap = new Formatstr(format);
-	
+	/**Mul & Div result*/
 	private static Formatstr out1 = new Formatstr(format);	
 	private static Formatstr out2 = new Formatstr(format);
 
@@ -240,6 +240,9 @@ public class OutRegs {
 		cap.setStr(capNew.getStr());
 	}
 
+
+
+	
 	/*get methods*/
 	public Formatstr getOPCODE() {
 		TraceINF.write("Get OPCODE.");
