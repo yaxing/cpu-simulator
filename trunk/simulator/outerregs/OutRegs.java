@@ -11,7 +11,7 @@ import simulator.interfaces.TraceINF;
  * Class Outregs
  * control all out registers
  *                          
- * @author Yaxing Chen, Lei Li
+ * @author Yaxing Chen, Lei Li, Yichao Yu
  * @version 10-15-2010
  * @see simulator.outerregs
  * @since JDK 1.6
@@ -60,6 +60,9 @@ public class OutRegs {
 	
 	/**Register that store device ID for I/O instruction*/
 	private static Formatstr devid = new Formatstr(format);
+	
+	/**Register that is used for cache read*/
+	private static Formatstr cap = new Formatstr(format);
 	
 	/**
 	 * Guarantee that general register is 24 bits
@@ -225,6 +228,12 @@ public class OutRegs {
 		}
 		cc.setStr(buffer);
 	} 
+	
+	public void setCAP(Formatstr capNew){
+		TraceINF.write("Set CAP.");
+		formatStr(capNew, "cap");
+		opd.setStr(capNew.getStr());
+	}
 
 	/*get methods*/
 	public Formatstr getOPCODE() {
@@ -315,5 +324,10 @@ public class OutRegs {
 	public Formatstr getCC(){
 		TraceINF.write("Get CC.");
 		return cc;
+	}
+	
+	public Formatstr getCAP(){
+		TraceINF.write("Get CAP.");
+		return cap;
 	}
 }
