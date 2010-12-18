@@ -45,7 +45,7 @@ public class KeyBoard {
 			tmp = stringBuffer.substring((cnt-1-i)*7+3, (cnt-i)*7);
 			num += Integer.parseInt(tmp,2)*power(i);
 		}
-		System.out.println("number "+num);
+//		System.out.println("number "+num);
 		stringBuffer = "";
 		return String.valueOf(Integer.toBinaryString(num));
 	}
@@ -201,7 +201,7 @@ public class KeyBoard {
 		default: System.out.println("Invalid charactor.");
 			break;
 		}
-		System.out.println("keyboard "+code+" "+statusPort);
+//		System.out.println("keyboard "+code+" "+statusPort);
 		stringBuffer += code;
 		//numInput++;
 	}

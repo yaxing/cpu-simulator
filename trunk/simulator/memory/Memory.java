@@ -150,7 +150,7 @@ public class Memory {
 	 */
 	public static void setContentOfMBR() {
 		TraceINF.write("Reading memory.");
-		System.out.println("mar"+readMAR().getStr());
+//		System.out.println("mar"+readMAR().getStr());
 		String mar = new String(readMAR().getStr());
 		Formatstr content = new Formatstr();
 		

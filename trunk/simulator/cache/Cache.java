@@ -72,7 +72,7 @@ public class Cache {
 	
 	public static void writethrough(int p, String t, int o, Formatstr add) {
 		//write cache
-		System.out.println("cap "+OutregsINF.getCAP().getStr());
+//		System.out.println("cap "+OutregsINF.getCAP().getStr());
 		cacheline[p][o].setStr(OutregsINF.getCAP().getStr());
 		//write memory
 		OutregsINF.setMAR(add);
