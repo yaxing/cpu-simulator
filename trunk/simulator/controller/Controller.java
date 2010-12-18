@@ -255,7 +255,7 @@ public class Controller {
 	
 	public static void main(String[] args){
 		Controller test = new Controller();
-		test.setInstrFile("jsr");
+		test.setInstrFile("test");
 		test.initial();
 		
 		test.run();
