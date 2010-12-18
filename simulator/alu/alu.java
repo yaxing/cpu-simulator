@@ -218,11 +218,12 @@ public class alu {
 			product = "0" + product.substring(0, 45);
 		}
 		
-		OutregsINF.setOUT1("0" + Integer.toString(finalSig) + product.substring(0, 22));
-		OutregsINF.setOUT2(product.substring(22));
+		OutregsINF.setOUT1(new Formatstr(Integer.toString(finalSig) + "0" + product.substring(0, 22)));
+		OutregsINF.setOUT2(new Formatstr(product.substring(22)));
 		
 		//System.out.println(Integer.toString(finalSig) + product);
 	}
+
 	
 	/**
 	 * Left shift (SHL dst, n)
@@ -331,11 +332,17 @@ public class alu {
 			this.test();
 			break;
 		//MUL r1,r2
-		//input: In1, In2; output in In1.In2
+		//input: In1, In2; output in Out1.Out2
 		//the highest digit indicates the signal, not involved in calculation
 		case 15:
 			this.mul();
 			break;	
+		//DIV r1,r2
+		//input: In1, In2; output in Out1.Out2
+		//the highest digit indicates the signal, not involved in calculation
+		//case 16:
+			//this.div();
+			//break;		
 		//TST r, address[,I]
 		case 17:
 			this.test();
