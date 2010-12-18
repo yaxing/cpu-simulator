@@ -89,6 +89,10 @@ public class OutregsINF {
 		or.setCC(pos, i);
 	}
 	
+	public static void setCAP(Formatstr cap){
+		or.setCAP(cap);
+	}
+	
 	public static Formatstr getOPD(){
 		return or.getOPD();
 	}
@@ -160,5 +164,9 @@ public class OutregsINF {
 	
 	public static Formatstr getCC() {
 		return or.getCC();
+	}
+	
+	public static Formatstr getCAP() {
+		return or.getCAP();
 	}
 }
