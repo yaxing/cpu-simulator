@@ -50,8 +50,11 @@ public class Devices {
 		String id = new String(devid.getStr().substring(20, 24));
 		
 		switch(Integer.parseInt(id,2)){
-		case 1:
-			Printer.out(content);
+		case 2:
+			Printer.outstring(content);
+			break;
+		case 3:
+			Printer.outnumber(content);
 			break;
 		}
 

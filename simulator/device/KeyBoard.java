@@ -21,7 +21,6 @@ package simulator.device;
 public class KeyBoard {
 	private static String stringBuffer = new String("");
 	private static int statusPort = 1;
-	private static String number;
 	/**
 	 * get the 24bits of keyBuffer 
 	 * 
@@ -30,12 +29,31 @@ public class KeyBoard {
 	 */
 	public static String instring() {
 		setStatus(1);
-		return stringBuffer;
+		String s = new String("");
+		s = stringBuffer;
+		stringBuffer = "";
+		return s;
 	}
 	
 	public static String innumber() {
+		while(statusPort == 2) {}
+		int cnt = stringBuffer.length()/7;
+		String tmp = new String("");
+		int num = 0;
 		
-		return stringBuffer;
+		for(int i=0;i<cnt;i++) {
+			tmp = stringBuffer.substring((cnt-1-i)*7+3, (cnt-i)*7);
+			num += Integer.parseInt(tmp,2)*power(i);
+		}
+		System.out.println("number "+num);
+		stringBuffer = "";
+		return String.valueOf(Integer.toBinaryString(num));
+	}
+	private static int power(int i) {
+		int p=1;
+		for(int j=0;j<i;j++)
+			p *= 10;
+		return p;
 	}
 	/**
 	 * Default constructor
@@ -184,15 +202,10 @@ public class KeyBoard {
 			break;
 		}
 		System.out.println("keyboard "+code+" "+statusPort);
-		stringBuffer = code;
+		stringBuffer += code;
 		//numInput++;
 	}
-	
-	public static void addEndLine() {
-		//keyBuffer = keyBuffer.concat(EOI);
-		//numInput++;
-	}
-	
+
 	public static int getStatus() {
 		return statusPort;
 	}
