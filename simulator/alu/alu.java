@@ -224,6 +224,32 @@ public class alu {
 		//System.out.println(Integer.toString(finalSig) + product);
 	}
 
+	/**
+	 * Divide two operands
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  
+	 */
+	
+	public void div()
+	{
+		//get signals
+		int sig1 = OutregsINF.getIN1().getStr().charAt(0) - 0x30;
+		int sig2 = OutregsINF.getIN2().getStr().charAt(0) - 0x30;
+		//final signal = sig1 XOR sig2
+		int finalSig = sig1 ^ sig2;
+		
+		
+		int a = Integer.valueOf(OutregsINF.getIN1().getStr().substring(1), 2);
+		int b = Integer.valueOf(OutregsINF.getIN2().getStr().substring(1), 2);
+		String q = Integer.toBinaryString(a / b);
+		String r = Integer.toBinaryString(a % b);
+		OutregsINF.setOUT1(new Formatstr(q));
+		OutregsINF.setOUT2(new Formatstr(r));
+	}
 	
 	/**
 	 * Left shift (SHL dst, n)
@@ -340,9 +366,9 @@ public class alu {
 		//DIV r1,r2
 		//input: In1, In2; output in Out1.Out2
 		//the highest digit indicates the signal, not involved in calculation
-		//case 16:
-			//this.div();
-			//break;		
+		case 16:
+			this.div();
+			break;		
 		//TST r, address[,I]
 		case 17:
 			this.test();
@@ -369,12 +395,12 @@ public class alu {
 		}
 	}
 	
-	/*
+
    public static void main(String args[])
    {
-	   Formatstr in1 = new Formatstr("100000000000000000000011");
+	   Formatstr in1 = new Formatstr("000000000000000000101101");
 	   Formatstr in2 = new Formatstr("000000000000000000000111");
-	   Formatstr op = new Formatstr("15");
+	   Formatstr op = new Formatstr("16");
 	   Formatstr out = new Formatstr();
 	   Formatstr lr = new Formatstr("1");
 	   Formatstr al = new Formatstr("0");
@@ -398,6 +424,6 @@ public class alu {
 	   //Formatstr c = OutregsINF.getCC();
 	   //System.out.println(c.getStr());
    }
-*/
+
 	
 }
