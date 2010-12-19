@@ -395,7 +395,7 @@ public class alu {
 		}
 	}
 	
-
+/*
    public static void main(String args[])
    {
 	   Formatstr in1 = new Formatstr("000000000000000000101101");
@@ -424,6 +424,6 @@ public class alu {
 	   //Formatstr c = OutregsINF.getCC();
 	   //System.out.println(c.getStr());
    }
-
+*/
 	
 }
