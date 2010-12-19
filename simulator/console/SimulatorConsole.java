@@ -1855,7 +1855,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         programPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Programs"));
 
         inputfiles.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "program01.txt", "program02.txt"};
+            String[] strings = { "program01.txt", "program02.txt", "jmp.txt"};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1986,6 +1986,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         mainCtrl.start();
         programPanel.setVisible(false);
         TraceINF.write("Input program selected");
+        
     }
     
     private void buttonFActionPerformed(java.awt.event.ActionEvent evt) {                                        
@@ -2544,6 +2545,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
 	        //end of program
 	        System.out.println("end of program");
 	        Printervalue.setText(DevicesINF.showPrinter());
+	        if(!debugButton.isSelected()) setAll();
 	        Printer.flushBuffer();
     	}
     }
