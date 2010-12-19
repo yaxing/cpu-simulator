@@ -44,7 +44,7 @@ public class Cache {
 		for(int i=0;i<numword;i++) {
 			OutregsINF.setMAR(a);
 			/*set MBR with memory data from address in MAR*/
-			OutregsINF.setMCR(new Formatstr("0"));
+			OutregsINF.setMCR(new Formatstr("1"));
 			MemoryINF.operateMemory();
 			cacheline[p][i].setStr(OutregsINF.getMBR().getStr());
 			a.setStr((Integer.toBinaryString((Integer.parseInt(a.getStr(),2)+1))));
@@ -63,7 +63,7 @@ public class Cache {
 //			System.out.println("Cache missed tags "+tags[p]);
 			TraceINF.write("Reading cache missed. Fetch from memory:"+add.getStr());
 			fetchMemory(p, t, add);
-			tags[p]=tags[p].substring(0,5).concat("1");
+			tags[p]=tags[p].substring(0,5).concat("0");
 			TraceINF.write("Fetching finished.");
 		}
 		TraceINF.write("Read cache line: #"+p);
@@ -72,7 +72,7 @@ public class Cache {
 	
 	public static void writethrough(int p, String t, int o, Formatstr add) {
 		//write cache
-//		System.out.println("cap "+OutregsINF.getCAP().getStr());
+		System.out.println("cap "+OutregsINF.getCAP().getStr());
 		cacheline[p][o].setStr(OutregsINF.getCAP().getStr());
 		//write memory
 		OutregsINF.setMAR(add);
