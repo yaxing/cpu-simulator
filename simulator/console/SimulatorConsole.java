@@ -1855,7 +1855,7 @@ public class SimulatorConsole extends javax.swing.JFrame {
         programPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Input Programs"));
 
         inputfiles.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "program01.txt", "program02.txt", "jmp.txt"};
+            String[] strings = { "program01.txt", "program02.txt", "jmp.txt", "IOin.txt"};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });

@@ -132,7 +132,7 @@ public class Memory {
 	 * May have some exception, ie: a wrong address.
 	 * Address(14 bits) must be ready in MAR.
 	 */
-	public static void getContentOfMBR() {
+	public static void load() {
 		String mar = new String(readMAR().getStr());
 		TraceINF.write("Read memory "+mar);
 		Formatstr content = new Formatstr();
@@ -148,7 +148,7 @@ public class Memory {
 	 * Address(14 bits) must be ready in MAR.
 	 * Also MBR must ready.
 	 */
-	public static void setContentOfMBR() {
+	public static void store() {
 //		System.out.println("mar"+readMAR().getStr());
 		String mar = new String(readMAR().getStr());
 		TraceINF.write("Write memory "+mar);

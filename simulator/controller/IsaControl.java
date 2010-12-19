@@ -258,13 +258,13 @@ public class IsaControl {
 		/*generate EA and store in buffer*/
 		genEa();
 		/*fetch MAR*/
-		//OutregsINF.setMAR(buffer);
+		OutregsINF.setMAR(buffer);
 		
 		/*set MBR with memory data from address in MAR*/
-//		OutregsINF.setMCR(new Formatstr("0"));
-//		MemoryINF.operateMemory();
+		OutregsINF.setMCR(new Formatstr("0"));
+		MemoryINF.operateMemory();
 		
-		CacheINF.readCacheINF(buffer);
+//		CacheINF.readCacheINF(buffer);
 		
 		
 		/*get the target register AC from ROP1*/
@@ -273,16 +273,20 @@ public class IsaControl {
 		/*store MBR content into the target register*/
 		switch(gN){
 		case 0:
-			GrINF.setR0(OutregsINF.getCAP());
+			GrINF.setR0(OutregsINF.getMBR());
+//			GrINF.setR0(OutregsINF.getCAP());
 			break;
 		case 1:
-			GrINF.setR1(OutregsINF.getCAP());
+			GrINF.setR1(OutregsINF.getMBR());
+//			GrINF.setR1(OutregsINF.getCAP());
 			break;
 		case 2:
-			GrINF.setR2(OutregsINF.getCAP());
+			GrINF.setR2(OutregsINF.getMBR());
+//			GrINF.setR2(OutregsINF.getCAP());
 			break;
 		case 3:
-			GrINF.setR3(OutregsINF.getCAP());
+			GrINF.setR3(OutregsINF.getMBR());
+//			GrINF.setR3(OutregsINF.getCAP());
 			break;
 		default:
 			break;
@@ -303,7 +307,7 @@ public class IsaControl {
 		/*generate EA and store in buffer*/
 		genEa();
 		/*fetch MAR*/
-		//OutregsINF.setMAR(buffer);
+		OutregsINF.setMAR(buffer);
 		
 		/*get the target register AC from ROP1*/
 		int gN = getAc();
@@ -317,29 +321,29 @@ public class IsaControl {
 		/*set MBR with register content*/
 		switch(gN){
 		case 0:
-			//OutregsINF.setMBR(GrINF.getR0());
-			OutregsINF.setCAP(GrINF.getR0());
+			OutregsINF.setMBR(GrINF.getR0());
+//			OutregsINF.setCAP(GrINF.getR0());
 			break;
 		case 1:
-			//OutregsINF.setMBR(GrINF.getR1());
-			OutregsINF.setCAP(GrINF.getR1());
+			OutregsINF.setMBR(GrINF.getR1());
+//			OutregsINF.setCAP(GrINF.getR1());
 			break;
 		case 2:
-			//OutregsINF.setMBR(GrINF.getR2());
-			OutregsINF.setCAP(GrINF.getR2());
+			OutregsINF.setMBR(GrINF.getR2());
+//			OutregsINF.setCAP(GrINF.getR2());
 			break;
 		case 3:
-			//OutregsINF.setMBR(GrINF.getR3());
-			OutregsINF.setCAP(GrINF.getR3());
+			OutregsINF.setMBR(GrINF.getR3());
+//			OutregsINF.setCAP(GrINF.getR3());
 			break;
 		default:
 			break;
 		}
 		
 		//write MBR content into memory unit located in MAR address
-		//OutregsINF.setMCR(new Formatstr("1"));
-		//MemoryINF.operateMemory();
-		CacheINF.writeCacheINF(buffer);
+		OutregsINF.setMCR(new Formatstr("1"));
+		MemoryINF.operateMemory();
+//		CacheINF.writeCacheINF(buffer);
 	}
 	
 	/**

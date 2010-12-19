@@ -51,9 +51,9 @@ public class MemoryINF {
 	 */
 	public static boolean operateMemory() {
 		if(OutregsINF.getMCR().getStr().equals("0"))	//0 is load, 1 is store
-			Memory.getContentOfMBR();
+			Memory.load();
 		else if(OutregsINF.getMCR().getStr().equals("1"))
-			Memory.setContentOfMBR();
+			Memory.store();
 		else return false;
 		return true;
 	}
