@@ -91,7 +91,7 @@ public class KeyBoard {
 			break;
 		case '9': code = "0111001";
 			break;
-		case ' ': code = "0001010";
+		case ' ': code = "0000000";
 			break;
 		case 'a': code = "1100001";
 			break;
