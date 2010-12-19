@@ -51,8 +51,6 @@ public class alu {
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
 		String out;
-		//in1.toBinary();
-		//in2.toBinary();
 		
 		out = Integer.toBinaryString(Integer.valueOf(in1.getStr(), 2) & Integer.valueOf(in2.getStr(), 2));
 		OutregsINF.setOUT(new Formatstr(out));
@@ -73,8 +71,7 @@ public class alu {
 		Formatstr in1 = OutregsINF.getIN1();
 		Formatstr in2 = OutregsINF.getIN2();
 		String out;
-		//in1.toBinary();
-		//in2.toBinary();
+
 		
 		out = Integer.toBinaryString(Integer.valueOf(in1.getStr(), 2) | Integer.valueOf(in2.getStr(), 2));
 		OutregsINF.setOUT(new Formatstr(out));
@@ -93,13 +90,11 @@ public class alu {
 	public void not()
 	{
 		Formatstr in1 = OutregsINF.getIN1();
-		//in1.toBinary();
 		
 		String tmpStr = "";
 		for(int i=0; i<in1.getStr().length(); i++)
 			tmpStr = tmpStr + (in1.getStr().charAt(i) == 0x30 ? "1" : "0");
 		
-		//out = Integer.toBinaryString(~Integer.valueOf(in1.getStr(), 2));
 		OutregsINF.setOUT(new Formatstr(tmpStr));
 		return;
 	}
@@ -221,7 +216,6 @@ public class alu {
 		OutregsINF.setOUT1(new Formatstr(Integer.toString(finalSig) + "0" + product.substring(0, 22)));
 		OutregsINF.setOUT2(new Formatstr(product.substring(22)));
 		
-		//System.out.println(Integer.toString(finalSig) + product);
 	}
 
 	/**
@@ -247,12 +241,17 @@ public class alu {
 		int b = Integer.valueOf(OutregsINF.getIN2().getStr().substring(1), 2);
 		String q = Integer.toBinaryString(a / b);
 		String r = Integer.toBinaryString(a % b);
-		OutregsINF.setOUT1(new Formatstr(q));
+		//add 0 until reach the expected length
+		while (q.length()<23) q = "0" + q;
+		while (r.length()<24) r = "0" + r; 
+		
+		//signal in first byte, then store the result in sequence in OUT1 & OUT2
+		OutregsINF.setOUT1(new Formatstr(finalSig + q));
 		OutregsINF.setOUT2(new Formatstr(r));
 	}
 	
 	/**
-	 * Left shift (SHL dst, n)
+	 * shift reg
 	 * 
 	 *  @param
 	 *  
@@ -306,6 +305,46 @@ public class alu {
 	
 	
 	/**
+	 * rotate reg PRC r, count, L/R, A/L
+	 * 
+	 *  @param
+	 *  
+	 *  @return
+	 *  @exception
+	 *  	
+	 */
+	public void rotate()
+	{
+		OutregsINF.getIN1().binFormat();
+		String in1 = OutregsINF.getIN1().getStr();
+		int in2 = Integer.valueOf(OutregsINF.getIN2().getStr(), 2);
+
+		Formatstr al = OutregsINF.getAL();
+		Formatstr lr = OutregsINF.getLR();
+		
+		//rotate 0 bits should directly return, otherwise may cause error in substring()
+		if (in2 == 0)
+		{
+			OutregsINF.setOUT(new Formatstr(in1));
+			return;
+		}
+		
+		String move;
+		
+		if (Integer.valueOf(lr.getStr()) == 0)
+		{
+			//right
+			move = in1.substring(in1.length() - in2);
+			OutregsINF.setOUT(new Formatstr(move + in1.substring(0, in1.length()-in2)));
+		}
+		else
+		{
+			//left
+			move = in1.substring(0, in2);
+			OutregsINF.setOUT(new Formatstr(in1.substring(in2, in1.length()) + move));
+		}
+	}
+	/**
 	 * Convert true code into ones-complemental code, in case of the substruction
 	 * 
 	 * @param 
@@ -353,8 +392,20 @@ public class alu {
 		case 5:
 			this.sub();
 			break;
+		//AIR r1,r2
+		case 6:
+			this.add();
+			break;
+		//SIR r1,r2
+		case 7:
+			this.sub();
+			break;
 		//JZ r, x, address[,I]
 		case 8:
+			this.test();
+			break;
+		//JNE
+		case 9:
 			this.test();
 			break;
 		//MUL r1,r2
@@ -389,6 +440,10 @@ public class alu {
 		case 21:
 			this.shift();
 			break;
+		//RRC r, count, L/R, A/L
+		case 22:
+			this.rotate();
+			break;
 		default:
 			break;
 		
@@ -398,11 +453,11 @@ public class alu {
 /*
    public static void main(String args[])
    {
-	   Formatstr in1 = new Formatstr("000000000000000000101101");
-	   Formatstr in2 = new Formatstr("000000000000000000000111");
-	   Formatstr op = new Formatstr("16");
+	   Formatstr in1 = new Formatstr("000000000000000000111111");
+	   Formatstr in2 = new Formatstr("000000000000000000000011");
+	   Formatstr op = new Formatstr("22");
 	   Formatstr out = new Formatstr();
-	   Formatstr lr = new Formatstr("1");
+	   Formatstr lr = new Formatstr("0");
 	   Formatstr al = new Formatstr("0");
 	   
 	   //double signal flag works on sub?
