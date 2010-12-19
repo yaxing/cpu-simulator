@@ -122,7 +122,8 @@ public class alu {
 		String op1 = in1.getStr();
 		String op2 = in2.getStr();
 		String sum = new String();
-
+		System.out.println("op1"+op1);
+		System.out.println("op2"+op2);
 		for (int i=23; i>=0; i--)
 		{
 			ai = (int)op1.charAt(i) - 0x30;
@@ -135,6 +136,7 @@ public class alu {
 			//ci+1 = aibi + aici + bici
 			this.cf = (ai & bi) | (ai & this.cf) | (bi & this.cf);
 		}
+		System.out.println("sum"+sum);
 		out.setStr(sum);
 		OutregsINF.setOUT(out);
 		
@@ -383,7 +385,8 @@ public class alu {
 		this.cf = 0;
 		Formatstr OP = OutregsINF.getOPCODE(); 
 		//OP.toBinary();
-		switch (Integer.valueOf(OP.getStr())){
+		int c = Integer.valueOf(OP.getStr(),2);
+		switch (c){
 		//ADD r1,r2
 		case 4:
 			this.add();
